@@ -1,0 +1,330 @@
+/* -------------------------------------------------- */
+/*	Events
+/* -------------------------------------------------- */
+
+article.event .entry-meta{
+        background: none;
+}
+
+article.event .entry-meta .date,
+.widget_upcoming_events .entry-meta .date {
+        background: none;
+        display: block;
+        margin-bottom: 0px;
+        padding: 0px;
+        color: #1c7fbd;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: 'Adamina', Arial;
+}
+
+article.event .entry-body {
+        font-weight: 400;
+}
+
+article.event .entry-body .event-desc {
+        border-right: 1px solid #e0e1e3;
+        float: left;
+        margin: 0 15px 1.0em 0;
+}
+
+article.event .entry-body .event-desc p {
+        margin-bottom: 0;
+        margin-right: 20px;
+}
+
+article.event .entry-body .event-desc .work-item {
+        margin-right: 20px;
+        margin-bottom: 25px;
+}
+
+article.event .entry-body .event-details>div>strong {
+        width: 100px;
+		float: left;
+}
+
+article.event .entry-body .event-details>div>span {
+	display: table;
+}
+
+article.event .map {
+        border-top: 2px solid #D4D4D4;
+        padding-top: 30px;
+        margin-top: 30px;
+}
+
+
+.tmm_no_events{
+	border: solid 1px #777;
+	background: #ddd;
+	padding: 5px;
+	list-style: none;
+}
+
+.wp-pagenavi .current,
+.wp-pagenavi .current:hover{
+	color: #8a8989;
+	background: #e7e7e8;
+	cursor: default;
+}
+
+/* -------------------------------------------------- */
+/*	Events Tooltip
+/* -------------------------------------------------- */
+
+.calendar_event_tooltip {
+    background: #E9EAEB;
+    color: #777;
+    position: absolute;
+    width: 200px;
+    z-index: 999;
+    padding: 11px;    
+    border: solid 1px #EBEBEB;
+}
+
+.calendar_event_tooltip_img { border: 1px solid #fafafa; }
+.calendar_event_tooltip h4 { color: #4B4C4D; }
+.calendar_event_tooltip span { display: block; }
+.calendar_event_tooltip span b { color: #4B4C4D;}
+.calendar_event_tooltip_timezone,
+.calendar_event_tooltip_place { color: #777; }
+
+.calendar_event_tooltip_close{
+    color: #4B4C4D;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 17px;
+    height: 17px;  
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+/* -------------------------------------------------- */
+/*	Events Calendar
+/* -------------------------------------------------- */
+
+.fc-header .fc-button-prev,
+.fc-header .fc-button-next{
+    height: 23px;
+    line-height: 21px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 18px;
+}
+
+.fc-header .fc-button-month,
+.fc-header .fc-button-agendaWeek,
+.fc-header .fc-button-prev,
+.fc-header .fc-button-next{
+    margin-right: 1px !important;
+}
+
+.fc-header .fc-button-prev:hover,
+.fc-header .fc-button-next:hover,
+.fc-header .fc-button-today:hover,
+.fc-header .fc-button-month:hover,
+.fc-header .fc-button-agendaWeek:hover,
+.fc-header .fc-button-agendaDay:hover{
+   background: #1C7FBD;
+   color: #fff;
+}
+
+.fc-header .fc-button-prev,
+.fc-header .fc-button-next,
+.fc-header .fc-button-today,
+.fc-header .fc-button-month,
+.fc-header .fc-button-agendaWeek,
+.fc-header .fc-button-agendaDay,
+.fc-header .fc-button-today.fc-state-disabled:hover{
+    background: #E7E7E8;
+    box-shadow: none;
+    transition: background-color 0.2s ease 0s, border 0.2s ease 0s, color 0.2s ease 0s, opacity 0.2s ease-in-out 0s;
+    border: 0 !important;
+    border-radius: 0 !important;
+    color: #1C7FBD;
+    font-weight: 400;
+    text-shadow: none;
+}
+
+td.fc-today{
+    background: #E9EAEB;
+}
+
+/* -------------------------------------------------- */
+/*	Events Widgets
+/* -------------------------------------------------- */
+
+.widget_soonest_event .fc-event-time,
+.widget_events_calendar .fc-event-time{
+	display: none !important;
+}
+.widget_soonest_event .fc-event-title,
+.widget_events_calendar .fc-event-title{
+	font-weight: bold; font-size: 14px;
+}
+.widget_events_calendar .fc-event{
+	background: none;
+	border: none;
+}
+
+.widget_soonest_event .post-content p {
+	margin-bottom: 0 !important;
+}
+
+.widget_events_calendar .fc-header-title h2{
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.widget_events_calendar .fc-day-content>div{
+    
+}
+
+.widget_events_calendar .fc-header {
+	color: #fff;
+	text-transform: uppercase;
+	font-family: Adamina;
+	font-size: 12px;
+	text-align: center;
+	background: #17517a;
+	margin-bottom: 10px;
+	border: none;
+}
+
+.widget_events_calendar .fc-header td {
+	border: none;
+	border-bottom: 1px solid #ebebeb;
+	vertical-align: middle;
+}
+
+.widget_events_calendar .fc-header-title > h2 {
+	color: #fff;
+	text-transform: uppercase;
+	font-family: Adamina;
+	font-size: 12px !important;
+	font-weight: 600;
+	padding: 0.417em;
+}
+
+.widget_events_calendar .fc-header .fc-button {
+	margin-bottom: 0;
+	height: 100%;
+}
+
+.widget_events_calendar .fc-text-arrow,
+.widget_events_calendar .fc-header .fc-button-today {
+	line-height: 28px;
+}
+
+
+.widget_events_calendar .fc-day-header {
+	font-family: Adamina;
+	font-size: 11px;
+	background: #fff;
+	border: 1px solid #cfcfd1;
+	padding: 4px;
+	color: #777;
+}
+
+.widget_events_calendar .fc-content table {
+	border: none;
+	border-spacing: 1px;
+}
+
+.widget_events_calendar .fc-day {
+	border: none;
+	color: #6d7a7e;
+	background: #e9eaeb;
+	text-align: center;
+	padding: 0px 4px;
+	font-size: 12px;
+	height: 40px;
+}
+
+.widget_events_calendar .fc-other-month {
+	background: #f9fafb;
+}
+
+.widget_events_calendar .fc-day.fc-state-highlight {
+	color: #fff;
+	background: #17517a;
+}
+
+.widget_events_calendar .fc-event-inner {
+	text-align: center;
+}
+
+.widget_events_calendar .fc-grid .fc-day-number {
+	padding: 2px 0 0;
+}
+
+.widget_events_calendar .fc-grid .fc-day-content {
+	padding: 0;
+}
+
+
+/*!
+ * jQuery UI Datepicker 1.8.23
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+ */
+.ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; }
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
+.ui-datepicker .ui-datepicker-prev { left:2px; }
+.ui-datepicker .ui-datepicker-next { right:2px; }
+.ui-datepicker .ui-datepicker-prev-hover { left:1px; }
+.ui-datepicker .ui-datepicker-next-hover { right:1px; }
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
+.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
+.ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
+.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+.ui-datepicker select.ui-datepicker-month, 
+.ui-datepicker select.ui-datepicker-year { width: 49%;}
+.ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
+.ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
+.ui-datepicker td { border: 0; padding: 1px; }
+.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
+.ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
+.ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi { width:auto; }
+.ui-datepicker-multi .ui-datepicker-group { float:left; }
+.ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
+.ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }
+.ui-datepicker-multi-3 .ui-datepicker-group { width:33.3%; }
+.ui-datepicker-multi-4 .ui-datepicker-group { width:25%; }
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
+.ui-datepicker-row-break { clear:both; width:100%; font-size:0em; }
+
+/* RTL support */
+.ui-datepicker-rtl { direction: rtl; }
+.ui-datepicker-rtl .ui-datepicker-prev { right: 2px; left: auto; }
+.ui-datepicker-rtl .ui-datepicker-next { left: 2px; right: auto; }
+.ui-datepicker-rtl .ui-datepicker-prev:hover { right: 1px; left: auto; }
+.ui-datepicker-rtl .ui-datepicker-next:hover { left: 1px; right: auto; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane { clear:right; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane button { float: left; }
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current { float:right; }
+.ui-datepicker-rtl .ui-datepicker-group { float:right; }
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
+
+@media screen and (max-width: 480px) {
+    .calendar_event_tooltip {
+        left: 50% !important;
+        margin-left: -111px;
+    }
+}
