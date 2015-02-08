@@ -53,6 +53,10 @@ article.event .map {
         margin-top: 30px;
 }
 
+.events_listing_wrap {
+	min-height: 200px;
+	position: relative;
+}
 
 .tmm_no_events{
 	border: solid 1px #777;

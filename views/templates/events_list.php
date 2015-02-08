@@ -71,7 +71,25 @@ if(is_object($events_calendar_page) && $events_calendar_page->ID){
 }
 ?>
 
-<div id="events_listing"></div>
+<div class="events_listing_wrap">
+
+	<div id="events_listing"></div>
+
+	<div class="infscr-loading_wrap">
+		<div id="infscr-loading">
+			<div id="facebookG">
+				<div id="blockG_1" class="facebook_blockG">
+				</div>
+				<div id="blockG_2" class="facebook_blockG">
+				</div>
+				<div id="blockG_3" class="facebook_blockG">
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
 <br />
 
 <a href="#" class="js_prev_events_page button default" style="display: none;"><?php _e('Previous Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>&nbsp;

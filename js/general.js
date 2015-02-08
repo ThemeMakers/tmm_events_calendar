@@ -244,6 +244,7 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 
 		},
 		update_events_listing: function(start, end, cat) {
+			jQuery('#infscr-loading').animate({opacity: 'show'}, 333);
 			self.curent_events_time = start;
             if(!cat){
                 cat = 0;
@@ -284,6 +285,8 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 						jQuery(".js_prev_events_page").hide();
 					}
 				}
+
+				jQuery('#infscr-loading').animate({opacity: 'hide'}, 333);
 
 			});
 		},
