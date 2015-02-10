@@ -25,7 +25,8 @@ article.event .entry-body {
 article.event .entry-body .event-desc {
         border-right: 1px solid #e0e1e3;
         float: left;
-        margin: 0 15px 1.0em 0;
+        margin-bottom: 1.0em;
+        margin-right: 9px;
 }
 
 article.event .entry-body .event-desc p {
