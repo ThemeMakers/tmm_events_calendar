@@ -13,8 +13,8 @@ if (!empty($events)){
 			$event_date = TMM_Event::get_event_date($event['start_mktime']);
 			
 			$ev_end_mktime = (int) get_post_meta($event['post_id'], 'ev_end_mktime', true);
-			$event_end_date = TMM_Event::get_event_date($ev_end_mktime);
-			
+			$event_end_date = TMM_Event::get_event_date($event['end_mktime']);
+
 			$repeats_every = get_post_meta($event['post_id'], 'event_repeating', true);
 			$events_show_duration = TMM::get_option('events_show_duration');
 			if($events_show_duration){
@@ -33,7 +33,9 @@ if (!empty($events)){
 			<div class="entry-body row_container">
 
 				<div class="event-desc nine columns">
-					
+
+					<?php if ($event['featured_image_src']) { ?>
+
 					<div class="work-item">
 						<a href="<?php echo $event['url']; ?>">
 							<figure>
@@ -41,6 +43,8 @@ if (!empty($events)){
 							</figure>
 						</a>
 					</div>
+
+					<?php } ?>
 					
 					<p><?php echo $event['post_excerpt']; ?></p>					
 				</div><!--/ .event-desc-->

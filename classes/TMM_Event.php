@@ -614,18 +614,16 @@ class TMM_Event {
 					unset($events[$key]);
 					continue;
 				}
-				if(!isset($filtered_events[$value['post_id']])){
-					$filtered_events[$value['post_id']] = $value;
-				}else{
-					if($value['start_mktime'] < $filtered_events[$value['post_id']]['start_mktime'] && $value['end_mktime'] > $start){
-						$filtered_events[$value['post_id']] = $value;
-					}
-				}
-				
+
+				$filtered_events[] = $value;
+
 			}
 		}
 
-		ksort($filtered_events, SORT_NUMERIC);
+		usort($filtered_events, function($a, $b){
+			return ($a['start_mktime'] < $b['start_mktime']) ? -1 : 1;
+		});
+
 		$events = $filtered_events;
 
 		$args = array();
@@ -697,7 +695,7 @@ class TMM_Event {
             $end_h = date('H', $end);
             $end_m = date('i', $end);
             $diff = mktime($end_h, $end_m) - mktime($start_h, $start_m);
-            $duration[0] = $diff > 3600 ? (int) ($diff / 3600) : 0;
+            $duration[0] = $diff >= 3600 ? (int) ($diff / 3600) : 0;
             $duration[1] = (int) (($diff % 3600) / 60);
 			if($duration[0] < 10){
 				$duration[0] = '0' . $duration[0];
