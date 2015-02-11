@@ -41,6 +41,7 @@ class TMM_Event {
 					'event_repeating' => '',
 					'event_repeating_week' => '',
 					'hide_event_place' => 1,
+					'event_allday' => 0,
 					'event_place_address' => '',
 					'event_map_zoom' => '',
 					'event_map_latitude' => '',

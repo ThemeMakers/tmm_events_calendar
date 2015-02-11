@@ -7,6 +7,7 @@ if (!empty($events)){
 		<article class="entry event post">
 
 			<?php
+			$event_allday = get_post_meta($event['post_id'], 'event_allday', true);
 			$hide_event_place = get_post_meta($event['post_id'], 'hide_event_place', true);
 			$event_place_address = get_post_meta($event['post_id'], 'event_place_address', true);
 			
@@ -22,8 +23,14 @@ if (!empty($events)){
 				$duration_hh = $event_duration_sec[0];
 				$duration_mm = $event_duration_sec[1];
 			}
-			$event_start_time = TMM_Event::get_event_time($event['start_mktime']);
-			$event_end_time = TMM_Event::get_event_time($ev_end_mktime);
+
+			if($event_allday == 1){
+				$event_start_time = '';
+				$event_end_time = '';
+			}else{
+				$event_start_time = TMM_Event::get_event_time($event['start_mktime']);
+				$event_end_time = TMM_Event::get_event_time($ev_end_mktime);
+			}
 			?>
 
 			<div class="entry-meta">

@@ -64,8 +64,23 @@
                 <input autocomplete="off" type="text" value="<?php echo $event_end_date ?>" id="event_end_date" name="event_end_date" readonly="" />
             </td>
         </tr>
-        
+
         <tr>
+	        <th style="width:25%">
+		        <label for="event_allday_cb">
+			        <strong><?php _e('All Day', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+			        <span style=" display:block; color:#999; margin:5px 0 0 0; line-height: 18px;"></span>
+		        </label>
+	        </th>
+	        <td>
+		        <input id="event_allday" type="hidden" name="event_allday" autocomplete="off" value="<?php echo($event_allday == '1' ? '1' : '0') ?>" /><br />
+		        <input id="event_allday_cb" type="checkbox" autocomplete="off" <?php echo($event_allday == 1 ? 'checked' : ''); ?> /><br />
+	        </td>
+        </tr>
+
+        <?php $disabled = ($event_allday == 1) ? ' disabled' : ''; ?>
+
+        <tr class="event_time_wrapper">
             <th style="width:25%">
                 <label for="event_hh">
                     <strong><?php _e('Event Start Time', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
@@ -80,12 +95,12 @@
                     </p>
                 </div>
 
-				<select name="event_hh" id="event_hh" class="event_time_select" autocomplete="off">
+				<select name="event_hh" id="event_hh" class="event_time_select" autocomplete="off"<?php echo  $disabled; ?>>
 					<?php for ($i = 0; $i <= 23; $i++): ?>
 						<option value="<?php echo $i ?>" <?php echo($event_hh == $i ? 'selected' : '') ?>><?php echo ($i < 10 ? "0" . $i : $i); ?></option>
 					<?php endfor; ?>
                 </select>&nbsp;:&nbsp;
-				<select name="event_mm" id="event_mm" class="event_time_select" autocomplete="off">
+				<select name="event_mm" id="event_mm" class="event_time_select" autocomplete="off"<?php echo  $disabled; ?>>
 					<?php for ($i = 0; $i <= 55; $i+=5): ?>
 						<option value="<?php echo $i ?>" <?php echo($event_mm == $i ? 'selected' : '') ?>><?php echo ($i < 10 ? "0" . $i : $i); ?></option>
 					<?php endfor; ?>
@@ -93,7 +108,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="event_time_wrapper">
             <th style="width:25%">
                 <label for="event_end_hh">
                     <strong><?php _e('Event End Time', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
@@ -101,12 +116,12 @@
                 </label>
             </th>
             <td>
-				<select name="event_end_hh" id="event_end_hh" class="event_time_select" autocomplete="off">
+				<select name="event_end_hh" id="event_end_hh" class="event_time_select" autocomplete="off"<?php echo  $disabled; ?>>
 					<?php for ($i = 0; $i <= 23; $i++): ?>
 						<option value="<?php echo $i ?>" <?php echo($event_end_hh == $i ? 'selected' : '') ?>><?php echo ($i < 10 ? "0" . $i : $i); ?></option>
 					<?php endfor; ?>
                 </select>&nbsp;:&nbsp;
-				<select name="event_end_mm" id="event_end_mm" class="event_time_select" autocomplete="off">
+				<select name="event_end_mm" id="event_end_mm" class="event_time_select" autocomplete="off"<?php echo  $disabled; ?>>
 					<?php for ($i = 0; $i <= 55; $i+=5): ?>
 						<option value="<?php echo $i ?>" <?php echo($event_end_mm == $i ? 'selected' : '') ?>><?php echo ($i < 10 ? "0" . $i : $i); ?></option>
 					<?php endfor; ?>
@@ -260,6 +275,16 @@ var calendar_event_end_date = "<?php echo $event_end_date ?>";
 				jQuery('#hide_event_place').val(1);
 			}else{
 				jQuery('#hide_event_place').val(0);
+			}
+		});
+
+		jQuery("#event_allday_cb").life('click', function() {
+			if(jQuery(this).is(':checked')){
+				jQuery('#event_allday').val(1);
+				jQuery('.event_time_wrapper').find('select').prop('disabled', true);
+			}else{
+				jQuery('#event_allday').val(0);
+				jQuery('.event_time_wrapper').find('select').prop('disabled', false);
 			}
 		});
 		

@@ -193,6 +193,7 @@ class TMM_EventsPlugin {
 		$data['event_repeating_week'] = (!empty($custom) && isset($custom['event_repeating_week'][0])) ? $custom['event_repeating_week'][0] : '';
 
 		$data['hide_event_place'] = (!empty($custom) && isset($custom['hide_event_place'])) ? $custom['hide_event_place'][0] : 1;
+		$data['event_allday'] = (!empty($custom) && isset($custom['event_allday'])) ? $custom['event_allday'][0] : 0;
 		$data['event_place_address'] = (!empty($custom) && isset($custom['event_place_address'])) ? $custom['event_place_address'][0] : '';
 		$data['event_map_zoom'] = !empty($custom) ? $custom['event_map_zoom'][0] : 14;
 		$data['event_map_latitude'] = !empty($custom) ? $custom['event_map_latitude'][0] : '40.714623';

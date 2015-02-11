@@ -50,6 +50,7 @@ if(have_posts()){
             <?php } ?>
 
 			<?php
+				$event_allday = get_post_meta($post->ID, 'event_allday', true);
 				$hide_event_place = get_post_meta($post->ID, 'hide_event_place', true);
 				$event_place_address = get_post_meta($post->ID, 'event_place_address', true);
 				
@@ -67,8 +68,13 @@ if(have_posts()){
 					$duration_mm = $event_duration_sec[1];
 				}
 
-				$event_start_time = TMM_Event::get_event_time($ev_mktime);
-				$event_end_time = TMM_Event::get_event_time($ev_end_mktime);
+				if($event_allday == 1){
+					$event_start_time = '';
+					$event_end_time = '';
+				}else{
+					$event_start_time = TMM_Event::get_event_time($ev_mktime);
+					$event_end_time = TMM_Event::get_event_time($ev_end_mktime);
+				}
 				$e_category = get_the_term_list($post->ID, 'events-categories', '', ', ', '');
 			?>
 
