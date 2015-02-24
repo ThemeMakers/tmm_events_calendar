@@ -153,7 +153,7 @@
 				<a class="repeatable-add button" style="display: inline-block;" href="#" id="set_event_place"><?php _e('Set Location', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a><br />
                 <br />
 				<?php
-				if(class_exists('TMM_Ext_Shortcodes')){
+				if(class_exists('TMM_Content_Composer')){
 					echo do_shortcode('[google_map width="800" height="600" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
 				}
 				?>
@@ -292,7 +292,9 @@ var calendar_event_end_date = "<?php echo $event_end_date ?>";
             e.preventDefault();
 			var map_canvas_id = jQuery(jQuery(".google_map").eq(0)).attr('id'),
                 geocoder = new google.maps.Geocoder,
-                latlng = new google.maps.LatLng(<?php echo (int) $event_map_latitude ?>, <?php echo (int) $event_map_longitude ?>),
+				latitude = <?php echo (int) $event_map_latitude ?>,
+				longitude = <?php echo (int) $event_map_longitude ?>,
+                latlng = new google.maps.LatLng(latitude, longitude),
                 mapOptions = {
                     zoom: <?php echo (int) $event_map_zoom ?>,
                     center: latlng,

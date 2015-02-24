@@ -7,7 +7,7 @@ $end = mktime(0, 0, 0, date("m", $start)+1, 1, date("Y", $start));
 <h3 class="widget-title"><span id="events_listing_month"></span>&nbsp;<span id="events_listing_year"></span></h3>
 
 <?php
-if (TMM::get_option("events_listing_show_categories") == 1){
+if (TMM::get_option("tmm_events_show_categories_select") == 1){
 
 	$args = array(
 		'orderby' => 'name',

@@ -8,8 +8,7 @@ class TMM_EventsPlugin {
 	public static function register() {
 		
 		TMM_Event::init();
-		//TMM_GoogleCalendar::init();
-		
+
 		$args = array(
 			'labels' => array(
 				'name' => __('Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
@@ -71,12 +70,15 @@ class TMM_EventsPlugin {
 
 		add_filter("manage_event_posts_columns", array('TMM_Event', "show_edit_columns"));
 		add_action("manage_event_posts_custom_column", array('TMM_Event', "show_edit_columns_content"));
-		//***
+
 		add_filter("manage_edit-event_sortable_columns", array('TMM_Event', "event_sortable_columns"));
 		add_action('pre_get_posts', array('TMM_Event', "event_column_orderby"));
 
+		/* Breadcrumbs hook */
+		add_action( 'tmm_breadcrumbs_category_item', array(__CLASS__, 'modify_breadcrumbs') );
+
 		if(class_exists('TMM')){
-			$events_set_old_ev_to_draft = TMM::get_option("events_set_old_ev_to_draft");
+			$events_set_old_ev_to_draft = TMM::get_option("tmm_events_set_old_to_draft");
 			if ($events_set_old_ev_to_draft) {
 				//set crone	
 				add_action('old_events_shedules', array(__CLASS__, 'old_events_shedules'));
@@ -87,8 +89,54 @@ class TMM_EventsPlugin {
 				wp_clear_scheduled_hook('old_events_shedules');
 			}
 		}
+
+		/* Include events templates */
+		add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
+
 	}
-    
+
+	public static function template_loader($template) {
+		$queried_object = get_queried_object();
+
+		if (is_single() && get_post_type() === 'event') {
+			$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/single-event.php';
+		}
+
+		if (is_archive() && $queried_object->taxonomy === 'events-categories') {
+			if (is_date()) {
+				$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/archive-event.php';
+			} else {
+				$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/taxonomy-events-categories.php';
+			}
+		}
+
+		return $template;
+
+	}
+
+	public static function modify_breadcrumbs() {
+		if (is_single() && get_post_type() === 'event') {
+			global $post;
+			$categories = get_the_terms($post->ID, 'events-categories');
+
+			if (is_array($categories)) {
+				foreach ($categories as $term) {
+					$categories = $term;
+					break;
+				}
+
+				$breadcrumb = array(
+					'href' => esc_url(get_term_link( $categories->term_id, 'events-categories' )),
+					'text' => $categories->name,
+					'title' => esc_attr(sprintf(__("View all posts in %s", TMM_EVENTS_PLUGIN_TEXTDOMAIN), $categories->name)),
+				);
+
+				echo '<a href="' . $breadcrumb['href'] . '" title="' . $breadcrumb['title'] . '">' . $breadcrumb['text'] . '</a> ';
+			}
+		}
+
+	}
+
     public function flush_rewrite_rules() {
 		self::register();
 		flush_rewrite_rules();
@@ -158,9 +206,11 @@ class TMM_EventsPlugin {
 			var lang_fri = "<?php echo $wp_locale->get_weekday_abbrev('Friday') ?>";
 			var lang_sat = "<?php echo $wp_locale->get_weekday_abbrev('Saturday') ?>";
 
-			var error_fetching_events = "<?php _e("there was an error while fetching events!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
 			var lang_time = "<?php _e("Time", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
 			var lang_place = "<?php _e("Place", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
+			var error_fetching_events = "<?php _e("there was an error while fetching events!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
+
+			var events_time_format ="<?php echo get_option("tmm_events_time_format"); ?>";
 		</script>
 		<?php
 	}

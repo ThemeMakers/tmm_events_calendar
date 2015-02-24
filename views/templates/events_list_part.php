@@ -17,7 +17,7 @@ if (!empty($events)){
 			$event_end_date = TMM_Event::get_event_date($event['end_mktime']);
 
 			$repeats_every = get_post_meta($event['post_id'], 'event_repeating', true);
-			$events_show_duration = TMM::get_option('events_show_duration');
+			$events_show_duration = TMM::get_option('tmm_events_show_duration');
 			if($events_show_duration){
 				$event_duration_sec = TMM_Event::get_event_duration($event['start_mktime'], $ev_end_mktime);
 				$duration_hh = $event_duration_sec[0];

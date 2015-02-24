@@ -355,82 +355,7 @@ class TMM_Event {
 		}
 		return $data;
 	}
-	
-	public static function sync_Google_calendar_events() {
-		$data = array();
-		$google_events = TMM_GoogleCalendar::getEventsList();
-		$custom_events = get_posts(array(
-			'numberposts'     => -1,
-			'meta_key' => 'google_calendar_event_id',
-			'meta_value' => '',
-			'meta_compare' => '!=',
-			'post_type'       => 'event',
-			'post_status'     => 'publish'
-		));
-		
-		//return $custom_events;
-		
-		if(!empty($google_events)){
-			
-			foreach($google_events as $key => $value){
-				$fields = array();
-				$new_post_id = false;
-				
-				$new_post = array(
-					'post_title' => isset($value->summary) ? $value->summary : '',
-					'post_name'  => isset($value->summary) ? sanitize_title($value->summary) : '',
-					//'post_content' => isset($value->description) ? $value->description : '',
-					'post_excerpt' => isset($value->description) ? $value->description : '',
-					'post_status'  => 'publish',
-					'post_type'    => 'event',
-				);
 
-				$new_post_id = wp_insert_post( $new_post );
-				
-				if($new_post_id){
-					$start = '';
-					$end = '';
-					$start_hh = 0;
-					$start_mm = 0;
-					$end_hh = 0;
-					$end_mm = 0;
-					//$duration_sec = '';
-					if(isset($value->start->date)){
-						$start = $value->start->date;
-					}else if(isset($value->start->dateTime)){
-						$temp_time = strtotime($value->start->dateTime);
-						$start = date('Y-m-d', $temp_time);
-						$start_hh = date('h', $temp_time);
-						$start_mm = date('i', $temp_time);
-					}
-					if(isset($value->end->date)){
-						$end = $value->end->date;
-					}else if(isset($value->end->dateTime)){
-						$temp_time = strtotime($value->end->dateTime);
-						$end = date('Y-m-d', $temp_time);
-						$end_hh = date('h', $temp_time);
-						$end_mm = date('i', $temp_time);
-					}
-					$start_time = strtotime($start);
-					$end_time = strtotime($end);
-					
-					$fields['post_id'] = $new_post_id;
-					$fields['event_date'] = $start;
-					$fields['event_end_date'] = $end;
-					$fields['event_hh'] = $start_hh;
-					$fields['event_mm'] = $start_mm;
-					$fields['event_end_hh'] = $end_hh;
-					$fields['event_end_mm'] = $end_mm;
-					$fields['event_place_address'] = isset($value->location) ? $value->location : '';
-					$fields['google_calendar_event_id'] = $value->id;
-					self::save_post($fields);
-					$data[] = $fields;
-				}
-			}
-		}
-		return $data;
-	}
-	
 	//ajax
 	public static function get_calendar_data() {
 		$data = self::get_events($_REQUEST['start'], $_REQUEST['end']);
@@ -655,10 +580,10 @@ class TMM_Event {
 	}
 
 	public static function get_timezone_string() {
-		$hide_time_zone = TMM::get_option("events_hide_time_zone");
+		$hide_time_zone = TMM::get_option("tmm_events_show_timezone");
 
-		if ($hide_time_zone == 1) {
-			return "";
+		if ($hide_time_zone === '0') {
+			return '';
 		}
 
 		$current_offset = self::$gmt_offset;
@@ -716,7 +641,7 @@ class TMM_Event {
 		$day = date('d', (int) $timestamp);
 		$year = date('Y', (int) $timestamp);
 		
-		if(TMM::get_option('events_date_format') === '1'){
+		if(TMM::get_option('tmm_events_date_format') === '1'){
 			$date = $day . ' ' . $month . ', ' . $year;
 		}else{
 			$date = $month . ' ' . $day . ', ' . $year;
@@ -730,13 +655,13 @@ class TMM_Event {
 		$time_format = '';
 		
 		if($timestamp){
-			if(TMM::get_option('events_time_format') === '1'){
+			if(TMM::get_option('tmm_events_time_format') === '1'){
 				$time_format = 'h:i A';
 			}else{
 				$time_format = 'H:i';
 			}
 			$time = date($time_format, $timestamp);
-			if(TMM::get_option('events_hide_time_zone') === '0' && !$hide_time_zone){
+			if(TMM::get_option('tmm_events_show_timezone') === '1' && !$hide_time_zone){
 				$time .= ' ' . TMM_Event::get_timezone_string();
 			}
 		}

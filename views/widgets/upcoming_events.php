@@ -16,9 +16,6 @@
                             <span class="month"><?php echo ucfirst(date("F", $event['start_mktime'])); ?></span>
                             <span class="date"><?php echo date("d", $event['start_mktime']) ?>, </span>
                             <span class="date"><?php echo date("Y", $event['start_mktime']) ?></span>
-							<?php //echo ucfirst( TMM_Helper::get_short_monts_names(date("n", $event['start_mktime']) - 1) ); ?>
-                            <?php /*<span class="time"><?php echo date((TMM::get_option("events_time_format") == 1 ? "h:i A" : "H:i"), $event['start_mktime']) ?> - <?php echo date((TMM::get_option("events_time_format") == 1 ? "h:i A" : "H:i"), $event['end_mktime']) ?></span>
-                            <span class="timezone"><?php echo TMM_Event::get_timezone_string() ?></span>*/ ?>
                         </p>
                     </div>
                 </li>
