@@ -75,7 +75,7 @@ class TMM_EventsPlugin {
 		add_action('pre_get_posts', array('TMM_Event', "event_column_orderby"));
 
 		/* Breadcrumbs hook */
-		add_action( 'tmm_breadcrumbs_category_item', array(__CLASS__, 'modify_breadcrumbs') );
+		add_action( 'tmm_breadcrumbs_category_item', array(__CLASS__, 'modify_breadcrumbs'), 10 , 1 );
 
 		if(class_exists('TMM')){
 			$events_set_old_ev_to_draft = TMM::get_option("tmm_events_set_old_to_draft");
@@ -114,7 +114,7 @@ class TMM_EventsPlugin {
 
 	}
 
-	public static function modify_breadcrumbs() {
+	public static function modify_breadcrumbs($is_link = true) {
 		if (is_single() && get_post_type() === 'event') {
 			global $post;
 			$categories = get_the_terms($post->ID, 'events-categories');
@@ -131,7 +131,21 @@ class TMM_EventsPlugin {
 					'title' => esc_attr(sprintf(__("View all posts in %s", TMM_EVENTS_PLUGIN_TEXTDOMAIN), $categories->name)),
 				);
 
-				echo '<a href="' . $breadcrumb['href'] . '" title="' . $breadcrumb['title'] . '">' . $breadcrumb['text'] . '</a> ';
+				$breadcrumb_html = '';
+
+				if ($is_link) {
+					$breadcrumb_html .= '<a href="' . $breadcrumb['href'] . '" title="' . $breadcrumb['title'] . '">'; '</a> ';
+
+				}
+
+				$breadcrumb_html .= $breadcrumb['text'];
+
+				if ($is_link) {
+					$breadcrumb_html .= '</a> ';
+
+				}
+
+				echo $breadcrumb_html;
 			}
 		}
 
