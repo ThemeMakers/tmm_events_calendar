@@ -224,7 +224,8 @@ class TMM_EventsPlugin {
 			var lang_place = "<?php _e("Place", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
 			var error_fetching_events = "<?php _e("there was an error while fetching events!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
 
-			var events_time_format ="<?php echo get_option("tmm_events_time_format"); ?>";
+			var events_time_format ="<?php echo (int) TMM::get_option("events_time_format"); ?>";
+			var events_date_format =<?php echo (int) TMM::get_option('events_date_format'); ?>;
 		</script>
 		<?php
 	}

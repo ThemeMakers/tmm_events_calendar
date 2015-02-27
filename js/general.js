@@ -124,7 +124,6 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 					function AddZero(num) {
 						return (num >= 0 && num < 10) ? "0" + num : num + "";
 					}
-
 					var strDateTime = [];
 
 					if(events_date_format == 1){
