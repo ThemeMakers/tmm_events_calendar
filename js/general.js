@@ -124,8 +124,15 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 					function AddZero(num) {
 						return (num >= 0 && num < 10) ? "0" + num : num + "";
 					}
-					var strDateTime = [[AddZero(calEvent.start.getDate()), AddZero(calEvent.start.getMonth() + 1), calEvent.start.getFullYear()].join("/"), [AddZero(calEvent.start.getHours()), AddZero(calEvent.start.getMinutes())].join(":")].join(" ");
 
+					var strDateTime = [];
+
+					if(events_date_format == 1){
+						strDateTime = [[AddZero(calEvent.start.getDate()), AddZero(calEvent.start.getMonth() + 1), calEvent.start.getFullYear()].join("/"), [AddZero(calEvent.start.getHours()), AddZero(calEvent.start.getMinutes())].join(":")].join(" ");
+					}else{
+						strDateTime = [[AddZero(calEvent.start.getMonth() + 1), AddZero(calEvent.start.getDate()), calEvent.start.getFullYear()].join("/"), [AddZero(calEvent.start.getHours()), AddZero(calEvent.start.getMinutes())].join(":")].join(" ");
+					}
+console.log(events_date_format)
 					var string1 = "";
 
 					if (calEvent.featured_image_src !== undefined) {
