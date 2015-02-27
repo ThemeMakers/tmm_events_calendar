@@ -132,7 +132,7 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 					}else{
 						strDateTime = [[AddZero(calEvent.start.getMonth() + 1), AddZero(calEvent.start.getDate()), calEvent.start.getFullYear()].join("/"), [AddZero(calEvent.start.getHours()), AddZero(calEvent.start.getMinutes())].join(":")].join(" ");
 					}
-console.log(events_date_format)
+
 					var string1 = "";
 
 					if (calEvent.featured_image_src !== undefined) {
