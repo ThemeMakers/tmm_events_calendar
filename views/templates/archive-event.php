@@ -9,8 +9,10 @@ $end = @mktime(0, 0, 0, $month, $day+1, $year, -1);
 ?>
 
 <div id="events_listing"></div>
-<br /><br />
-<div class="events_listing_navigation wp-pagenavi" style="clear: both"></div>
+
+<div class="pagenavbar">
+	<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
+</div><!--/ .pagenavbar-->
 
 <script type="text/javascript">
 	jQuery(function() {

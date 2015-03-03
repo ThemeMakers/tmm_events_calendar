@@ -6,7 +6,7 @@ if (!empty($events)){
 
 	foreach ($events as $event) {
 
-		$thumb = class_exists('TMM_Helper') ? TMM_Helper::resize_image($event['featured_image_src'], $thumb_size) : '';
+		$thumb = (class_exists('TMM_Helper') && $event['featured_image_src']) ? TMM_Helper::resize_image($event['featured_image_src'], $thumb_size) : '';
 		$event_allday = get_post_meta($event['post_id'], 'event_allday', true);
 		$hide_event_place = get_post_meta($event['post_id'], 'hide_event_place', true);
 		$event_place_address = get_post_meta($event['post_id'], 'event_place_address', true);

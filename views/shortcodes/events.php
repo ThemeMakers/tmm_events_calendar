@@ -60,13 +60,12 @@ if (TMM::get_option("tmm_events_show_categories_select") == 1){
 
 </div>
 
-<br />
+<div class="pagenavbar">
+	<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
+</div><!--/ .pagenavbar-->
 
 <a href="#" class="js_prev_events_page button default" style="display: none;"><?php _e('Previous Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>&nbsp;
 <a href="#" class="js_next_events_page button default"><?php _e('Next Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
-<br />
-<div class="events_listing_navigation wp-pagenavi" style="display:none;clear: both"></div>
-<br />
 
 <script type="text/javascript">
     jQuery(function() {

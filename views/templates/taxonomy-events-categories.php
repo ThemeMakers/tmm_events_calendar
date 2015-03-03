@@ -12,7 +12,10 @@ $end = $start + 86400*365;
 ?>
 
 <div id="events_listing"></div>
-<br /><br />
+
+<div class="pagenavbar">
+	<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
+</div><!--/ .pagenavbar-->
 
 <script type="text/javascript">
 	jQuery(function() {
