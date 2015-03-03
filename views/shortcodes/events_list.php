@@ -41,36 +41,6 @@ if (TMM::get_option("tmm_events_show_categories_select") == 1){
 	
 <?php } ?>
 
-<?php
-$pages = new WP_Query(array(
-	'post_type' => 'page',
-	'posts_per_page' => '1',
-	'orderby' => 'date',
-	'order' => 'DESC',
-	'meta_query' => array(
-		array(
-			'key' => '_wp_page_template',
-			'value' => 'template-calendar.php',
-			'compare' => '=='
-		)
-	),
-));
-
-$events_calendar_page = false;
-if($pages && count($pages->posts)){ 
-	$events_calendar_page = $pages->posts[0];
-}
-
-if(is_object($events_calendar_page) && $events_calendar_page->ID){
-	?>
-
-	<a href="<?php echo get_the_permalink($events_calendar_page->ID); ?>" class="button default" style=""><?php _e('Calendar', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
-	<br><br>
-
-	<?php
-}
-?>
-
 <div class="events_listing_wrap">
 
 	<div id="events_listing"></div>
@@ -99,7 +69,6 @@ if(is_object($events_calendar_page) && $events_calendar_page->ID){
 <br />
 
 <script type="text/javascript">
-    var app_event_listing = null;
     jQuery(function() {
         app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
         app_event_listing.init(<?php echo $start; ?>, <?php echo $end; ?>, 0);

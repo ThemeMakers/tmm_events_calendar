@@ -150,7 +150,7 @@ if(have_posts()){
 								$event_map_longitude = get_post_meta($post->ID, 'event_map_longitude', true);
 								$event_map_latitude = get_post_meta($post->ID, 'event_map_latitude', true);
 								$event_map_zoom = get_post_meta($post->ID, 'event_map_zoom', true);
-								echo do_shortcode('[google_map width="550" height="330" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
+								echo do_shortcode('[google_map width="375" height="260" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
 							}
 							?>
 						</div>
