@@ -13,11 +13,10 @@ $end = $start + 86400*365;
 
 <div id="events_listing"></div>
 <br /><br />
-<div class="events_listing_navigation wp-pagenavi" style="display:none;clear: both"></div>
 
 <script type="text/javascript">
 	jQuery(function() {
-		app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
+		var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
 		app_event_listing.init(<?php echo $start; ?>, false, <?php echo $category; ?>);
 	});
 </script>

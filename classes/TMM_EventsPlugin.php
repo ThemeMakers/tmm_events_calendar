@@ -9,6 +9,7 @@ class TMM_EventsPlugin {
 		
 		TMM_Event::init();
 
+		/* Register custom post type and taxonomy */
 		$args = array(
 			'labels' => array(
 				'name' => __('Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
@@ -41,9 +42,8 @@ class TMM_EventsPlugin {
 		);
 
 		register_post_type('event', $args);
-        
-		//*** taxonomies ****
-		register_taxonomy("events-categories", array("event"), array(
+
+		$args = array(
 			"hierarchical" => true,
 			"labels" => array(
 				'name' => __('Events Categories', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
@@ -66,8 +66,11 @@ class TMM_EventsPlugin {
 			'show_in_nav_menus' => true,
 			'capabilities' => array('manage_terms'),
 			'show_ui' => true
-		));
+		);
 
+		register_taxonomy("events-categories", array("event"), $args);
+
+		/* Manage table columns content in /wp-admin/edit.php?post_type=event */
 		add_filter("manage_event_posts_columns", array('TMM_Event', "show_edit_columns"));
 		add_action("manage_event_posts_custom_column", array('TMM_Event', "show_edit_columns_content"));
 
@@ -77,37 +80,41 @@ class TMM_EventsPlugin {
 		/* Breadcrumbs hook */
 		add_action( 'tmm_breadcrumbs_category_item', array(__CLASS__, 'modify_breadcrumbs'), 10 , 1 );
 
+		/* Include events templates */
+		add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
+
+		/* Add cron schedule event */
 		if(class_exists('TMM')){
 			$events_set_old_ev_to_draft = TMM::get_option("tmm_events_set_old_to_draft");
 			if ($events_set_old_ev_to_draft) {
-				//set crone	
-				add_action('old_events_shedules', array(__CLASS__, 'old_events_shedules'));
-				if (!wp_next_scheduled('old_events_shedules')) {
-					wp_schedule_event(time(), 'hourly', 'old_events_shedules');
+				add_action('old_events_schedules', array(__CLASS__, 'old_events_schedules'));
+				if (!wp_next_scheduled('old_events_schedules')) {
+					wp_schedule_event(time(), 'hourly', 'old_events_schedules');
 				}
 			} else {
-				wp_clear_scheduled_hook('old_events_shedules');
+				wp_clear_scheduled_hook('old_events_schedules');
 			}
 		}
-
-		/* Include events templates */
-		add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
 
 	}
 
 	public static function template_loader($template) {
 		$queried_object = get_queried_object();
 
-		if (is_single() && get_post_type() === 'event') {
-			$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/single-event.php';
-		}
+		if ( get_post_type() === 'event' || (isset($queried_object->taxonomy) && $queried_object->taxonomy === 'events-categories') ) {
 
-		if (is_archive() && $queried_object->taxonomy === 'events-categories') {
-			if (is_date()) {
-				$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/archive-event.php';
-			} else {
-				$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/taxonomy-events-categories.php';
+			if (is_single()) {
+				$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/single-event.php';
 			}
+
+			if (is_archive()) {
+				if (is_date()) {//TODO
+					$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/archive-event.php';
+				} else {
+					$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/taxonomy-events-categories.php';
+				}
+			}
+
 		}
 
 		return $template;
@@ -232,13 +239,6 @@ class TMM_EventsPlugin {
 
 	public static function admin_init() {
 		add_meta_box("event_attributes", __("Event attributes", TMM_EVENTS_PLUGIN_TEXTDOMAIN), array(__CLASS__, 'event_attributes'), "event", "normal", "low");
-		
-		$is_tmm_theme_options = false;
-		if (isset($_GET['page'])) {
-			if ($_GET['page'] == 'tmm_theme_options') {
-				$is_tmm_theme_options = true;
-			}
-		}
 	}
 	
 	public static function event_attributes() {
@@ -267,34 +267,20 @@ class TMM_EventsPlugin {
 		wp_enqueue_script('jquery-ui-datepicker');
 		echo TMM::draw_free_page(TMM_EVENTS_PLUGIN_PATH . '/views/admin/event_attributes.php', $data);
 	}
-	
-	public static function get_calendar_template() {
-		include TMM_EVENTS_PLUGIN_PATH . 'views/templates/calendar.php';
+
+	/**
+	 * Include shortcode template
+	 *
+	 * @param string $name Shortcode name ('events' , 'calendar')
+	 * @param array $args Optional. Additional params
+	 */
+	public static function get_shortcode_template($name, $args = array()) {
+		if (is_array($args)) extract($args);
+		include TMM_EVENTS_PLUGIN_PATH . 'views/shortcodes/'.$name.'.php';
 	}
 	
-	public static function get_single_event_template() {
-		include TMM_EVENTS_PLUGIN_PATH . 'views/templates/single_event.php';
-	}
-	
-	public static function get_events_list_template() {
-		include TMM_EVENTS_PLUGIN_PATH . 'views/templates/events_list.php';
-	}
-	
-	public static function get_events_taxonomy_template() {
-		include TMM_EVENTS_PLUGIN_PATH . 'views/templates/taxonomy.php';
-	}
-	
-	public static function get_events_archive_template() {
-		include TMM_EVENTS_PLUGIN_PATH . 'views/templates/events_archive.php';
-	}
-	
-	public static function get_upcoming_events_shortcode_template($data) {
-		@extract($data);
-		include TMM_EVENTS_PLUGIN_PATH . 'views/shortcodes/upcoming_events.php';
-	}
-	
-	/* CRON sheduling for old events */
-	public static function old_events_shedules() {
+	/* CRON scheduling for old events */
+	public static function old_events_schedules() {
 		global $wpdb;
 		$now = time();
 

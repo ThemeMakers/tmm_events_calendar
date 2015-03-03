@@ -15,7 +15,7 @@ $end = @mktime(0, 0, 0, $month, $day+1, $year, -1);
 <script type="text/javascript">
 	jQuery(function() {
 		jQuery(".page-header-bg>div").html('<h1 class="font-small"><?php echo $month,'-',$day,'-',$year; ?></h1>');
-		app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
+		var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
 		app_event_listing.init(<?php echo $start; ?>, <?php echo $end; ?>, 0);
 	});
 </script>

@@ -70,7 +70,7 @@ if (TMM::get_option("tmm_events_show_categories_select") == 1){
 
 <script type="text/javascript">
     jQuery(function() {
-        app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
+        var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
         app_event_listing.init(<?php echo $start; ?>, <?php echo $end; ?>, 0);
     });
 </script>
