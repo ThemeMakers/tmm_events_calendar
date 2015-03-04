@@ -207,7 +207,7 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 		events_on_page: 0,
 		current_event_page: 0, //for pagination
 		articles_on_page: 5,
-		init: function(start, end, cat) {
+		init: function(options) {
 
 			self.floor_month = self.get_current_month();
 			self.floor_year = self.get_current_year();
@@ -215,16 +215,25 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 			self.displayed_year_num = self.floor_year;
 			self.next_time = self.prev_time = 0;
             
-            self.update_events_listing(start, end, cat);
+            self.update_events_listing(options);
 
 			jQuery(".js_next_events_page").on('click', function() {
-            jQuery(".js_prev_events_page").show();
-				self.update_events_listing(self.next_time, 0, cat);
+                jQuery(".js_prev_events_page").show();
+
+				var opts = options;
+				opts['start'] = self.next_time;
+				opts['end'] = 0;
+
+				self.update_events_listing(opts);
 				return false;
 			});
 
 			jQuery(".js_prev_events_page").on('click', function() {
-				self.update_events_listing(self.prev_time, 0, cat);
+				var opts = options;
+				opts['start'] = self.prev_time;
+				opts['end'] = 0;
+
+				self.update_events_listing(opts);
 				return false;
 			});
 
@@ -245,23 +254,31 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 			});
 
 			jQuery("#app_event_listing_categories").change(function() {
-				self.update_events_listing(self.curent_events_time, 0, 0);
+				var opts = options;
+				opts['start'] = self.curent_events_time;
+				opts['end'] = 0;
+				opts['category'] = 0;
+
+				self.update_events_listing(opts);
 			});
 
 		},
-		update_events_listing: function(start, end, cat) {
+		update_events_listing: function(options) {
 			jQuery('#infscr-loading').animate({opacity: 'show'}, 333);
-			self.curent_events_time = start;
-            if(!cat){
-                cat = 0;
+
+			self.curent_events_time = options['start'];
+
+            if (!options['category']) {
+	            options['category'] = 0;
             }
 
+			if (jQuery("#app_event_listing_categories").length) {
+				options['category'] = jQuery("#app_event_listing_categories").val();
+			}
+
 			var data = {
-				start: start,
-				end: end,
-                is_ajax: 1,
-				category: jQuery("#app_event_listing_categories").length ? jQuery("#app_event_listing_categories").val() : cat,
-				action: "app_events_get_events_listing"
+				action: "app_events_get_events_listing",
+				events_list_args: options
 			};
 			jQuery.post(ajaxurl, data, function(response) {
 				response = jQuery.parseJSON(response);

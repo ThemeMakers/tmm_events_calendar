@@ -2,6 +2,27 @@
 $now = current_time('timestamp');
 $start = strtotime(date("Y", $now) . '-' . date("m", $now) . '-' . 01, $now);
 $end = mktime(0, 0, 0, date("m", $start)+1, 1, date("Y", $start));
+
+$options = array(
+	'start' => $start,
+	'end' => $end,
+	'category' => 0,
+	'order' => 'DESC',
+	'count' => false,
+);
+
+if (isset($category)) {
+	$options['category'] = $category;
+}
+
+if (isset($sorting)) {
+	$options['order'] = $sorting;
+}
+
+if (isset($count)) {
+	$options['count'] = $count;
+}
+
 ?>
 
 <h3 class="widget-title"><span id="events_listing_month"></span>&nbsp;<span id="events_listing_year"></span></h3>
@@ -70,6 +91,6 @@ if (TMM::get_option("tmm_events_show_categories_select") == 1){
 <script type="text/javascript">
     jQuery(function() {
         var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
-        app_event_listing.init(<?php echo $start; ?>, <?php echo $end; ?>, 0);
+        app_event_listing.init(<?php echo json_encode($options); ?>);
     });
 </script>

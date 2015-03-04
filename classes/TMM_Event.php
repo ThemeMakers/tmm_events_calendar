@@ -496,19 +496,26 @@ class TMM_Event {
 		$request_start = 0;
 		$request_end = 0;
 		$category = 0;
+		$order = 'DESC';
 		$is_ajax = 0;
-		
-		if (isset($_REQUEST['is_ajax'])) {
-			$is_ajax = (int) $_REQUEST['is_ajax'];
+		$args = array();
+
+		if (isset($_POST['events_list_args'])) {
+			$is_ajax = 1;
+			$args = $_POST['events_list_args'];
 		}
-		if (isset($_REQUEST['start'])) {
-			$request_start = (int) $_REQUEST['start'];
+
+		if (isset($args['start'])) {
+			$request_start = (int) $args['start'];
 		}
-		if (isset($_REQUEST['end'])) {
-			$request_end = (int) $_REQUEST['end'];
+		if (isset($args['end'])) {
+			$request_end = (int) $args['end'];
 		}
-		if (isset($_REQUEST['category'])) {
-			$category = (int) $_REQUEST['category'];
+		if (isset($args['category'])) {
+			$category = (int) $args['category'];
+		}
+		if (isset($args['order'])) {
+			$order = $args['order'];
 		}
 
 		$now = current_time('timestamp');
@@ -536,7 +543,7 @@ class TMM_Event {
 					unset($events[$key]);
 					continue;
 				}
-				if ($_REQUEST['end'] > 0 && $value['start_mktime'] > $_REQUEST['end']) {
+				if ($request_end > 0 && $value['start_mktime'] > $request_end) {
 					unset($events[$key]);
 					continue;
 				}
@@ -546,9 +553,11 @@ class TMM_Event {
 			}
 		}
 
-		usort($filtered_events, function($a, $b){
-			return ($a['start_mktime'] < $b['start_mktime']) ? -1 : 1;
-		});
+		if ($order === 'ASC') {
+			usort($filtered_events, array(__CLASS__, 'usort_asc'));
+		} else {
+			usort($filtered_events, array(__CLASS__, 'usort_desc'));
+		}
 
 		$events = $filtered_events;
 
@@ -577,6 +586,14 @@ class TMM_Event {
 		}else{
 			return $result['html'];
 		}
+	}
+
+	public static function usort_desc($a, $b){
+		return ($a['start_mktime'] < $b['start_mktime']) ? -1 : 1;
+	}
+
+	public static function usort_asc($a, $b){
+		return ($a['start_mktime'] > $b['start_mktime']) ? -1 : 1;
 	}
 
 	public static function get_timezone_string() {

@@ -271,7 +271,7 @@ class TMM_EventsPlugin {
 	/**
 	 * Include shortcode template
 	 *
-	 * @param string $name Shortcode name ('events' , 'calendar')
+	 * @param string $name Shortcode name ('events_list' , 'events_calendar')
 	 * @param array $args Optional. Additional params
 	 */
 	public static function get_shortcode_template($name, $args = array()) {
