@@ -8,7 +8,7 @@ $options = array(
 	'end' => $end,
 	'category' => 0,
 	'order' => 'DESC',
-	'count' => false,
+	'count' => 5,
 );
 
 if (isset($category)) {
@@ -20,77 +20,81 @@ if (isset($sorting)) {
 }
 
 if (isset($count)) {
-	$options['count'] = $count;
+	$options['count'] = $count ? $count : 0;
 }
 
-?>
+if ($options['count'] > 0) {
+	?>
 
-<h3 class="widget-title"><span id="events_listing_month"></span>&nbsp;<span id="events_listing_year"></span></h3>
+	<h3 class="widget-title"><span id="events_listing_month"></span>&nbsp;<span id="events_listing_year"></span></h3>
 
-<?php
-if (TMM::get_option("tmm_events_show_categories_select") == 1){
+	<?php
+	if (TMM::get_option("tmm_events_show_categories_select") == 1){
 
-	$args = array(
-		'orderby' => 'name',
-		'order' => 'ASC',
-		'hide_empty' => true,
-		'exclude' => array(),
-		'exclude_tree' => array(),
-		'include' => array(),
-		'fields' => 'all',
-		'hierarchical' => true
-	);
-	$categories = get_terms(array('events-categories'), $args);
-	
-?>
-	<div class="sel">
-		<select id="app_event_listing_categories" autocomplete="off">
-			<option value="0"><?php _e('All categories', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></option>
-				<?php
-				if (!empty($categories)){
-					foreach ($categories as $cat){
-						?>
-						<option value="<?php echo $cat->term_taxonomy_id ?>"><?php echo $cat->name ?></option>
-						<?php
+		$args = array(
+			'orderby' => 'name',
+			'order' => 'ASC',
+			'hide_empty' => true,
+			'exclude' => array(),
+			'exclude_tree' => array(),
+			'include' => array(),
+			'fields' => 'all',
+			'hierarchical' => true
+		);
+		$categories = get_terms(array('events-categories'), $args);
+
+	?>
+		<div class="sel">
+			<select id="app_event_listing_categories" autocomplete="off">
+				<option value="0"><?php _e('All categories', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></option>
+					<?php
+					if (!empty($categories)){
+						foreach ($categories as $cat){
+							?>
+							<option value="<?php echo $cat->term_taxonomy_id ?>"><?php echo $cat->name ?></option>
+							<?php
+						}
 					}
-				}
-				?>
-		</select>
-	</div>
+					?>
+			</select>
+		</div>
 
-	<br /><br />
-	
-<?php } ?>
+		<br /><br />
 
-<div class="events_listing_wrap">
+	<?php } ?>
 
-	<div id="events_listing"></div>
+	<div class="events_listing_wrap">
 
-	<div class="infscr-loading_wrap">
-		<div id="infscr-loading">
-			<div id="facebookG">
-				<div id="blockG_1" class="facebook_blockG">
-				</div>
-				<div id="blockG_2" class="facebook_blockG">
-				</div>
-				<div id="blockG_3" class="facebook_blockG">
+		<div id="events_listing"></div>
+
+		<div class="infscr-loading_wrap">
+			<div id="infscr-loading">
+				<div id="facebookG">
+					<div id="blockG_1" class="facebook_blockG">
+					</div>
+					<div id="blockG_2" class="facebook_blockG">
+					</div>
+					<div id="blockG_3" class="facebook_blockG">
+					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
 
-</div>
+	<div class="pagenavbar">
+		<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
+	</div><!--/ .pagenavbar-->
 
-<div class="pagenavbar">
-	<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
-</div><!--/ .pagenavbar-->
+	<a href="#" class="js_prev_events_page button default" style="display: none;"><?php _e('Previous Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>&nbsp;
+	<a href="#" class="js_next_events_page button default"><?php _e('Next Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
 
-<a href="#" class="js_prev_events_page button default" style="display: none;"><?php _e('Previous Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>&nbsp;
-<a href="#" class="js_next_events_page button default"><?php _e('Next Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
+	<script type="text/javascript">
+	    jQuery(function() {
+	        var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
+	        app_event_listing.init(<?php echo json_encode($options); ?>);
+	    });
+	</script>
 
-<script type="text/javascript">
-    jQuery(function() {
-        var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
-        app_event_listing.init(<?php echo json_encode($options); ?>);
-    });
-</script>
+	<?php
+}

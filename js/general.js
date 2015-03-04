@@ -214,7 +214,8 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 			self.displayed_month_num = self.floor_month;
 			self.displayed_year_num = self.floor_year;
 			self.next_time = self.prev_time = 0;
-            
+			self.articles_on_page = options['count'];
+
             self.update_events_listing(options);
 
 			jQuery(".js_next_events_page").on('click', function() {
