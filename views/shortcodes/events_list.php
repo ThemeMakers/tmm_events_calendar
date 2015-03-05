@@ -51,9 +51,6 @@ if ($options['count'] > 0) {
 		<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
 	</div><!--/ .pagenavbar-->
 
-	<a href="#" class="js_prev_events_page button default" style="display: none;"><?php _e('Previous Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>&nbsp;
-	<a href="#" class="js_next_events_page button default"><?php _e('Next Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
-
 	<script type="text/javascript">
 	    jQuery(function() {
 	        var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
