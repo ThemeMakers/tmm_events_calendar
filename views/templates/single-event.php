@@ -49,9 +49,15 @@ if(have_posts()){
 		$event_organizer_phone = get_post_meta($post->ID, 'event_organizer_phone', true);
 		$event_organizer_website = get_post_meta($post->ID, 'event_organizer_website', true);
 		$event_organizer_name = get_post_meta($post->ID, 'event_organizer_name', true);
+
+		$css_classes = 'event';
+
+		if (!$thumb) {
+			$css_classes .= ' no-image';
+		}
 		?>
 
-		<div id="post-<?php the_ID(); ?>" <?php post_class('event'); ?>>
+		<div id="post-<?php the_ID(); ?>" <?php post_class($css_classes); ?>>
 
 			<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 
@@ -109,7 +115,7 @@ if(have_posts()){
 
 					<?php if (!empty($event_organizer_website)) { ?>
 						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><a href="<?php echo $event_organizer_website ?>"><?php echo $event_organizer_website ?></a></dd>
+						<dd><a target="_blank" href="<?php echo $event_organizer_website ?>"><?php echo $event_organizer_website ?></a></dd>
 					<?php } ?>
 
 					<?php if (!empty($event_organizer_name)) { ?>
@@ -139,7 +145,7 @@ if(have_posts()){
 
 							<?php if (!empty($event_place_website)) { ?>
 								<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-								<dd><a href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
+								<dd><a target="_blank" href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
 							<?php } ?>
 						</dl>
 					</div>

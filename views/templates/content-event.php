@@ -38,11 +38,11 @@ if (!empty($events)){
 		}
 		?>
 
-		<article class="event">
+		<article class="event<?php if (!$thumb) echo ' no-image'; ?>">
+
+			<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 
 			<?php if ($thumb) { ?>
-
-				<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 
 				<div class="event-media item-overlay">
 					<img src="<?php echo $thumb; ?>" alt="<?php echo $event['title']; ?>">
@@ -111,7 +111,7 @@ if (!empty($events)){
 
 					<?php if (!empty($event_place_website)) { ?>
 						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><a href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
+						<dd><a target="_blank" href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
 					<?php } ?>
 				</dl>
 

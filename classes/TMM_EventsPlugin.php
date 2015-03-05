@@ -260,6 +260,11 @@ class TMM_EventsPlugin {
 		$data['hide_event_place'] = (!empty($custom) && isset($custom['hide_event_place'])) ? $custom['hide_event_place'][0] : 1;
 		$data['event_allday'] = (!empty($custom) && isset($custom['event_allday'])) ? $custom['event_allday'][0] : 0;
 		$data['event_place_address'] = (!empty($custom) && isset($custom['event_place_address'])) ? $custom['event_place_address'][0] : '';
+		$data['event_place_phone'] = (!empty($custom) && isset($custom['event_place_phone'])) ? $custom['event_place_phone'][0] : '';
+		$data['event_place_website'] = (!empty($custom) && isset($custom['event_place_website'])) ? $custom['event_place_website'][0] : '';
+		$data['event_organizer_phone'] = (!empty($custom) && isset($custom['event_organizer_phone'])) ? $custom['event_organizer_phone'][0] : '';
+		$data['event_organizer_website'] = (!empty($custom) && isset($custom['event_organizer_website'])) ? $custom['event_organizer_website'][0] : '';
+		$data['event_organizer_name'] = (!empty($custom) && isset($custom['event_organizer_name'])) ? $custom['event_organizer_name'][0] : '';
 		$data['event_map_zoom'] = !empty($custom) ? $custom['event_map_zoom'][0] : 14;
 		$data['event_map_latitude'] = !empty($custom) ? $custom['event_map_latitude'][0] : '40.714623';
 		$data['event_map_longitude'] = !empty($custom) ? $custom['event_map_longitude'][0] : '-74.006605';
