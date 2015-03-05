@@ -52,7 +52,7 @@ if(have_posts()){
 
 		$css_classes = 'event';
 
-		if (!$thumb) {
+		if (!$thumb || !has_post_thumbnail()) {
 			$css_classes .= ' no-image';
 		}
 		?>
