@@ -70,7 +70,7 @@ if(have_posts()){
 
 				<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 
-				<div class="event-media">
+				<div class="event-media  item-overlay">
 					<img src="<?php echo $thumb; ?>" alt="<?php echo $post->post_title; ?>" />
 				</div>
 
@@ -123,7 +123,7 @@ if(have_posts()){
 
 			</div><!--/ .event-details-->
 
-			<div class="row collapse">
+			<div class="row collapse event-address">
 
 				<div class="large-6 columns">
 					<div class="event-details boxed">
@@ -140,7 +140,7 @@ if(have_posts()){
 							<?php } ?>
 
 							<dt>Website</dt>
-							<dd>http://evanto.com</dd>
+							<dd><a href="#">http://envanto.com</a></dd>
 						</dl>
 					</div>
 				</div>
@@ -154,7 +154,7 @@ if(have_posts()){
 								$event_map_longitude = get_post_meta($post->ID, 'event_map_longitude', true);
 								$event_map_latitude = get_post_meta($post->ID, 'event_map_latitude', true);
 								$event_map_zoom = get_post_meta($post->ID, 'event_map_zoom', true);
-								echo do_shortcode('[google_map width="375" height="260" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
+								echo do_shortcode('[google_map width="375" height="255" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
 							}
 							?>
 						</div>
