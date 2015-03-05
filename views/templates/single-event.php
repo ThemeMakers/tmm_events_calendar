@@ -1,30 +1,11 @@
 <?php
 get_header();
 
-$pages = new WP_Query(array(
-	'post_type' => 'page',
-	'posts_per_page' => '1',
-	'orderby' => 'date',
-	'order' => 'DESC',
-	'meta_query' => array(
-		array(
-			'key' => '_wp_page_template',
-			'value' => 'template-events.php',
-			'compare' => '=='
-		)
-	),
-));
-
-$events_list_page = false;
-if($pages && count($pages->posts)){ 
-	$events_list_page = $pages->posts[0];
-}
+global $post;
+global $wp_locale;
 
 $thumb_size = '745*450';
 $thumb = class_exists('TMM_Helper') ? TMM_Helper::get_post_featured_image($post->ID, $thumb_size) : '';
-
-global $post;
-global $wp_locale;
 
 if(have_posts()){
 	while (have_posts()) {
@@ -33,6 +14,8 @@ if(have_posts()){
 		$event_allday = get_post_meta($post->ID, 'event_allday', true);
 		$hide_event_place = get_post_meta($post->ID, 'hide_event_place', true);
 		$event_place_address = get_post_meta($post->ID, 'event_place_address', true);
+		$event_place_phone = get_post_meta($post->ID, 'event_place_phone', true);
+		$event_place_website = get_post_meta($post->ID, 'event_place_website', true);
 
 		$ev_mktime = (int) get_post_meta($post->ID, 'ev_mktime', true);
 		$event_date = TMM_Event::get_event_date($ev_mktime);
@@ -62,13 +45,17 @@ if(have_posts()){
 
 		$next_post = get_next_post();
 		$prev_post = get_previous_post();
-?>
+
+		$event_organizer_phone = get_post_meta($post->ID, 'event_organizer_phone', true);
+		$event_organizer_website = get_post_meta($post->ID, 'event_organizer_website', true);
+		$event_organizer_name = get_post_meta($post->ID, 'event_organizer_name', true);
+		?>
 
 		<div id="post-<?php the_ID(); ?>" <?php post_class('event'); ?>>
 
-			<?php if (has_post_thumbnail() && $thumb) { ?>
+			<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 
-				<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
+			<?php if (has_post_thumbnail() && $thumb) { ?>
 
 				<div class="event-media  item-overlay">
 					<img src="<?php echo $thumb; ?>" alt="<?php echo $post->post_title; ?>" />
@@ -102,7 +89,7 @@ if(have_posts()){
 					<dd><?php echo $event_end_date.' '.$event_end_time; ?></dd>
 
 					<?php if (!empty($e_category)) { ?>
-					<dt><?php _e('Category', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+					<dt><?php _e('Event Category', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
 					<dd><?php echo $e_category; ?></dd>
 					<?php } ?>
 
@@ -114,11 +101,21 @@ if(have_posts()){
 
 				<dl>
 					<h3><?php _e('Organizer', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></h3>
-					<dt>Phone</dt>
-					<dd>12345678</dd>
 
-					<dt>Website</dt>
-					<dd><a href="#">http://evanto.com</a></dd>
+					<?php if (!empty($event_organizer_phone)) { ?>
+						<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+						<dd><?php echo $event_organizer_phone ?></dd>
+					<?php } ?>
+
+					<?php if (!empty($event_organizer_website)) { ?>
+						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+						<dd><a href="<?php echo $event_organizer_website ?>"><?php echo $event_organizer_website ?></a></dd>
+					<?php } ?>
+
+					<?php if (!empty($event_organizer_name)) { ?>
+						<dt><?php _e('Contact Person', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+						<dd><?php echo $event_organizer_name ?></dd>
+					<?php } ?>
 				</dl>
 
 			</div><!--/ .event-details-->
@@ -129,18 +126,21 @@ if(have_posts()){
 					<div class="event-details boxed">
 						<dl>
 							<h3><?php _e('Venue', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></h3>
-							<dt>Phone</dt>
-							<dd>12345678</dd>
 
-							<?php if (!empty($event_place_address)) { ?>
-							<dt><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-							<dd>
-								<?php echo $event_place_address ?>
-							</dd>
+							<?php if (!empty($event_place_phone)) { ?>
+								<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+								<dd><?php echo $event_place_phone ?></dd>
 							<?php } ?>
 
-							<dt>Website</dt>
-							<dd><a href="#">http://envanto.com</a></dd>
+							<?php if (!empty($event_place_address)) { ?>
+								<dt><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+								<dd><?php echo $event_place_address ?></dd>
+							<?php } ?>
+
+							<?php if (!empty($event_place_website)) { ?>
+								<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+								<dd><a href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
+							<?php } ?>
 						</dl>
 					</div>
 				</div>
@@ -193,15 +193,7 @@ if(have_posts()){
 
 		</div><!--/ .event-->
 
-		<?php
-		if(is_object($events_list_page) && $events_list_page->ID){
-			?>
-
-			<a href="<?php echo get_the_permalink($events_list_page->ID); ?>" class="back-link"><?php _e('All events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
-
-			<?php
-		}
-		?>
+		<a href="<?php echo home_url() . '/' . get_post_type(); ?>" class="back-link"><?php _e('All events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
 
 	<?php
 	}

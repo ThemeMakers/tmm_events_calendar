@@ -2,10 +2,9 @@
 
 get_header();
 
-if(!isset($queried_object) || !is_object($queried_object)){
-	$queried_object = get_queried_object();
-}
-$category = (int) $queried_object->term_taxonomy_id;
+$queried_object = get_queried_object();
+
+$category = (is_object($queried_object) && isset($queried_object->term_taxonomy_id)) ? (int) $queried_object->term_taxonomy_id : 0;
 $now = current_time('timestamp');
 $start = strtotime(date("Y", $now) . '-' . date("m", $now) . '-' . 01, $now);
 
@@ -14,7 +13,7 @@ $options = array(
 	'end' => false,
 	'category' => $category,
 	'order' => 'DESC',
-	'count' => false,
+	'count' => 6,
 );
 ?>
 

@@ -11,6 +11,8 @@ if (!empty($events)){
 		$event_allday = get_post_meta($event['post_id'], 'event_allday', true);
 		$hide_event_place = get_post_meta($event['post_id'], 'hide_event_place', true);
 		$event_place_address = get_post_meta($event['post_id'], 'event_place_address', true);
+		$event_place_phone = get_post_meta($event['post_id'], 'event_place_phone', true);
+		$event_place_website = get_post_meta($event['post_id'], 'event_place_website', true);
 
 		$event_date = TMM_Event::get_event_date($event['start_mktime']);
 		$day = date('d', $event['start_mktime']);
@@ -97,11 +99,20 @@ if (!empty($events)){
 				<?php if (!empty($event_place_address)): ?>
 
 				<dl>
-					<dt><?php _e('Venue', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-					<dd>Times Square</dd>
+					<?php if (!empty($event_place_phone)) { ?>
+						<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+						<dd><?php echo $event_place_phone ?></dd>
+					<?php } ?>
 
-					<dt><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-					<dd><?php echo $event_place_address; ?></dd>
+					<?php if (!empty($event_place_address)) { ?>
+						<dt><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+						<dd><?php echo $event_place_address ?></dd>
+					<?php } ?>
+
+					<?php if (!empty($event_place_website)) { ?>
+						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+						<dd><a href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
+					<?php } ?>
 				</dl>
 
 				<?php endif; ?>
