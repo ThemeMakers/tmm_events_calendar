@@ -24,6 +24,7 @@ $thumb_size = '745*450';
 $thumb = class_exists('TMM_Helper') ? TMM_Helper::get_post_featured_image($post->ID, $thumb_size) : '';
 
 global $post;
+global $wp_locale;
 
 if(have_posts()){
 	while (have_posts()) {
@@ -35,6 +36,9 @@ if(have_posts()){
 
 		$ev_mktime = (int) get_post_meta($post->ID, 'ev_mktime', true);
 		$event_date = TMM_Event::get_event_date($ev_mktime);
+
+		$day = date('d', $ev_mktime);
+		$month = $wp_locale->get_month_abbrev( date('F', $ev_mktime) );
 
 		$ev_end_mktime = (int) get_post_meta($post->ID, 'ev_end_mktime', true);
 		$event_end_date = TMM_Event::get_event_date($ev_end_mktime);
@@ -64,7 +68,7 @@ if(have_posts()){
 
 			<?php if (has_post_thumbnail() && $thumb) { ?>
 
-				<span class="event-date">25<b>jan</b></span>
+				<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 
 				<div class="event-media">
 					<img src="<?php echo $thumb; ?>" alt="<?php echo $post->post_title; ?>" />

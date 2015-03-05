@@ -432,14 +432,12 @@ class TMM_Event {
 			}
 		}
 
-
 		$key_buffer = array();
 		if (!empty($buffer)) {
 			foreach ($buffer as $key => $value) {
 				$key_buffer[] = $key;
 			}
 		}
-
 
 		if (!empty($key_buffer)) {
 			sort($key_buffer, SORT_NUMERIC);
@@ -454,8 +452,6 @@ class TMM_Event {
 
 			return $result;
 		}
-
-
 
 		return array();
 	}

@@ -1,4 +1,5 @@
-<?php 
+<?php
+global $wp_locale;
 
 if (!empty($events)){
 
@@ -12,6 +13,8 @@ if (!empty($events)){
 		$event_place_address = get_post_meta($event['post_id'], 'event_place_address', true);
 
 		$event_date = TMM_Event::get_event_date($event['start_mktime']);
+		$day = date('d', $event['start_mktime']);
+		$month = $wp_locale->get_month_abbrev( date('F', $event['start_mktime']) );
 
 		$ev_end_mktime = (int) get_post_meta($event['post_id'], 'ev_end_mktime', true);
 		$event_end_date = TMM_Event::get_event_date($event['end_mktime']);
@@ -37,7 +40,7 @@ if (!empty($events)){
 
 			<?php if ($thumb) { ?>
 
-				<span class="event-date">25<b>jan</b></span>
+				<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 
 				<div class="event-media item-overlay">
 					<img src="<?php echo $thumb; ?>" alt="<?php echo $event['title']; ?>">

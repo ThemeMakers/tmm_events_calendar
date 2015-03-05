@@ -9,10 +9,10 @@ class TMM_UpcomingEventsWidget extends WP_Widget {
     //Widget Setup
     function __construct() {
         //Basic settings
-        $settings = array('classname' => __CLASS__, 'description' => __('Upcoming events', TMM_EVENTS_PLUGIN_TEXTDOMAIN));
+        $settings = array('classname' => __CLASS__, 'description' => __('Featured events', TMM_EVENTS_PLUGIN_TEXTDOMAIN));
 
         //Creation
-        $this->WP_Widget(__CLASS__, __('ThemeMakers Upcoming Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN), $settings);
+        $this->WP_Widget(__CLASS__, __('ThemeMakers Featured Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN), $settings);
     }
 
     //Widget view

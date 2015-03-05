@@ -251,6 +251,7 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 				}
                 self.current_event_page = page_id;
                 self.check_pagination();
+				jQuery('html, body').scrollTop(0);
 				return false;
 			});
 
