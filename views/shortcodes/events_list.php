@@ -2,6 +2,11 @@
 $now = current_time('timestamp');
 $start = strtotime(date("Y", $now) . '-' . date("m", $now) . '-' . 01, $now);
 $end = mktime(0, 0, 0, date("m", $start)+1, 1, date("Y", $start));
+$show_period_selector = 1;
+$period_options = array(
+	'0'=>'March 2015',
+	'1'=>'April 2015',
+);
 
 $options = array(
 	'start' => $start,
@@ -28,59 +33,19 @@ if ($options['count'] > 0) {
 
 	<h3 class="widget-title"><span id="events_listing_month"></span>&nbsp;<span id="events_listing_year"></span></h3>
 
-	<?php
-	if (TMM::get_option("tmm_events_show_categories_select") == 1){
+	<?php if ($show_period_selector){ ?>
 
-		$args = array(
-			'orderby' => 'name',
-			'order' => 'ASC',
-			'hide_empty' => true,
-			'exclude' => array(),
-			'exclude_tree' => array(),
-			'include' => array(),
-			'fields' => 'all',
-			'hierarchical' => true
-		);
-		$categories = get_terms(array('events-categories'), $args);
-
-	?>
-		<div class="sel">
+		<fieldset class="input-block">
 			<select id="app_event_listing_categories" autocomplete="off">
-				<option value="0"><?php _e('All categories', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></option>
-					<?php
-					if (!empty($categories)){
-						foreach ($categories as $cat){
-							?>
-							<option value="<?php echo $cat->term_taxonomy_id ?>"><?php echo $cat->name ?></option>
-							<?php
-						}
-					}
-					?>
+				<?php foreach ($period_options as $key => $value){ ?>
+					<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+				<?php } ?>
 			</select>
-		</div>
-
-		<br /><br />
+		</fieldset>
 
 	<?php } ?>
 
-	<div class="events_listing_wrap">
-
-		<div id="events_listing"></div>
-
-		<div class="infscr-loading_wrap">
-			<div id="infscr-loading">
-				<div id="facebookG">
-					<div id="blockG_1" class="facebook_blockG">
-					</div>
-					<div id="blockG_2" class="facebook_blockG">
-					</div>
-					<div id="blockG_3" class="facebook_blockG">
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
+	<div id="events_listing"></div>
 
 	<div class="pagenavbar">
 		<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
