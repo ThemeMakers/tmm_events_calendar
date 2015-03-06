@@ -9,10 +9,10 @@ class TMM_UpcomingEventsWidget extends WP_Widget {
     //Widget Setup
     function __construct() {
         //Basic settings
-        $settings = array('classname' => __CLASS__, 'description' => __('Featured events', TMM_EVENTS_PLUGIN_TEXTDOMAIN));
+        $settings = array('classname' => __CLASS__, 'description' => __('Featured event', TMM_EVENTS_PLUGIN_TEXTDOMAIN));
 
         //Creation
-        $this->WP_Widget(__CLASS__, __('ThemeMakers Featured Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN), $settings);
+        $this->WP_Widget(__CLASS__, __('ThemeMakers Featured Event', TMM_EVENTS_PLUGIN_TEXTDOMAIN), $settings);
     }
 
     //Widget view
@@ -26,6 +26,8 @@ class TMM_UpcomingEventsWidget extends WP_Widget {
         $instance = $old_instance;
         $instance['title'] = $new_instance['title'];
         $instance['count'] = $new_instance['count'];
+        $instance['event_type'] = $new_instance['event_type'];
+        $instance['event_list'] = $new_instance['event_list'];
         $instance['month_deep'] = $new_instance['month_deep'];
         return $instance;
     }
@@ -36,6 +38,8 @@ class TMM_UpcomingEventsWidget extends WP_Widget {
         $defaults = array(
             'title' => __('Upcoming Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
             'count' => 3,
+            'event_type' => 0,
+            'event_list' => '',
             'month_deep'=>1
         );
         $instance = wp_parse_args((array) $instance, $defaults);

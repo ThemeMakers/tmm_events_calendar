@@ -165,6 +165,7 @@ class TMM_EventsPlugin {
 	
 	public static function admin_head() {
 		wp_enqueue_style('events_css', TMM_EVENTS_PLUGIN_URI . 'css/jquery-ui/jquery-ui.min.css');
+		wp_enqueue_script('events_js', TMM_EVENTS_PLUGIN_URI . 'js/admin.js');
 		?>
 		<script type="text/javascript">
 			var error_fetching_events = "<?php _e("there was an error while fetching events!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";

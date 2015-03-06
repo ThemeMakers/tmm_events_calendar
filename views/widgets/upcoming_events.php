@@ -2,9 +2,21 @@
 global $wp_locale;
 
 $now = current_time('timestamp');
-$month_deep = isset($instance['month_deep']) ? (int) $instance['month_deep'] : 0;
-$count = isset($instance['count']) ? (int) $instance['count'] : 1;
-$events = TMM_Event::get_soonest_event($now, $count, $month_deep);
+$events = array();
+$event_type = isset($instance['event_type']) ? (int) $instance['event_type'] : 0;
+$event_list = isset($instance['event_list']) ? $instance['event_list'] : '';
+
+if ($event_type == 1) {
+	if (!empty($event_list)) {
+		$event_list = strpos($event_list, ',') ? array_map( 'intval', explode(',', $event_list) ) : (int) $event_list;
+		$events = TMM_Event::get_events_by_id($event_list);
+	}
+} else {
+	$month_deep = isset($instance['month_deep']) ? (int) $instance['month_deep'] : 0;
+	$count = isset($instance['count']) ? (int) $instance['count'] : 1;
+	$events = TMM_Event::get_soonest_event($now, $count, $month_deep);
+}
+
 $thumb_size = '350*275';
 
 if (is_array($events) && !empty($events)) {

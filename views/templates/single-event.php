@@ -20,11 +20,18 @@ if(have_posts()){
 		$ev_mktime = (int) get_post_meta($post->ID, 'ev_mktime', true);
 		$event_date = TMM_Event::get_event_date($ev_mktime);
 
-		$day = date('d', $ev_mktime);
-		$month = $wp_locale->get_month_abbrev( date('F', $ev_mktime) );
-
 		$ev_end_mktime = (int) get_post_meta($post->ID, 'ev_end_mktime', true);
 		$event_end_date = TMM_Event::get_event_date($ev_end_mktime);
+
+//		$tmp_post = TMM_Event::get_events_by_id($post->ID, $ev_mktime, $ev_end_mktime);
+//		$tmp_post = $tmp_post[0];
+//
+//		if (isset($tmp_post['start_mktime'])) {
+//			$ev_mktime = $tmp_post['start_mktime'];
+//		}
+
+		$day = date('d', $ev_mktime);
+		$month = $wp_locale->get_month_abbrev( date('F', $ev_mktime) );
 
 		$repeats_every = get_post_meta($post->ID, 'event_repeating', true);
 		$events_show_duration = TMM::get_option('tmm_events_show_duration');

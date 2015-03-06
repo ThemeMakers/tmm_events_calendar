@@ -179,12 +179,6 @@ class TMM_Event {
 		$end = (int) $end;
 		$category = (int) $category;
 
-		$current_year = (int) date('Y', $start);
-		$current_month = (int) date('m', $start) + 1;
-		
-		$data = array();
-		//$google_events = self::sync_Google_calendar_events();//for update
-						
 		$result = $wpdb->get_results("
 			SELECT SQL_CALC_FOUND_ROWS  p.ID , p.post_title, p.post_excerpt
 			FROM {$wpdb->posts} p ".
@@ -207,6 +201,14 @@ class TMM_Event {
 			ORDER BY p.post_date DESC
 		", OBJECT_K);
 
+		return self::filter_events($result, $start, $end);
+	}
+
+	public static function filter_events($result, $start, $end){
+		$data = array();
+		$current_year = (int) date('Y', $start);
+		$current_month = (int) date('m', $start) + 1;
+
 		if (!empty($result)) {
 			foreach ($result as $post) {
 				$events_data = array();
@@ -215,11 +217,10 @@ class TMM_Event {
 				$end_date = (int) $post_meta['ev_end_mktime'][0];
 				$place_address = $post_meta['event_place_address'][0];
 				$repeating = $post_meta['event_repeating'][0];
-				$featured_image_src = '';
 				$duration_sec = TMM_Event::get_event_duration($start_date, $end_date);
 				$duration_sec = $duration_sec[2];
-				
-                if($end && $start_date > $end){
+
+				if($end && $start_date > $end){
 					continue;
 				}
 
@@ -234,95 +235,95 @@ class TMM_Event {
 				if ($repeating !== 'no_repeat') {
 					$event_year = (int) date('Y', $start_date);
 					$event_month = (int) date('m', $start_date);
-							
+
 					switch ($repeating) {
 						case 'week':
 						case '2week':
 						case '3week':
 							//if ($current_year > $event_year || ($current_year == $event_year && $current_month >= $event_month-1) ) {
-								$repeating_week = unserialize($post_meta['event_repeating_week'][0]);
-								$start_day_number = (int) date('N', $start_date);/* mon-1, .., sun-7 */
-								$day_duration_sec = 60 * 60 * 24;
-								$diff = 7 - $start_day_number;
-								$tmp_start = $start;
-																
-								if(is_array($repeating_week) && count($repeating_week)){
-									
-									foreach ($repeating_week as $key => $value) {
-										$value = $value + 1;/* mon-1, .., sun-7 */
-										$day_distance = $diff + $value;
-										$day_distance = ($day_distance >= 7) ? $day_distance - 7 : $day_distance;
-										$tmp_start = $start_date + $day_duration_sec*$day_distance;
-										$temp_date = ($end_date > $end) ? $end : $end_date;
-										$i = 1;
-										$k = 2;
-										$j = 3;
-										while($tmp_start < $temp_date){
-											$skip = false;
-											if($repeating === '2week' && $i%2 == 0){
+							$repeating_week = unserialize($post_meta['event_repeating_week'][0]);
+							$start_day_number = (int) date('N', $start_date);/* mon-1, .., sun-7 */
+							$day_duration_sec = 60 * 60 * 24;
+							$diff = 7 - $start_day_number;
+							$tmp_start = $start;
+
+							if(is_array($repeating_week) && count($repeating_week)){
+
+								foreach ($repeating_week as $key => $value) {
+									$value = $value + 1;/* mon-1, .., sun-7 */
+									$day_distance = $diff + $value;
+									$day_distance = ($day_distance >= 7) ? $day_distance - 7 : $day_distance;
+									$tmp_start = $start_date + $day_duration_sec*$day_distance;
+									$temp_date = ( $end && ($end_date > $end) ) ? $end : $end_date;
+									$i = 1;
+									$k = 2;
+									$j = 3;
+									while($tmp_start < $temp_date){
+										$skip = false;
+										if($repeating === '2week' && $i%2 == 0){
+											$skip = true;
+										}
+										if($repeating === '3week'){
+											if($i == $k){
+												$k += 3;
 												$skip = true;
 											}
-											if($repeating === '3week'){
-												if($i == $k){
-													$k += 3;
-													$skip = true;
-												}
-												if($i == $j){
-													$j += 3;
-													$skip = true;
-												}
+											if($i == $j){
+												$j += 3;
+												$skip = true;
 											}
-											if(!$skip){
-												$events_data[] = array(
-													'start' => $tmp_start,
-													'end' => $tmp_start + $duration_sec,
-												);
-											}
-											$tmp_start += $day_duration_sec*7;
-											$i++;
 										}
+										if(!$skip){
+											$events_data[] = array(
+												'start' => $tmp_start,
+												'end' => $tmp_start + $duration_sec,
+											);
+										}
+										$tmp_start += $day_duration_sec*7;
+										$i++;
 									}
 								}
+							}
 							//}
 							break;
 						case 'month':
 							//if ($current_year > $event_year || ($current_year == $event_year && $current_month >= $event_month-1) ) {
-								if($current_month > $event_month){
-									$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month-1, (int) date('j', $start_date), $current_year, -1);
-									if($start_date <= $end_date){
-										$events_data[] = array(
-											'start' => $start_date,
-											'end' => $start_date + $duration_sec,
-										);
-									}
+							if($current_month > $event_month){
+								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month-1, (int) date('j', $start_date), $current_year, -1);
+								if($start_date <= $end_date){
+									$events_data[] = array(
+										'start' => $start_date,
+										'end' => $start_date + $duration_sec,
+									);
 								}
-								if($current_month >= $event_month){
-									$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month, (int) date('j', $start_date), $current_year, -1);
-									if($start_date <= $end_date){
-										$events_data[] = array(
-											'start' => $start_date,
-											'end' => $start_date + $duration_sec,
-										);
-									}
+							}
+							if($current_month >= $event_month){
+								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month, (int) date('j', $start_date), $current_year, -1);
+								if($start_date <= $end_date){
+									$events_data[] = array(
+										'start' => $start_date,
+										'end' => $start_date + $duration_sec,
+									);
 								}
-								if($current_month >= $event_month-1){
-									$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month+1, (int) date('j', $start_date), $current_year, -1);
-									if($start_date <= $end_date){
-										$events_data[] = array(
-											'start' => $start_date,
-											'end' => $start_date + $duration_sec,
-										);
-									}
+							}
+							if($current_month >= $event_month-1){
+								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month+1, (int) date('j', $start_date), $current_year, -1);
+								if($start_date <= $end_date){
+									$events_data[] = array(
+										'start' => $start_date,
+										'end' => $start_date + $duration_sec,
+									);
 								}
+							}
 							//}
 							break;
 						case 'year':
 							//if ($current_year >= $event_year && $current_month == $event_month) {
-								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, (int) date('n', $start_date), (int) date('j', $start_date), $current_year, -1);
-								$events_data[] = array(
-									'start' => $start_date,
-									'end' => $start_date + $duration_sec,
-								);
+							$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, (int) date('n', $start_date), (int) date('j', $start_date), $current_year, -1);
+							$events_data[] = array(
+								'start' => $start_date,
+								'end' => $start_date + $duration_sec,
+							);
 							//}
 							break;
 						default:
@@ -334,13 +335,13 @@ class TMM_Event {
 						'end' => $end_date,
 					);
 				}
-				
+
 				foreach($events_data as $key => $value){
-					
+
 					if($value['end'] < $start){
 						continue;
 					}
-					
+
 					$data[] = array(
 						'id' => uniqid(),
 						'post_id' => $post->ID,
@@ -358,6 +359,7 @@ class TMM_Event {
 				}
 			}
 		}
+
 		return $data;
 	}
 
@@ -493,13 +495,12 @@ class TMM_Event {
 	}
     
 	//ajax
-	public static function get_events_listing() {
+	public static function get_events_listing($args = array()) {
 		$request_start = 0;
 		$request_end = 0;
 		$category = 0;
 		$order = 'DESC';
 		$is_ajax = 0;
-		$args = array();
 
 		if (isset($_POST['events_list_args'])) {
 			$is_ajax = 1;
@@ -572,21 +573,57 @@ class TMM_Event {
 		$result['month'] = TMM_Helper::get_monts_names(date("m", $start) - 1);
 		$result['month_num'] = date("m", $start);
 
-		$result['next_time'] = $end + 1;
-		$result['prev_time'] = $end - $distance - 1;
-
-		if ($result['prev_time'] < $now) {
-			$result['prev_time'] = $now;
-		}
-
-		$result['prev_time'] = strtotime(date("Y", $result['prev_time']) . '-' . date("m", $result['prev_time']) . '-' . 1 . " " . 00 . ":" . 00 . ":" . 00, $now);
-
 		if ($is_ajax) {
 			echo json_encode($result);
 			exit;
 		}else{
 			return $result['html'];
 		}
+	}
+
+	public static function get_events_by_id($post_id, $ev_mktime = '', $ev_end_mktime = ''){
+		$start = current_time('timestamp');
+
+		if (!$ev_mktime) {
+			$ev_mktime = $start;
+		}
+
+		if (is_array($post_id)) {
+			$post_id = implode(',', $post_id);
+		} else {
+			$post_id = (int) $post_id;
+		}
+
+		$args=array(
+			'post_type' => 'event',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'include' => $post_id,
+		);
+
+		$event_posts = get_posts( $args );
+
+		$tmp_post = TMM_Event::filter_events($event_posts, $ev_mktime, $ev_end_mktime);
+
+		$filtered_events = array();
+		if (!empty($tmp_post)) {
+			foreach ($tmp_post as $key => $value) {
+				if ($value['end_mktime'] < $start) {
+					unset($tmp_post[$key]);
+					continue;
+				}
+				if ($ev_end_mktime > 0 && $value['start_mktime'] > $ev_end_mktime) {
+					unset($tmp_post[$key]);
+					continue;
+				}
+
+				$filtered_events[] = $value;
+			}
+		}
+
+		usort($filtered_events, array(__CLASS__, 'usort_desc'));
+
+		return $filtered_events;
 	}
 
 	public static function usort_desc($a, $b){
