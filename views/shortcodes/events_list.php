@@ -31,12 +31,12 @@ if (isset($show_period_selector)) {
 
 if ($options['show_period_selector'] && isset($period_selector_amount)) {
 	global $wp_locale;
-	$next_timestamp = $now;
+	$next_timestamp = $start;
 
 	for ($i=0, $ic=$period_selector_amount; $i<$ic; $i++) {
 		$month_name = $wp_locale->get_month( date('m', $next_timestamp) );
 		$year = date('Y', $next_timestamp);
-		$period_options[] = $month_name . ' ' . $year;
+		$period_options[$next_timestamp] = $month_name . ' ' . $year;
 
 		$next_timestamp = strtotime("next month", $next_timestamp);
 	}
@@ -50,7 +50,7 @@ if ($options['count'] > 0) {
 	<?php if ($options['show_period_selector'] && !empty($period_options)) { ?>
 
 		<fieldset class="input-block">
-			<select id="app_event_listing_categories" autocomplete="off">
+			<select id="event_listing_period" autocomplete="off">
 				<?php foreach ($period_options as $key => $value){ ?>
 					<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
 				<?php } ?>

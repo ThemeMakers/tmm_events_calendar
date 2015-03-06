@@ -194,15 +194,10 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 };
 
 
-
 var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 	var self = {
 		floor_month: null,
 		floor_year: null,
-		displayed_month_num: null,
-		displayed_year_num: null,
-		next_time: null,
-		prev_time: null,
 		curent_events_time: null,
 		events_on_page: 0,
 		current_event_page: 0, //for pagination
@@ -211,31 +206,16 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 
 			self.floor_month = self.get_current_month();
 			self.floor_year = self.get_current_year();
-			self.displayed_month_num = self.floor_month;
-			self.displayed_year_num = self.floor_year;
-			self.next_time = self.prev_time = 0;
 			self.articles_on_page = options['count'];
 
             self.update_events_listing(options);
 
-			jQuery(".js_next_events_page").on('click', function() {
-                jQuery(".js_prev_events_page").show();
-
+			jQuery("#event_listing_period").change(function() {
 				var opts = options;
-				opts['start'] = self.next_time;
+				opts['start'] = jQuery(this).val();
 				opts['end'] = 0;
 
 				self.update_events_listing(opts);
-				return false;
-			});
-
-			jQuery(".js_prev_events_page").on('click', function() {
-				var opts = options;
-				opts['start'] = self.prev_time;
-				opts['end'] = 0;
-
-				self.update_events_listing(opts);
-				return false;
 			});
 
 			jQuery('.events_listing_navigation a').live('click', function() {
@@ -253,15 +233,6 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
                 self.check_pagination();
 				jQuery('html, body').scrollTop(0);
 				return false;
-			});
-
-			jQuery("#app_event_listing_categories").change(function() {
-				var opts = options;
-				opts['start'] = self.curent_events_time;
-				opts['end'] = 0;
-				opts['category'] = 0;
-
-				self.update_events_listing(opts);
 			});
 
 		},
@@ -285,14 +256,8 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 			jQuery.post(ajaxurl, data, function(response) {
 				response = jQuery.parseJSON(response);
 
-				self.next_time = response['next_time'];
-				self.prev_time = response['prev_time'];
-
 				jQuery("#events_listing_month").html(response['month']);
 				jQuery("#events_listing_year").html(response['year']);
-
-				self.displayed_month_num = parseInt(response['month_num'], 10);
-				self.displayed_year_num = parseInt(response['year'], 10);
 
 				if (response['html'].length > 11) {
 					jQuery("#events_listing").html(response['html']);
@@ -300,16 +265,9 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 					jQuery("#events_listing").html('<li class="tmm_no_events">' + tmm_lang_no_events + '</li>');
 				}
 
-
 				self.events_on_page = parseInt(response['count']);
 				self.draw_pagination();
                 self.check_pagination();
-                
-				if (self.displayed_year_num == self.floor_year) {
-					if (self.displayed_month_num <= self.floor_month) {
-						jQuery(".js_prev_events_page").hide();
-					}
-				}
 
 				jQuery('#infscr-loading').animate({opacity: 'hide'}, 333);
 
