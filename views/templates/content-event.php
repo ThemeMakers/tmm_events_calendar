@@ -52,11 +52,11 @@ if (!empty($events)){
 
 			<h3 class="event-title"><a href="<?php echo $event['url']; ?>"><?php echo $event['title']; ?></a></h3>
 
-			<div class="row">
+			<div class="event-content">
 
 				<?php if (!empty($event['post_excerpt'])) { ?>
 
-					<div class="large-7 columns">
+					<div class="event-text">
 
 						<p><?php echo $event['post_excerpt']; ?></p>
 
@@ -66,7 +66,7 @@ if (!empty($events)){
 
 				<?php if (!$hide_event_place) { ?>
 
-					<div class="large-5 columns">
+					<div class="event-location">
 						<div id="map_address" class="google_map">
 							<?php
 							$event_map_longitude = get_post_meta($event['post_id'], 'event_map_longitude', true);
