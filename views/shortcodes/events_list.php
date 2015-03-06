@@ -2,11 +2,7 @@
 $now = current_time('timestamp');
 $start = strtotime(date("Y", $now) . '-' . date("m", $now) . '-' . 01, $now);
 $end = mktime(0, 0, 0, date("m", $start)+1, 1, date("Y", $start));
-$show_period_selector = 1;
-$period_options = array(
-	'0'=>'March 2015',
-	'1'=>'April 2015',
-);
+$period_options = array();
 
 $options = array(
 	'start' => $start,
@@ -14,6 +10,7 @@ $options = array(
 	'category' => 0,
 	'order' => 'DESC',
 	'count' => 5,
+	'show_period_selector' => 0,
 );
 
 if (isset($category)) {
@@ -28,12 +25,29 @@ if (isset($count)) {
 	$options['count'] = $count ? $count : 0;
 }
 
+if (isset($show_period_selector)) {
+	$options['show_period_selector'] = $show_period_selector;
+}
+
+if ($options['show_period_selector'] && isset($period_selector_amount)) {
+	global $wp_locale;
+	$next_timestamp = $now;
+
+	for ($i=0, $ic=$period_selector_amount; $i<$ic; $i++) {
+		$month_name = $wp_locale->get_month( date('m', $next_timestamp) );
+		$year = date('Y', $next_timestamp);
+		$period_options[] = $month_name . ' ' . $year;
+
+		$next_timestamp = strtotime("next month", $next_timestamp);
+	}
+}
+
 if ($options['count'] > 0) {
 	?>
 
 	<h3 class="widget-title"><span id="events_listing_month"></span>&nbsp;<span id="events_listing_year"></span></h3>
 
-	<?php if ($show_period_selector){ ?>
+	<?php if ($options['show_period_selector'] && !empty($period_options)) { ?>
 
 		<fieldset class="input-block">
 			<select id="app_event_listing_categories" autocomplete="off">
