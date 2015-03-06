@@ -85,6 +85,7 @@ article.event .map {
     z-index: 999;
     padding: 11px;    
     border: solid 1px #EBEBEB;
+	font-size: 14px;
 }
 
 .calendar_event_tooltip_img { border: 1px solid #fafafa; }
@@ -105,19 +106,18 @@ article.event .map {
     font-size: 16px;
 }
 
-
 /* -------------------------------------------------- */
 /*	Events Calendar
 /* -------------------------------------------------- */
 
 .fc-header .fc-button-prev,
 .fc-header .fc-button-next{
-    height: 23px;
-    line-height: 21px;
+    height: 30px;
+	width: 30px;
+    line-height: 24px;
     text-align: center;
     padding-left: 5px;
     padding-right: 5px;
-    width: 18px;
 }
 
 .fc-header .fc-button-month,
@@ -133,7 +133,7 @@ article.event .map {
 .fc-header .fc-button-month:hover,
 .fc-header .fc-button-agendaWeek:hover,
 .fc-header .fc-button-agendaDay:hover{
-   background: #1C7FBD;
+   background: #14b3e4;
    color: #fff;
 }
 
@@ -155,8 +155,53 @@ article.event .map {
 }
 
 td.fc-today{
-    background: #E9EAEB;
+    background: #E9EAEB!important;
 }
+
+tr.fc-week td.fc-day {
+	background-color: #ffffff;
+}
+
+.fc-border-separate tr th.fc-day-header,
+.fc-widget-header {
+	padding: 15px 10px;
+	background-color: #11547b;
+	color: #ffffff;
+	font-weight: 400;
+}
+
+a.fc-event {
+	background-color: #14b3e4;
+	border: none;
+	/*color: #ffffff;*/
+}
+
+a.fc-event:hover {
+	/*background-color: #ffffff;*/
+	color: #ffffff;
+}
+
+.fc-event-time {
+	display: none;
+}
+
+/*.fc-event-inner:hover span {*/
+	/*color: #14b3e4;*/
+/*}*/
+
+/*.fc-ltr .fc-event-hori.fc-event-start,*/
+/*.fc-rtl .fc-event-hori.fc-event-end {*/
+	/*border-width: 0;*/
+	/*border-top-left-radius: 0;*/
+	/*border-bottom-left-radius: 0;*/
+/*}*/
+
+/*.fc-ltr .fc-event-hori.fc-event-end,*/
+/*.fc-rtl .fc-event-hori.fc-event-start {*/
+	/*border-width: 0;*/
+	/*border-top-right-radius: 0;*/
+	/*border-bottom-right-radius: 0;*/
+/*}*/
 
 /* -------------------------------------------------- */
 /*	Events Widgets
