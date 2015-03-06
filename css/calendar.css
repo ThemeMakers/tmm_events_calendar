@@ -318,14 +318,12 @@ a.fc-event,
 
 .fc-ltr .fc-event-hori.fc-event-start,
 .fc-rtl .fc-event-hori.fc-event-end {
-	/*border-left-width: 1px;*/
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 	}
 
 .fc-ltr .fc-event-hori.fc-event-end,
 .fc-rtl .fc-event-hori.fc-event-start {
-	/*border-right-width: 1px;*/
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	}

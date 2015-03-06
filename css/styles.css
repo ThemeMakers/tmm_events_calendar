@@ -173,35 +173,15 @@ tr.fc-week td.fc-day {
 a.fc-event {
 	background-color: #14b3e4;
 	border: none;
-	/*color: #ffffff;*/
 }
 
 a.fc-event:hover {
-	/*background-color: #ffffff;*/
 	color: #ffffff;
 }
 
 .fc-event-time {
 	display: none;
 }
-
-/*.fc-event-inner:hover span {*/
-	/*color: #14b3e4;*/
-/*}*/
-
-/*.fc-ltr .fc-event-hori.fc-event-start,*/
-/*.fc-rtl .fc-event-hori.fc-event-end {*/
-	/*border-width: 0;*/
-	/*border-top-left-radius: 0;*/
-	/*border-bottom-left-radius: 0;*/
-/*}*/
-
-/*.fc-ltr .fc-event-hori.fc-event-end,*/
-/*.fc-rtl .fc-event-hori.fc-event-start {*/
-	/*border-width: 0;*/
-	/*border-top-right-radius: 0;*/
-	/*border-bottom-right-radius: 0;*/
-/*}*/
 
 /* -------------------------------------------------- */
 /*	Events Widgets
