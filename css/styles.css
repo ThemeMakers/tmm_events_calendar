@@ -163,12 +163,14 @@ tr.fc-week td.fc-day {
 }
 
 .fc-border-separate tr th.fc-day-header,
-.fc-widget-header {
+.fc-widget-header:not(.fc-agenda-divider){
 	padding: 15px 10px;
 	background-color: #11547b;
 	color: #ffffff;
 	font-weight: 400;
 }
+
+th.fc-widget-header.fc-first { background-color: #ffffff; }
 
 a.fc-event {
 	background-color: #14b3e4;
