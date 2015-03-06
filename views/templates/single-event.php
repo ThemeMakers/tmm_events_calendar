@@ -101,19 +101,24 @@ if(have_posts()){
 					<dt><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
 					<dd><?php echo $event_end_date.' '.$event_end_time; ?></dd>
 
+					<?php if ($events_show_duration) { ?>
+						<dt><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+						<dd><?php echo $duration_hh . ":" . $duration_mm; ?></dd>
+					<?php } ?>
+
 					<?php if (!empty($e_category)) { ?>
 					<dt><?php _e('Event Category', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
 					<dd><?php echo $e_category; ?></dd>
-					<?php } ?>
-
-					<?php if ($events_show_duration) { ?>
-					<dt><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-					<dd><?php echo $duration_hh . ":" . $duration_mm; ?></dd>
 					<?php } ?>
 				</dl>
 
 				<dl>
 					<h3><?php _e('Organizer', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></h3>
+
+					<?php if (!empty($event_organizer_name)) { ?>
+						<dt><?php _e('Contact Person', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
+						<dd><?php echo $event_organizer_name ?></dd>
+					<?php } ?>
 
 					<?php if (!empty($event_organizer_phone)) { ?>
 						<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
@@ -123,11 +128,6 @@ if(have_posts()){
 					<?php if (!empty($event_organizer_website)) { ?>
 						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
 						<dd><a target="_blank" href="<?php echo $event_organizer_website ?>"><?php echo $event_organizer_website ?></a></dd>
-					<?php } ?>
-
-					<?php if (!empty($event_organizer_name)) { ?>
-						<dt><?php _e('Contact Person', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo $event_organizer_name ?></dd>
 					<?php } ?>
 				</dl>
 
@@ -206,7 +206,9 @@ if(have_posts()){
 
 		</div><!--/ .event-->
 
-		<a href="<?php echo home_url() . '/' . get_post_type(); ?>" class="back-link"><?php _e('All events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
+		<a href="<?php echo home_url() . '/' . get_post_type(); ?>" class="back-link"><?php _e('All Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
+
+		<hr/>
 
 	<?php
 	}

@@ -50,19 +50,9 @@ if (!empty($events)){
 
 			<?php } ?>
 
-			<h3 class="event-title"><a href="<?php echo $event['url']; ?>"><?php echo $event['title']; ?></a></h3>
+			<div class="event-content clearfix">
 
-			<div class="event-content">
-
-				<?php if (!empty($event['post_excerpt'])) { ?>
-
-					<div class="event-text">
-
-						<p><?php echo $event['post_excerpt']; ?></p>
-
-					</div>
-
-				<?php } ?>
+				<h3 class="event-title"><a href="<?php echo $event['url']; ?>"><?php echo $event['title']; ?></a></h3>
 
 				<?php if (!$hide_event_place) { ?>
 
@@ -72,7 +62,7 @@ if (!empty($events)){
 							$event_map_longitude = get_post_meta($event['post_id'], 'event_map_longitude', true);
 							$event_map_latitude = get_post_meta($event['post_id'], 'event_map_latitude', true);
 							$event_map_zoom = get_post_meta($event['post_id'], 'event_map_zoom', true);
-							$map_size = '295x160';
+							$map_size = '255x160';
 							echo '<img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $event_map_latitude . ',' . $event_map_longitude . '&zoom=' . $event_map_zoom . '&size='.$map_size.'&markers=color:red|label:P|' . $event_map_latitude . ',' . $event_map_longitude . '&sensor=false">';
 							?>
 						</div>
@@ -80,7 +70,13 @@ if (!empty($events)){
 
 				<?php } ?>
 
-			</div><!--/ .row-->
+				<?php if (!empty($event['post_excerpt'])) { ?>
+
+					<p><?php echo $event['post_excerpt']; ?></p>
+
+				<?php } ?>
+
+			</div>
 
 			<div class="event-details">
 				<dl>
