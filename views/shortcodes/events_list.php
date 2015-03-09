@@ -42,10 +42,7 @@ if ($options['show_period_selector'] && isset($period_selector_amount)) {
 	}
 }
 
-if ($options['count'] > 0) {
-	?>
-
-	<h3 class="widget-title"><span id="events_listing_month"></span>&nbsp;<span id="events_listing_year"></span></h3>
+if ($options['count'] > 0) { ?>
 
 	<?php if ($options['show_period_selector'] && !empty($period_options)) { ?>
 
