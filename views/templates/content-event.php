@@ -105,7 +105,7 @@ if (!empty($events)){
 						<dd><?php echo $event_place_address ?></dd>
 					<?php } ?>
 
-					<?php if (!empty($event_place_website)) { ?>
+					<?php if (!empty($event_place_website) && TMM::get_option('tmm_events_show_venue_website')) { ?>
 						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
 						<dd><a target="_blank" href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
 					<?php } ?>

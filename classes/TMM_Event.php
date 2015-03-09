@@ -635,9 +635,9 @@ class TMM_Event {
 	}
 
 	public static function get_timezone_string() {
-		$hide_time_zone = TMM::get_option("tmm_events_show_timezone");
+		$show_timezone = is_single() ? TMM::get_option('tmm_single_event_show_timezone') : TMM::get_option('tmm_events_show_timezone');
 
-		if ($hide_time_zone === '0') {
+		if ($show_timezone === '0') {
 			return '';
 		}
 
@@ -707,16 +707,20 @@ class TMM_Event {
 	
 	public static function get_event_time($timestamp, $hide_time_zone = false) {
 		$time = '';
-		$time_format = '';
-		
+
 		if($timestamp){
-			if(TMM::get_option('tmm_events_time_format') === '1'){
+			$events_time_format = is_single() ? TMM::get_option('tmm_single_event_time_format') : TMM::get_option('tmm_events_time_format');
+
+			if($events_time_format === '1'){
 				$time_format = 'h:i A';
 			}else{
 				$time_format = 'H:i';
 			}
+
 			$time = date($time_format, $timestamp);
-			if(TMM::get_option('tmm_events_show_timezone') === '1' && !$hide_time_zone){
+			$show_timezone = is_single() ? TMM::get_option('tmm_single_event_show_timezone') : TMM::get_option('tmm_events_show_timezone');
+
+			if($show_timezone === '1' && !$hide_time_zone){
 				$time .= ' ' . TMM_Event::get_timezone_string();
 			}
 		}

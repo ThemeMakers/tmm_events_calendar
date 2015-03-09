@@ -34,7 +34,7 @@ if(have_posts()){
 		$month = $wp_locale->get_month_abbrev( date('F', $ev_mktime) );
 
 		$repeats_every = get_post_meta($post->ID, 'event_repeating', true);
-		$events_show_duration = TMM::get_option('tmm_events_show_duration');
+		$events_show_duration = TMM::get_option('tmm_single_event_show_duration');
 		if($events_show_duration){
 			$event_duration_sec = TMM_Event::get_event_duration($ev_mktime, $ev_end_mktime);
 			$duration_hh = $event_duration_sec[0];
@@ -219,7 +219,7 @@ if(have_posts()){
 <div class="clear"></div>
 
 <?php
-if ( !isset($_REQUEST['disable_blog_comments']) || !$_REQUEST['disable_blog_comments'] ) {
+if ( (!isset($_REQUEST['disable_blog_comments']) || !$_REQUEST['disable_blog_comments']) && TMM::get_option('tmm_single_event_show_comments') !== '0' ) {
 	comments_template();
 }
 
