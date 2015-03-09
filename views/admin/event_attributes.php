@@ -210,6 +210,12 @@
                 <br />
 				<?php
 				if(class_exists('TMM_Content_Composer')){
+					if (!$event_map_latitude) {
+						$event_map_latitude = 40.714623;
+					}
+					if (!$event_map_longitude) {
+						$event_map_longitude = -74.006605;
+					}
 					echo do_shortcode('[google_map width="800" height="600" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
 				}
 				?>
