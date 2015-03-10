@@ -96,6 +96,7 @@ class TMM_EventsPlugin {
 			}
 		}
 
+
 	}
 
 	public static function template_loader($template) {

@@ -16,24 +16,39 @@ if(have_posts()){
 		$event_place_address = get_post_meta($post->ID, 'event_place_address', true);
 		$event_place_phone = get_post_meta($post->ID, 'event_place_phone', true);
 		$event_place_website = get_post_meta($post->ID, 'event_place_website', true);
+		$repeats_every = get_post_meta($post->ID, 'event_repeating', true);
 
 		$ev_mktime = (int) get_post_meta($post->ID, 'ev_mktime', true);
-		$event_date = TMM_Event::get_event_date($ev_mktime);
-
 		$ev_end_mktime = (int) get_post_meta($post->ID, 'ev_end_mktime', true);
-		$event_end_date = TMM_Event::get_event_date($ev_end_mktime);
 
-//		$tmp_post = TMM_Event::get_events_by_id($post->ID, $ev_mktime, $ev_end_mktime);
-//		$tmp_post = $tmp_post[0];
-//
-//		if (isset($tmp_post['start_mktime'])) {
-//			$ev_mktime = $tmp_post['start_mktime'];
-//		}
+		if ($repeats_every !== 'no_repeat') {
+
+			$tmp_date = '';
+
+			if (isset($_GET['date'])) {
+				$tmp_date = explode('-', $_GET['date']);
+			} else if (isset($wp_query->query_vars['date'])) {
+				$tmp_date = explode('-', $wp_query->query_vars['date']);
+			}
+
+			if (is_array($tmp_date) && !empty($tmp_date[0]) && !empty($tmp_date[1]) && !empty($tmp_date[2])) {
+				if(TMM::get_option('tmm_events_date_format') === '1'){
+					$ev_mktime = mktime(0, 0, 0 , $tmp_date[1], $tmp_date[0], $tmp_date[2]);
+				}else{
+					$ev_mktime = mktime(0, 0, 0 , $tmp_date[0], $tmp_date[1], $tmp_date[2]);
+				}
+
+				$ev_end_mktime = $ev_mktime;
+			}
+
+		}
+
+		$event_date = TMM_Event::get_event_date($ev_mktime);
+		$event_end_date = TMM_Event::get_event_date($ev_end_mktime);
 
 		$day = date('d', $ev_mktime);
 		$month = $wp_locale->get_month_abbrev( date('F', $ev_mktime) );
 
-		$repeats_every = get_post_meta($post->ID, 'event_repeating', true);
 		$events_show_duration = TMM::get_option('tmm_single_event_show_duration');
 		if($events_show_duration){
 			$event_duration_sec = TMM_Event::get_event_duration($ev_mktime, $ev_end_mktime);
