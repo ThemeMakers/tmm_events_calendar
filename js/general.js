@@ -124,59 +124,71 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 					function AddZero(num) {
 						return (num >= 0 && num < 10) ? "0" + num : num + "";
 					}
-					var strDateTime = [];
 
-					if(events_date_format == 1){
-						strDateTime = [[AddZero(calEvent.start.getDate()), AddZero(calEvent.start.getMonth() + 1), calEvent.start.getFullYear()].join("/"), [AddZero(calEvent.start.getHours()), AddZero(calEvent.start.getMinutes())].join(":")].join(" - ");
-					}else{
-						strDateTime = [[AddZero(calEvent.start.getMonth() + 1), AddZero(calEvent.start.getDate()), calEvent.start.getFullYear()].join("/"), [AddZero(calEvent.start.getHours()), AddZero(calEvent.start.getMinutes())].join(":")].join(" - ");
-					}
+					var strDateTime = [],
+						tooltip_html = '<span class="calendar_event_tooltip" style="top:' + jsEvent.pageY + 'px;left:' + jsEvent.pageX + 'px;">';
 
-					var string1 = "";
+					/* Tooltip title */
+					tooltip_html += '<h4><a href="' + calEvent.url + '">' + calEvent.title + '</a></h4>';
 
-					if (calEvent.featured_image_src !== undefined) {
-						if (calEvent.featured_image_src.length > 0) {
-							string1 = jQuery('<a>').addClass('calendar_event_tooltip_url')
-									.attr('href', calEvent.url)
-									.append(jQuery('<img>').addClass('calendar_event_tooltip_img')
-									.attr('src', calEvent.featured_image_src)
-									.attr('alt', calEvent.title));
+					/* Tooltip image */
+					if (events_show_tooltip_image) {
+						if (calEvent.featured_image_src !== undefined && calEvent.featured_image_src.length > 0) {
+							tooltip_html += '<a class="calendar_event_tooltip_url" href="' + calEvent.url + '">' +
+												'<img class="calendar_event_tooltip_img" src="' + calEvent.featured_image_src + '" alt="' + calEvent.title + '" />' +
+											'</a>';
 						}
-					}else{
-						return false;
 					}
-                                        
-                    if (events_time_format==1) { 
-                        strDateTime=strDateTime.split(' ');
-                        strDateTime=strDateTime[0];
-                        var hours = calEvent.start.getHours();                                          
-                        var minutes=calEvent.start.getMinutes();
-                        var ap = "am";                                            
-                        if (hours   > 11) { ap = "pm";        }
-                        if (hours   > 12) { hours = hours - 12; }
-                        if (hours   == 0) { hours = 12;        }
-                        if (minutes == 0) { minutes=''};
-                        strDateTime = strDateTime + ' ' + hours + (minutes!=''? ':' :'') + minutes + ap;
-                    };
-                                        
-					var string2 = jQuery('<span>').addClass('calendar_event_tooltip_timezone')
-							.html("<b>" + lang_time + "</b>: " + strDateTime + " " + timezone_string);
 
-					var string3 = jQuery('<span>').addClass('calendar_event_tooltip_place')
-							.html("<b>" + lang_place + "</b>: " + (calEvent.event_place_address != '' ? calEvent.event_place_address : ' -'));
+					/* Tooltip time */
+					if (events_show_tooltip_time) {
 
-					var string4 = jQuery('<span>').addClass('calendar_event_tooltip_description')
-							.html(calEvent.post_excerpt);
+						if(events_date_format == 1){
+							strDateTime = [[AddZero(calEvent.start.getDate()), AddZero(calEvent.start.getMonth() + 1), calEvent.start.getFullYear()].join("/"), [AddZero(calEvent.start.getHours()), AddZero(calEvent.start.getMinutes())].join(":")].join(" - ");
+						}else{
+							strDateTime = [[AddZero(calEvent.start.getMonth() + 1), AddZero(calEvent.start.getDate()), calEvent.start.getFullYear()].join("/"), [AddZero(calEvent.start.getHours()), AddZero(calEvent.start.getMinutes())].join(":")].join(" - ");
+						}
 
-					jQuery('<span>').addClass('calendar_event_tooltip')
-                        .css('top', jsEvent.pageY)
-                        .css('left', jsEvent.pageX)
-                        .html("<h4><a href='" + calEvent.url + "'>" + calEvent.title + "</a></h4>")
-                        .append(string1)
-                        .append(string2)
-                        .append(string3)
-                        .append(string4)
-                        .appendTo('body');
+	                    if (events_time_format==1) {
+	                        strDateTime=strDateTime.split(' ');
+	                        strDateTime=strDateTime[0];
+	                        var hours = calEvent.start.getHours();
+	                        var minutes=calEvent.start.getMinutes();
+	                        var ap = "am";
+	                        if (hours   > 11) { ap = "pm";        }
+	                        if (hours   > 12) { hours = hours - 12; }
+	                        if (hours   == 0) { hours = 12;        }
+	                        if (minutes == 0) { minutes=''};
+	                        strDateTime = strDateTime + ' ' + hours + (minutes!=''? ':' :'') + minutes + ap;
+	                    };
+
+						tooltip_html += '<span class="calendar_event_tooltip_timezone">' +
+											'<b>' + lang_time + '</b>: ' + strDateTime + ' ' + timezone_string +
+										'</span>';
+					}
+
+					/* Tooltip place */
+					if (events_show_tooltip_place) {
+						tooltip_html += '<span class="calendar_event_tooltip_place">' +
+											'<b>' + lang_place + '</b>: ' + (calEvent.event_place_address != '' ? calEvent.event_place_address : ' -') +
+										'</span>';
+					}
+
+					/* Tooltip description */
+					if (events_show_tooltip_desc) {
+						var desc = calEvent.post_excerpt;
+
+						if (events_tooltip_desc_symbols_count && desc.length > events_tooltip_desc_symbols_count) {
+							desc = desc.substr(0, events_tooltip_desc_symbols_count) + ' ...';
+						}
+
+						tooltip_html += '<span class="calendar_event_tooltip_description">' + desc + '</span>';
+					}
+
+					/* Tooltip closing span */
+					tooltip_html += '</span>';
+
+					jQuery('body').append(tooltip_html);
 
 					return true;
 				},
