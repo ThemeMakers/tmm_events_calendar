@@ -218,7 +218,7 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 
 			self.floor_month = self.get_current_month();
 			self.floor_year = self.get_current_year();
-			self.articles_on_page = options['count'];
+			self.articles_on_page = parseInt(options['count']);
 
 			if( !jQuery("#events_listing_month").length ) {
 
@@ -238,16 +238,23 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 			});
 
 			jQuery('.events_listing_navigation a').live('click', function() {
+
                 if(jQuery(this).hasClass('current')){
                     return false;
                 }
-				var page_id = jQuery(this).data('page-id');
+
 				jQuery('.events_listing_navigation a').removeClass('current');
-				jQuery('[data-page-id=' + page_id + ']').addClass('current');
-				jQuery("#events_listing").find('article').hide(200);
-				for (var i = page_id * self.articles_on_page; i < page_id * self.articles_on_page + self.articles_on_page; i++) {
+				jQuery(this).addClass('current');
+				jQuery('#events_listing > article').hide(200);
+
+				var page_id = jQuery(this).data('page-id'),
+					i = page_id * self.articles_on_page,
+					ic = page_id * self.articles_on_page + self.articles_on_page;
+
+				for (i; i < ic; i++) {
 					jQuery("#events_listing").find('article').eq(i).show(200);
 				}
+
                 self.current_event_page = page_id;
                 self.check_pagination();
 				jQuery('html, body').scrollTop(0);
