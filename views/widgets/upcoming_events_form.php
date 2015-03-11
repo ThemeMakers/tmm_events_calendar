@@ -11,7 +11,6 @@ if (!$event_posts) {
 	$event_posts = array();
 }
 
-$list = explode(',', $instance['event_list']);
 ?>
 
 <p>
@@ -46,9 +45,9 @@ $list = explode(',', $instance['event_list']);
 <div class="featured_event_block" style="display: <?php echo $instance['event_type'] === '1' ? 'block' : 'none'; ?>">
 	<p>
 		<label for="<?php echo $widget->get_field_id('event_list'); ?>"><?php _e('Choose Event to Display', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>:</label>
-		<select id="<?php echo $widget->get_field_id('event_list'); ?>" name="<?php echo $widget->get_field_name('event_list'); ?>" value="<?php echo $instance['event_list'] ?>" class="widefat">
+		<select id="<?php echo $widget->get_field_id('event_list'); ?>" name="<?php echo $widget->get_field_name('event_list'); ?>[]" value="<?php echo $instance['event_list'] ?>" class="widefat" multiple>
 			<?php foreach ($event_posts as $event) { ?>
-				<option <?php echo in_array($event->ID, $list) ? 'selected' : ''; ?> value="<?php echo $event->ID; ?>"><?php echo $event->post_title; ?></option>
+				<option <?php echo in_array($event->ID, $instance['event_list']) ? 'selected' : ''; ?> value="<?php echo $event->ID; ?>"><?php echo $event->post_title; ?></option>
 			<?php } ?>
 		</select>
 	</p>
