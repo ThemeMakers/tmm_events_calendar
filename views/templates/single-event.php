@@ -77,6 +77,15 @@ if(have_posts()){
 		if (!$thumb || !has_post_thumbnail()) {
 			$css_classes .= ' no-image';
 		}
+
+		$events_button_page = TMM::get_option('tmm_single_event_button_page');
+		$events_button_url = '';
+
+		if ($events_button_page === '0') {
+			$events_button_url = home_url() . '/' . get_post_type();
+		} else if ($events_button_page !== '-1') {
+			$events_button_url = get_permalink($events_button_page);
+		}
 		?>
 
 		<div id="post-<?php the_ID(); ?>" <?php post_class($css_classes); ?>>
@@ -221,7 +230,9 @@ if(have_posts()){
 
 		</div><!--/ .event-->
 
-		<a href="<?php echo home_url() . '/' . get_post_type(); ?>" class="back-link"><?php _e('All Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
+		<?php if ($events_button_url) { ?>
+		<a href="<?php echo $events_button_url; ?>" class="back-link"><?php _e('All Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
+		<?php } ?>
 
 		<hr/>
 

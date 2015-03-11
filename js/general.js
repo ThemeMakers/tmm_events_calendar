@@ -220,10 +220,10 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 			self.floor_year = self.get_current_year();
 			self.articles_on_page = parseInt(options['count']);
 
-			if( !jQuery("#events_listing_month").length ) {
+			if( jQuery("#event_listing_period").length && !jQuery("#events_listing_month").length ) {
 
 				if (jQuery('.single-title').length) {
-					jQuery('.single-title').children().eq(0).append(' <span id="events_listing_month"></span> <span id="events_listing_year"></span>');
+					jQuery('.single-title').children().eq(0).append('&nbsp;<span id="events_listing_month"></span> <span id="events_listing_year"></span>');
 				}
 			}
 
