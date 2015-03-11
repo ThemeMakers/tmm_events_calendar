@@ -73,6 +73,16 @@ article.event .map {
 	cursor: default;
 }
 
+.events_filter.row {
+    margin-bottom: 20px;
+}
+
+.events_filter.row label {
+    display: block;
+    text-align: right;
+    line-height: 54px;
+}
+
 /* -------------------------------------------------- */
 /*	Events Tooltip
 /* -------------------------------------------------- */
