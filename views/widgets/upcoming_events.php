@@ -37,22 +37,35 @@ if (is_array($events) && !empty($events)) {
 				$month = $wp_locale->get_month_abbrev( date('F', $event['start_mktime']) );
 				?>
 
-				<li>
-					<div class="event">
+				<li <?php if ($thumb) { ?>class="has-thumb"<?php } ?>>
+					<div class="event-container">
 						<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 						<div class="event-media">
 							<div class="item-overlay">
 								<img src="<?php echo $thumb; ?>" alt="<?php echo $event['title']; ?>">
 							</div>
-							<div class="event-content">
+							<div class="event-content<?php if ($instance['show_event_excerpt']) { ?> with-excerpt<?php } ?>">
 								<h4 class="event-title">
 									<a href="<?php echo $event['url'] ?>"><?php echo $event['title'] ?></a>
 								</h4>
-								<?php if ($event['post_excerpt']){ ?>
+
+								<?php if ($instance['show_event_excerpt']) { ?>
 									<div class="event-text">
-										<?php echo $event['post_excerpt'] ?>
+										<?php $excerpt = $event['post_excerpt']; ?>
+										<?php if (!empty($excerpt)){ ?>
+											<?php
+											if ((int) $instance['excerpt_event_symbols_count'] > 0) {
+												echo substr(strip_tags($excerpt), 0, (int) $instance['excerpt_event_symbols_count']) . " ...";
+											} else {
+												echo $excerpt;
+											}
+											?>
+										<?php } else { ?>
+											<?php echo substr(strip_tags($post->post_content), 0, (int) $instance['excerpt_event_symbols_count']) . " ..."; ?>
+										<?php } ?>
 									</div>
 								<?php } ?>
+
 							</div>
 						</div>
 					</div>
@@ -69,5 +82,3 @@ if (is_array($events) && !empty($events)) {
 <?php
 }
 ?>
-
-

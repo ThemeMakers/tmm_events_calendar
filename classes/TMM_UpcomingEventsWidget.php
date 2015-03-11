@@ -29,6 +29,8 @@ class TMM_UpcomingEventsWidget extends WP_Widget {
         $instance['event_type'] = $new_instance['event_type'];
         $instance['event_list'] = $new_instance['event_list'];
         $instance['month_deep'] = $new_instance['month_deep'];
+        $instance['show_event_excerpt'] = $new_instance['show_event_excerpt'];
+        $instance['excerpt_event_symbols_count'] = $new_instance['excerpt_event_symbols_count'];
         return $instance;
     }
 
@@ -40,7 +42,9 @@ class TMM_UpcomingEventsWidget extends WP_Widget {
             'count' => 3,
             'event_type' => 0,
             'event_list' => '',
-            'month_deep'=>1
+            'month_deep' => 1,
+            'show_event_excerpt' => 'true',
+            'excerpt_event_symbols_count' => 80
         );
         $instance = wp_parse_args((array) $instance, $defaults);
         $args = array();

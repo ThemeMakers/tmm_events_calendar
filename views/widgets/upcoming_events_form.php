@@ -26,6 +26,21 @@ if (!$event_posts) {
 	</select>
 </p>
 
+<p>
+	<?php
+	$checked = "";
+	if ($instance['show_event_excerpt'] == 'true') {
+		$checked = 'checked="checked"';
+	}
+	?>
+	<input type="checkbox" id="<?php echo $widget->get_field_id('show_event_excerpt'); ?>" name="<?php echo $widget->get_field_name('show_event_excerpt'); ?>" value="true" <?php echo $checked; ?> />
+	<label for="<?php echo $widget->get_field_id('show_event_excerpt'); ?>"><?php _e('Display Excerpt', TMM_THEME_TEXTDOMAIN) ?></label>
+</p>
+<p>
+	<label for="<?php echo $widget->get_field_id('excerpt_event_symbols_count'); ?>"><?php _e('Truncate event excerpt', TMM_THEME_TEXTDOMAIN) ?>:</label>
+	<input class="widefat" type="text" id="<?php echo $widget->get_field_id('excerpt_event_symbols_count'); ?>" name="<?php echo $widget->get_field_name('excerpt_event_symbols_count'); ?>" value="<?php echo $instance['excerpt_event_symbols_count']; ?>" />
+</p>
+
 <div class="upcoming_event_block" style="display: <?php echo $instance['event_type'] === '0' ? 'block' : 'none'; ?>">
 	<p>
 	    <label for="<?php echo $widget->get_field_id('month_deep'); ?>"><?php _e('Upcoming events period', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>:</label>
