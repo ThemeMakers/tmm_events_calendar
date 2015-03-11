@@ -177,7 +177,9 @@ class TMM_Event {
 		global $wpdb;
 		$start = (int) $start;
 		$end = (int) $end;
-		$category = (int) $category;
+		$category = explode(',', $category);
+		$category = array_map('intval', $category);
+		$category = implode(',', $category);
 
 		$result = $wpdb->get_results("
 			SELECT SQL_CALC_FOUND_ROWS  p.ID , p.post_title, p.post_excerpt
@@ -514,7 +516,7 @@ class TMM_Event {
 			$request_end = (int) $args['end'];
 		}
 		if (isset($args['category'])) {
-			$category = (int) $args['category'];
+			$category = $args['category'];
 		}
 		if (isset($args['order'])) {
 			$order = $args['order'];
