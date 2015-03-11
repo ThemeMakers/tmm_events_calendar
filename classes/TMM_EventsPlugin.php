@@ -159,9 +159,26 @@ class TMM_EventsPlugin {
 
 	}
 
-    public function flush_rewrite_rules() {
+    public static function on_plugin_activation() {
 		self::register();
+	    self::add_event_rewrite_rule();
 		flush_rewrite_rules();
+	}
+
+	public static function add_event_rewrite_var( $vars ) {
+		$vars[] = 'date';
+		return $vars;
+	}
+
+	public static function add_event_rewrite_rule(){
+
+		add_rewrite_rule(
+			'^event/([^/]*)/date/([^/]*)/?',
+			'index.php?event=$matches[1]&date=$matches[2]',
+			'top'
+		);
+
+		add_rewrite_tag( '%date%', '([^&]+)' );
 	}
 	
 	public static function admin_head() {

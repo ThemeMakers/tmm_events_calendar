@@ -45,24 +45,8 @@ function tmm_register_events_widgets() {
 add_action( 'widgets_init', 'tmm_register_events_widgets' );
 
 /* on plugin activation */
-register_activation_hook( __FILE__, array('TMM_EventsPlugin', 'flush_rewrite_rules') );
+register_activation_hook( __FILE__, array('TMM_EventsPlugin', 'on_plugin_activation') );
 
 /* add rewrite rules */
-add_filter( 'query_vars','tmm_event_rewrite_add_var' );
-add_filter( 'init','tmm_event_rewrite_add_rule');
-
-function tmm_event_rewrite_add_var( $vars ) {
-	$vars[] = 'date';
-	return $vars;
-}
-
-function tmm_event_rewrite_add_rule(){
-
-	add_rewrite_rule(
-		'^event/([^/]*)/date/([^/]*)/?',
-		'index.php?event=$matches[1]&date=$matches[2]',
-		'top'
-	);
-
-	add_rewrite_tag( '%date%', '([^&]+)' );
-}
+add_filter( 'query_vars', array('TMM_EventsPlugin', 'add_event_rewrite_var') );
+add_filter( 'init', array('TMM_EventsPlugin', 'add_event_rewrite_rule') );
