@@ -21,31 +21,6 @@ if(have_posts()){
 		$ev_mktime = (int) get_post_meta($post->ID, 'ev_mktime', true);
 		$ev_end_mktime = (int) get_post_meta($post->ID, 'ev_end_mktime', true);
 
-		if ($repeats_every !== 'no_repeat') {
-
-			$tmp_date = '';
-
-			if (isset($_GET['date'])) {
-				$tmp_date = explode('-', $_GET['date']);
-			} else if (isset($wp_query->query_vars['date'])) {
-				$tmp_date = explode('-', $wp_query->query_vars['date']);
-			}
-
-			if (is_array($tmp_date) && !empty($tmp_date[0]) && !empty($tmp_date[1]) && !empty($tmp_date[2])) {
-				if(TMM::get_option('tmm_events_date_format') === '1'){
-					$ev_mktime = mktime(0, 0, 0 , $tmp_date[1], $tmp_date[0], $tmp_date[2]);
-				}else{
-					$ev_mktime = mktime(0, 0, 0 , $tmp_date[0], $tmp_date[1], $tmp_date[2]);
-				}
-
-				$ev_end_mktime = $ev_mktime;
-			}
-
-		}
-
-		$event_date = TMM_Event::get_event_date($ev_mktime);
-		$event_end_date = TMM_Event::get_event_date($ev_end_mktime);
-
 		$day = date('d', $ev_mktime);
 		$month = $wp_locale->get_month_abbrev( date('F', $ev_mktime) );
 
@@ -86,6 +61,31 @@ if(have_posts()){
 		} else if ($events_button_page !== '-1') {
 			$events_button_url = get_permalink($events_button_page);
 		}
+
+		if ($repeats_every !== 'no_repeat') {
+
+			$tmp_date = '';
+
+			if (isset($_GET['date'])) {
+				$tmp_date = explode('-', $_GET['date']);
+			} else if (isset($wp_query->query_vars['date'])) {
+				$tmp_date = explode('-', $wp_query->query_vars['date']);
+			}
+
+			if (is_array($tmp_date) && !empty($tmp_date[0]) && !empty($tmp_date[1]) && !empty($tmp_date[2])) {
+				if(TMM::get_option('tmm_events_date_format') === '1'){
+					$ev_mktime = mktime(0, 0, 0 , $tmp_date[1], $tmp_date[0], $tmp_date[2]);
+				}else{
+					$ev_mktime = mktime(0, 0, 0 , $tmp_date[0], $tmp_date[1], $tmp_date[2]);
+				}
+
+				$ev_end_mktime = $ev_mktime;
+			}
+
+		}
+
+		$event_date = TMM_Event::get_event_date($ev_mktime);
+		$event_end_date = TMM_Event::get_event_date($ev_end_mktime);
 		?>
 
 		<div id="post-<?php the_ID(); ?>" <?php post_class($css_classes); ?>>
