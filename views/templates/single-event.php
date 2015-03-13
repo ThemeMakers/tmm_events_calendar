@@ -21,9 +21,6 @@ if(have_posts()){
 		$ev_mktime = (int) get_post_meta($post->ID, 'ev_mktime', true);
 		$ev_end_mktime = (int) get_post_meta($post->ID, 'ev_end_mktime', true);
 
-		$day = date('d', $ev_mktime);
-		$month = $wp_locale->get_month_abbrev( date('F', $ev_mktime) );
-
 		$events_show_duration = TMM::get_option('tmm_single_event_show_duration');
 		if($events_show_duration){
 			$event_duration_sec = TMM_Event::get_event_duration($ev_mktime, $ev_end_mktime);
@@ -86,6 +83,8 @@ if(have_posts()){
 
 		$event_date = TMM_Event::get_event_date($ev_mktime);
 		$event_end_date = TMM_Event::get_event_date($ev_end_mktime);
+		$day = date('d', $ev_mktime);
+		$month = $wp_locale->get_month_abbrev( date('F', $ev_mktime) );
 		?>
 
 		<div id="post-<?php the_ID(); ?>" <?php post_class($css_classes); ?>>
