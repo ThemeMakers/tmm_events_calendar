@@ -338,10 +338,34 @@ class TMM_Event {
 					);
 				}
 
+				$permastruct = get_option('permalink_structure');
+				$date_format = TMM::get_option('tmm_events_date_format');
+				$post_url = get_permalink($post->ID);
+
 				foreach($events_data as $key => $value){
 
 					if($value['end'] < $start){
 						continue;
+					}
+
+					$event_url = $post_url;
+
+					if ($repeating !== 'no_repeat') {
+
+						if ($permastruct === '/%postname%/') {
+							$event_url .= 'date/';
+						} else {
+							$event_url .= '&date=';
+						}
+
+						$day = date('d', $value['start']);
+
+						if($date_format === '1'){
+							$event_url .= $day . '-' . date('m', $value['start']) . '-' . date('Y', $value['start']);
+						}else{
+							$event_url .= date('m', $value['start']) . '-' . $day . '-' . date('Y', $value['start']);
+						}
+
 					}
 
 					$data[] = array(
@@ -356,7 +380,7 @@ class TMM_Event {
 						'featured_image_src' => $featured_image_src,
 						'post_excerpt' => $post->post_excerpt,
 						'allDay' => 0,
-						'url' => get_permalink($post->ID),
+						'url' => $event_url,
 					);
 				}
 			}

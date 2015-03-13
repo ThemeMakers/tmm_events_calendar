@@ -37,23 +37,6 @@ if (!empty($events)){
 			$event_end_time = TMM_Event::get_event_time($ev_end_mktime);
 		}
 
-		$event_url = $event['url'];
-
-		if ($repeats_every !== 'no_repeat') {
-
-			if (get_option('permalink_structure') === '/%postname%/') {
-				$event_url .= 'date/';
-			} else {
-				$event_url .= '&date=';
-			}
-
-			if(TMM::get_option('tmm_events_date_format') === '1'){
-				$event_url .= $day . '-' . date('m', $event['start_mktime']) . '-' . date('Y', $event['start_mktime']);
-			}else{
-				$event_url .= date('m', $event['start_mktime']) . '-' . $day . '-' . date('Y', $event['start_mktime']);
-			}
-
-		}
 		?>
 
 		<article class="event<?php if (!$thumb) echo ' no-image'; ?>">
@@ -70,7 +53,7 @@ if (!empty($events)){
 
 			<div class="event-content clearfix">
 
-				<h3 class="event-title"><a href="<?php echo $event_url; ?>"><?php echo $event['title']; ?></a></h3>
+				<h3 class="event-title"><a href="<?php echo $event['url']; ?>"><?php echo $event['title']; ?></a></h3>
 
 				<?php if (!$hide_event_place) { ?>
 
