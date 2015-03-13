@@ -165,7 +165,7 @@ article.event .map {
 }
 
 td.fc-today{
-    background: #E9EAEB!important;
+    background: #E9EAEB;
 }
 
 tr.fc-week td.fc-day {
@@ -246,7 +246,7 @@ a.fc-event:hover {
 	color: #fff;
 	text-transform: uppercase;
 	font-family: Adamina;
-	font-size: 12px !important;
+	font-size: 12px;
 	font-weight: 600;
 	padding: 0.417em;
 }
