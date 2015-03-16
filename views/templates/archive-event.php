@@ -22,8 +22,8 @@ if (is_array($tmp_date) && !empty($tmp_date[0]) && !empty($tmp_date[1]) && !empt
 
 	$year = (int) $tmp_date[2];
 
-	$start = mktime(0, 0, 0, $month, $day, $year);
-	$end = mktime(0, 0, 0, $month, $day+1, $year);
+	$start = mktime(0, 0, 0, $month, $day, $year) - 1;
+	$end = mktime(0, 0, 0, $month, $day+1, $year) - 1;
 }
 
 $options = array(
