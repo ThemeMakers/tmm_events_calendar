@@ -400,6 +400,9 @@ class TMM_Event {
 	public static function get_widget_calendar_data() {
 		$data = self::get_events($_REQUEST['start'], $_REQUEST['end']);
 		$now = current_time('timestamp');
+		$permastruct = get_option('permalink_structure');
+		$date_format = TMM::get_option('tmm_events_date_format');
+		$home_url = home_url();
 
 		$buffer = array();
 		$result = array();
@@ -426,7 +429,21 @@ class TMM_Event {
 				$tmp['allDay'] = 0;
 
 				$date_array = explode("-", $date);
-				$tmp['url'] = home_url() . "/event?yy=" . $date_array[0] . "&mm=" . $date_array[1] . "&dd=" . $date_array[2];
+				$event_url = $home_url;
+
+				if ($permastruct === '/%postname%/') {
+					$event_url .= '/event/date/';
+				} else {
+					$event_url .= '/index.php?post_type=event&date=';
+				}
+
+				if($date_format === '1'){
+					$event_url .= $date_array[2] . '-' . $date_array[1] . '-' . $date_array[0];
+				}else{
+					$event_url .= $date_array[1] . '-' . $date_array[2] . '-' . $date_array[0];
+				}
+
+				$tmp['url'] = $event_url;
 
 				$result[] = $tmp;
 			}

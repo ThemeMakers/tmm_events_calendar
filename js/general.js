@@ -119,6 +119,10 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 				},
 				eventMouseover: function(calEvent, jsEvent, view) {
 
+					if (is_widget) {
+						return false;
+					}
+
 					jQuery(".calendar_event_tooltip").remove();
 
 					function AddZero(num) {
@@ -222,8 +226,8 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 
 			if( jQuery("#event_listing_period").length && !jQuery("#events_listing_month").length ) {
 
-				if (jQuery('.single-title').length) {
-					jQuery('.single-title').children().eq(0).append('&nbsp;<span id="events_listing_month"></span> <span id="events_listing_year"></span>');
+				if (jQuery('.single-title > .page-title').length) {
+					jQuery('.single-title > .page-title').append('&nbsp;<span id="events_listing_month"></span> <span id="events_listing_year"></span>');
 				}
 			}
 

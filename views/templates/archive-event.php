@@ -1,18 +1,37 @@
 <?php
 get_header();
 
-$year = (int) $_GET['yy'];
-$month = $_GET['mm'];
-$day = $_GET['dd'];
-$start = @mktime(0, 0, 0, $month, $day, $year, -1);
-$end = @mktime(0, 0, 0, $month, $day+1, $year, -1);
+$start = current_time('timestamp');
+$end = $start + 24*60*60;
+$tmp_date = array('', '', '');
+
+if (isset($_GET['date'])) {
+	$tmp_date = explode('-', $_GET['date']);
+} else if (isset($wp_query->query_vars['date'])) {
+	$tmp_date = explode('-', $wp_query->query_vars['date']);
+}
+
+if (is_array($tmp_date) && !empty($tmp_date[0]) && !empty($tmp_date[1]) && !empty($tmp_date[2])) {
+	if(TMM::get_option('tmm_events_date_format') === '1'){
+		$day = $tmp_date[0];
+		$month = $tmp_date[1];
+	}else{
+		$day = $tmp_date[1];
+		$month = $tmp_date[0];
+	}
+
+	$year = (int) $tmp_date[2];
+
+	$start = mktime(0, 0, 0, $month, $day, $year);
+	$end = mktime(0, 0, 0, $month, $day+1, $year);
+}
 
 $options = array(
 	'start' => $start,
 	'end' => $end,
 	'category' => 0,
 	'order' => 'DESC',
-	'count' => false,
+	'count' => 6,
 );
 ?>
 
@@ -24,7 +43,9 @@ $options = array(
 
 <script type="text/javascript">
 	jQuery(function() {
-		jQuery(".page-header-bg>div").html('<h1 class="font-small"><?php echo $month,'-',$day,'-',$year; ?></h1>');
+		if (jQuery('.single-title > .page-title').length) {
+			jQuery('.single-title > .page-title').append('&nbsp;<span><?php echo $tmp_date[0],'-',$tmp_date[1],'-',$tmp_date[2]; ?></span>');
+		}
 		var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
 		app_event_listing.init(<?php echo json_encode($options); ?>);
 	});

@@ -178,6 +178,12 @@ class TMM_EventsPlugin {
 			'top'
 		);
 
+		add_rewrite_rule(
+			'^event/date/([^/]*)/?',
+			'index.php?post_type=event&date=$matches[1]',
+			'top'
+		);
+
 		add_rewrite_tag( '%date%', '([^&]+)' );
 	}
 	
