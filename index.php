@@ -5,7 +5,7 @@
  * Description: Events calendar, events list
  * Author: ThemeMakers
  * Author URI: http://themeforest.net/user/ThemeMakers
- * Version: 1.0
+ * Version: 1.0.0
 */
 
 define('TMM_EVENTS_PLUGIN_PATH', plugin_dir_path(__FILE__));
