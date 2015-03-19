@@ -39,7 +39,7 @@
                 </li>
             <?php } ?>
         <?php }else{ ?>
-				<div><?php _e('There is no events added yet!', TMM_THEME_TEXTDOMAIN); ?></div>
+				<div><?php _e('There is no events added yet!', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></div>
         <?php } ?>
     </ul>
 

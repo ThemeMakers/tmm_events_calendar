@@ -34,10 +34,10 @@ if (!$event_posts) {
 	}
 	?>
 	<input type="checkbox" id="<?php echo $widget->get_field_id('show_event_excerpt'); ?>" name="<?php echo $widget->get_field_name('show_event_excerpt'); ?>" value="true" <?php echo $checked; ?> />
-	<label for="<?php echo $widget->get_field_id('show_event_excerpt'); ?>"><?php _e('Display Excerpt', TMM_THEME_TEXTDOMAIN) ?></label>
+	<label for="<?php echo $widget->get_field_id('show_event_excerpt'); ?>"><?php _e('Display Excerpt', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?></label>
 </p>
 <p>
-	<label for="<?php echo $widget->get_field_id('excerpt_event_symbols_count'); ?>"><?php _e('Truncate event excerpt', TMM_THEME_TEXTDOMAIN) ?>:</label>
+	<label for="<?php echo $widget->get_field_id('excerpt_event_symbols_count'); ?>"><?php _e('Truncate event excerpt', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>:</label>
 	<input class="widefat" type="text" id="<?php echo $widget->get_field_id('excerpt_event_symbols_count'); ?>" name="<?php echo $widget->get_field_name('excerpt_event_symbols_count'); ?>" value="<?php echo $instance['excerpt_event_symbols_count']; ?>" />
 </p>
 

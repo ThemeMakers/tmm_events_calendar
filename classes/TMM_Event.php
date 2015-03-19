@@ -520,11 +520,11 @@ class TMM_Event {
 			$repeating_days = get_post_meta($post_id, 'event_repeating_week', true);
             if(is_array($repeating_days)){
                 foreach ($repeating_days as $v) {
-                    $days[] = TMM_Helper::get_days_of_week($v);
+                    $days[] = tmm_get_days_of_week($v);
                 }
             }
 		}else{
-			$days[] = TMM_Helper::get_days_of_week(date('N', $ev_mktime)-1);
+			$days[] = tmm_get_days_of_week(date('N', $ev_mktime)-1);
 		}
 		
 		for($i=0,$ic=count($days);$i<$ic;$i++) {
@@ -613,7 +613,7 @@ class TMM_Event {
 		$result['count'] = count($events);
 
 		$result['year'] = date("Y", $start);
-		$result['month'] = TMM_Helper::get_monts_names(date("m", $start) - 1);
+		$result['month'] = tmm_get_months_names(date("m", $start) - 1);
 		$result['month_num'] = date("m", $start);
 
 		if ($is_ajax) {
@@ -735,7 +735,7 @@ class TMM_Event {
 	
 	public static function get_event_date($timestamp) {
 		$date = '';
-		$month = ucfirst(TMM_Helper::get_short_monts_names(date('n', $timestamp) - 1));
+		$month = ucfirst(tmm_get_short_months_names(date('n', $timestamp) - 1));
 		$day = date('d', (int) $timestamp);
 		$year = date('Y', (int) $timestamp);
 		
