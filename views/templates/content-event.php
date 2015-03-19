@@ -22,7 +22,7 @@ if (!empty($events)){
 		$event_end_date = TMM_Event::get_event_date($event['end_mktime']);
 
 		$repeats_every = get_post_meta($event['post_id'], 'event_repeating', true);
-		$events_show_duration = TMM::get_option('tmm_events_show_duration');
+		$events_show_duration = tmm_events_get_option('tmm_events_show_duration');
 		if($events_show_duration){
 			$event_duration_sec = TMM_Event::get_event_duration($event['start_mktime'], $ev_end_mktime);
 			$duration_hh = $event_duration_sec[0];
@@ -106,7 +106,7 @@ if (!empty($events)){
 						<dd><?php echo $event_place_address ?></dd>
 					<?php } ?>
 
-					<?php if (!empty($event_place_website) && TMM::get_option('tmm_events_show_venue_website')) { ?>
+					<?php if (!empty($event_place_website) && tmm_events_get_option('tmm_events_show_venue_website')) { ?>
 						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
 						<dd><a target="_blank" href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
 					<?php } ?>

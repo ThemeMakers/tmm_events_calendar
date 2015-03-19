@@ -21,7 +21,7 @@ if(have_posts()){
 		$ev_mktime = (int) get_post_meta($post->ID, 'ev_mktime', true);
 		$ev_end_mktime = (int) get_post_meta($post->ID, 'ev_end_mktime', true);
 
-		$events_show_duration = TMM::get_option('tmm_single_event_show_duration');
+		$events_show_duration = tmm_events_get_option('tmm_single_event_show_duration');
 		if($events_show_duration){
 			$event_duration_sec = TMM_Event::get_event_duration($ev_mktime, $ev_end_mktime);
 			$duration_hh = $event_duration_sec[0];
@@ -50,7 +50,7 @@ if(have_posts()){
 			$css_classes .= ' no-image';
 		}
 
-		$events_button_page = TMM::get_option('tmm_single_event_button_page');
+		$events_button_page = tmm_events_get_option('tmm_single_event_button_page');
 		$events_button_url = '';
 
 		if ($events_button_page === '0') {
@@ -70,7 +70,7 @@ if(have_posts()){
 			}
 
 			if (is_array($tmp_date) && !empty($tmp_date[0]) && !empty($tmp_date[1]) && !empty($tmp_date[2])) {
-				if(TMM::get_option('tmm_events_date_format') === '1'){
+				if(tmm_events_get_option('tmm_events_date_format') === '1'){
 					$ev_mktime = mktime(0, 0, 0 , $tmp_date[1], $tmp_date[0], $tmp_date[2]);
 				}else{
 					$ev_mktime = mktime(0, 0, 0 , $tmp_date[0], $tmp_date[1], $tmp_date[2]);
@@ -244,7 +244,7 @@ if(have_posts()){
 <div class="clear"></div>
 
 <?php
-if ( (!isset($_REQUEST['disable_blog_comments']) || !$_REQUEST['disable_blog_comments']) && TMM::get_option('tmm_single_event_show_comments') !== '0' ) {
+if ( (!isset($_REQUEST['disable_blog_comments']) || !$_REQUEST['disable_blog_comments']) && tmm_events_get_option('tmm_single_event_show_comments') !== '0' ) {
 	comments_template();
 }
 

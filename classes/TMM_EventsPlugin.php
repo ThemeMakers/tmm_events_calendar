@@ -85,7 +85,7 @@ class TMM_EventsPlugin {
 
 		/* Add cron schedule event */
 		if(class_exists('TMM')){
-			$events_set_old_ev_to_draft = TMM::get_option("tmm_events_set_old_to_draft");
+			$events_set_old_ev_to_draft = tmm_events_get_option("tmm_events_set_old_to_draft");
 			if ($events_set_old_ev_to_draft) {
 				add_action('old_events_schedules', array(__CLASS__, 'old_events_schedules'));
 				if (!wp_next_scheduled('old_events_schedules')) {
@@ -256,8 +256,8 @@ class TMM_EventsPlugin {
 			var lang_place = "<?php _e("Place", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
 			var error_fetching_events = "<?php _e("there was an error while fetching events!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
 
-			var events_time_format = "<?php echo (int) TMM::get_option("tmm_events_time_format"); ?>";
-			var events_date_format = <?php echo (int) TMM::get_option('tmm_events_date_format'); ?>;
+			var events_time_format = "<?php echo (int) tmm_events_get_option("tmm_events_time_format"); ?>";
+			var events_date_format = <?php echo (int) tmm_events_get_option('tmm_events_date_format'); ?>;
 		</script>
 		<?php
 	}

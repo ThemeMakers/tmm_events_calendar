@@ -339,7 +339,7 @@ class TMM_Event {
 				}
 
 				$permastruct = get_option('permalink_structure');
-				$date_format = TMM::get_option('tmm_events_date_format');
+				$date_format = tmm_events_get_option('tmm_events_date_format');
 				$post_url = get_permalink($post->ID);
 
 				foreach($events_data as $key => $value){
@@ -401,7 +401,7 @@ class TMM_Event {
 		$data = self::get_events($_REQUEST['start'], $_REQUEST['end']);
 		$now = current_time('timestamp');
 		$permastruct = get_option('permalink_structure');
-		$date_format = TMM::get_option('tmm_events_date_format');
+		$date_format = tmm_events_get_option('tmm_events_date_format');
 		$home_url = home_url();
 
 		$buffer = array();
@@ -678,7 +678,7 @@ class TMM_Event {
 	}
 
 	public static function get_timezone_string() {
-		$show_timezone = is_single() ? TMM::get_option('tmm_single_event_show_timezone') : TMM::get_option('tmm_events_show_timezone');
+		$show_timezone = is_single() ? tmm_events_get_option('tmm_single_event_show_timezone') : tmm_events_get_option('tmm_events_show_timezone');
 
 		if ($show_timezone === '0') {
 			return '';
@@ -739,7 +739,7 @@ class TMM_Event {
 		$day = date('d', (int) $timestamp);
 		$year = date('Y', (int) $timestamp);
 		
-		if(TMM::get_option('tmm_events_date_format') === '1'){
+		if(tmm_events_get_option('tmm_events_date_format') === '1'){
 			$date = $day . ' ' . $month . ', ' . $year;
 		}else{
 			$date = $month . ' ' . $day . ', ' . $year;
@@ -752,7 +752,7 @@ class TMM_Event {
 		$time = '';
 
 		if($timestamp){
-			$events_time_format = is_single() ? TMM::get_option('tmm_single_event_time_format') : TMM::get_option('tmm_events_time_format');
+			$events_time_format = is_single() ? tmm_events_get_option('tmm_single_event_time_format') : tmm_events_get_option('tmm_events_time_format');
 
 			if($events_time_format === '1'){
 				$time_format = 'h:i A';
@@ -761,7 +761,7 @@ class TMM_Event {
 			}
 
 			$time = date($time_format, $timestamp);
-			$show_timezone = is_single() ? TMM::get_option('tmm_single_event_show_timezone') : TMM::get_option('tmm_events_show_timezone');
+			$show_timezone = is_single() ? tmm_events_get_option('tmm_single_event_show_timezone') : tmm_events_get_option('tmm_events_show_timezone');
 
 			if($show_timezone === '1' && !$hide_time_zone){
 				$time .= ' ' . TMM_Event::get_timezone_string();

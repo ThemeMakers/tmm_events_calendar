@@ -12,7 +12,7 @@ if (isset($_GET['date'])) {
 }
 
 if (is_array($tmp_date) && !empty($tmp_date[0]) && !empty($tmp_date[1]) && !empty($tmp_date[2])) {
-	if(TMM::get_option('tmm_events_date_format') === '1'){
+	if(tmm_events_get_option('tmm_events_date_format') === '1'){
 		$day = $tmp_date[0];
 		$month = $tmp_date[1];
 	}else{
