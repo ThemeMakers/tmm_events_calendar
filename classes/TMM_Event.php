@@ -609,7 +609,7 @@ class TMM_Event {
 		$args = array();
 		$args['events'] = $events;
 		$result = array();
-		$result['html'] = TMM::draw_free_page(TMM_EVENTS_PLUGIN_PATH . '/views/templates/content-event.php', $args);
+		$result['html'] = tmm_locate_template(TMM_EVENTS_PLUGIN_PATH . '/views/templates/content-event.php', $args, false);
 		$result['count'] = count($events);
 
 		$result['year'] = date("Y", $start);

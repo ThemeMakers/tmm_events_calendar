@@ -12,6 +12,8 @@ define('TMM_EVENTS_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('TMM_EVENTS_PLUGIN_URI', plugin_dir_url(__FILE__));
 define('TMM_EVENTS_PLUGIN_TEXTDOMAIN', 'tmm_events');
 
+include_once TMM_EVENTS_PLUGIN_PATH. '/functions.php';
+
 function tmm_events_plugin_autoloader($class) {
 	if(file_exists(TMM_EVENTS_PLUGIN_PATH. '/classes/' . $class . '.php')){
 		include_once TMM_EVENTS_PLUGIN_PATH. '/classes/' . $class . '.php';

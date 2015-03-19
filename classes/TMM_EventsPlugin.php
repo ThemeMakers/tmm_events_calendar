@@ -295,7 +295,7 @@ class TMM_EventsPlugin {
 		$data['event_map_longitude'] = !empty($custom) ? $custom['event_map_longitude'][0] : '-74.006605';
 		
 		wp_enqueue_script('jquery-ui-datepicker');
-		echo TMM::draw_free_page(TMM_EVENTS_PLUGIN_PATH . '/views/admin/event_attributes.php', $data);
+		tmm_locate_template(TMM_EVENTS_PLUGIN_PATH . '/views/admin/event_attributes.php', $data);
 	}
 
 	/**

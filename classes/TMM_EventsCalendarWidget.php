@@ -18,7 +18,7 @@ class TMM_EventsCalendarWidget extends WP_Widget {
     //Widget view
     function widget($args, $instance) {
         $args['instance'] = $instance;
-        echo TMM::draw_free_page(TMM_EVENTS_PLUGIN_PATH . 'views/widgets/calendar.php', $args);
+	    tmm_locate_template(TMM_EVENTS_PLUGIN_PATH . 'views/widgets/calendar.php', $args);
     }
 
     //Update widget
@@ -38,7 +38,7 @@ class TMM_EventsCalendarWidget extends WP_Widget {
         $args = array();
         $args['instance'] = $instance;
         $args['widget'] = $this;
-        echo TMM::draw_free_page(TMM_EVENTS_PLUGIN_PATH . 'views/widgets/calendar_form.php', $args);
+	    tmm_locate_template(TMM_EVENTS_PLUGIN_PATH . 'views/widgets/calendar_form.php', $args);
     }
 
 }

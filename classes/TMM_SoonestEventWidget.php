@@ -18,7 +18,7 @@ class TMM_SoonestEventWidget extends WP_Widget {
     //Widget view
     function widget($args, $instance) {
         $args['instance'] = $instance;
-        echo TMM::draw_free_page(TMM_EVENTS_PLUGIN_PATH . 'views/widgets/soonest_event.php', $args);
+	    tmm_locate_template(TMM_EVENTS_PLUGIN_PATH . 'views/widgets/soonest_event.php', $args);
     }
 
     //Update widget
@@ -44,7 +44,7 @@ class TMM_SoonestEventWidget extends WP_Widget {
         $args = array();
         $args['instance'] = $instance;
         $args['widget'] = $this;
-        echo TMM::draw_free_page(TMM_EVENTS_PLUGIN_PATH . 'views/widgets/soonest_event_form.php', $args);
+	    tmm_locate_template(TMM_EVENTS_PLUGIN_PATH . 'views/widgets/soonest_event_form.php', $args);
     }
 
 }
