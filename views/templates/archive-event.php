@@ -43,8 +43,8 @@ $options = array(
 
 <script type="text/javascript">
 	jQuery(function() {
-		if (jQuery('.single-title > .page-title').length) {
-			jQuery('.single-title > .page-title').append('&nbsp;<span><?php echo $tmp_date[0],'-',$tmp_date[1],'-',$tmp_date[2]; ?></span>');
+		if (jQuery('.single-title > h1').length) {
+			jQuery('.single-title > h1').append('&nbsp;<span><?php echo $tmp_date[0],'-',$tmp_date[1],'-',$tmp_date[2]; ?></span>');
 		}
 		var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
 		app_event_listing.init(<?php echo json_encode($options); ?>);

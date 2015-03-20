@@ -226,8 +226,8 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 
 			if( jQuery("#event_listing_period").length && !jQuery("#events_listing_month").length ) {
 
-				if (jQuery('.single-title > .page-title').length) {
-					jQuery('.single-title > .page-title').append('&nbsp;<span id="events_listing_month"></span> <span id="events_listing_year"></span>');
+				if (jQuery('.page-title > h1').length) {
+					jQuery('.page-title > h1').append('&nbsp;<span id="events_listing_month"></span> <span id="events_listing_year"></span>');
 				}
 			}
 
