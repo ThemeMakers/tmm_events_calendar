@@ -222,6 +222,20 @@ class TMM_Event {
 				$duration_sec = TMM_Event::get_event_duration($start_date, $end_date);
 				$duration_sec = $duration_sec[2];
 
+				/* if current post is a duplicate of original post and WPML is not active */
+				if ( !defined( 'ICL_LANGUAGE_CODE' ) && isset($post_meta['_icl_lang_duplicate_of'][0]) ) {
+					continue;
+				}
+
+				/* if current post is an original post but current language is not default (WPML is active) */
+				if ( defined('ICL_LANGUAGE_CODE') && ICL_LANGUAGE_CODE != '' ) {
+					$post_id = icl_object_id( $post->ID, 'event', false, ICL_LANGUAGE_CODE );
+
+					if ($post_id !== $post->ID) {
+						continue;
+					}
+				}
+
 				if($end && $start_date > $end){
 					continue;
 				}
