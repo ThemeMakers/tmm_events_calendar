@@ -203,7 +203,7 @@ if(have_posts()){
 
 			<?php if($prev_post || $next_post){ ?>
 
-				<div class="single-post-nav clearfix">
+				<div class="single-nav clearfix">
 
 					<?php if($prev_post){ ?>
 
@@ -223,7 +223,7 @@ if(have_posts()){
 
 					<?php } ?>
 
-				</div><!--/ .single-post-nav-->
+				</div><!--/ .single-nav-->
 
 			<?php } ?>
 
