@@ -83,6 +83,9 @@ class TMM_EventsPlugin {
 		/* Include events templates */
 		add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
 
+		/* Navigation menu fix with adding current page class to 'page_for_posts' on custom posts */
+		add_filter( 'nav_menu_css_class', array( __CLASS__, 'fix_blog_menu_css_class'), 10, 2 );
+
 		/* Add cron schedule event */
 		if(class_exists('TMM')){
 			$events_set_old_ev_to_draft = tmm_events_get_option("tmm_events_set_old_to_draft");
@@ -96,7 +99,6 @@ class TMM_EventsPlugin {
 			}
 		}
 
-
 	}
 
 	public static function template_loader($template) {
@@ -109,7 +111,7 @@ class TMM_EventsPlugin {
 			}
 
 			if (is_archive()) {
-				if (is_date()) {//TODO
+				if (is_date()) {
 					$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/archive-event.php';
 				} else {
 					$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/taxonomy-events-categories.php';
@@ -120,6 +122,18 @@ class TMM_EventsPlugin {
 
 		return $template;
 
+	}
+
+	public static function fix_blog_menu_css_class( $classes, $item ) {
+		if ( is_tax( 'events-categories' ) || is_singular( 'event' ) || is_post_type_archive( 'event' ) ) {
+			if ( $item->object_id == get_option('page_for_posts') ) {
+				$key = array_search( 'current_page_parent', $classes );
+				if ( false !== $key )
+					unset( $classes[ $key ] );
+			}
+		}
+
+		return $classes;
 	}
 
 	public static function modify_breadcrumbs($is_link = true) {
