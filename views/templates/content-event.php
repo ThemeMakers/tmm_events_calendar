@@ -45,9 +45,9 @@ if (!empty($events)){
 
 			<?php if ($thumb) { ?>
 
-				<div class="event-media item-overlay">
+				<a href="<?php echo $event['url']; ?>" class="image-post  item-overlay">
 					<img src="<?php echo $thumb; ?>" alt="<?php echo $event['title']; ?>">
-				</div>
+				</a>
 
 			<?php } ?>
 

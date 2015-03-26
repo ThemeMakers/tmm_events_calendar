@@ -93,9 +93,9 @@ if(have_posts()){
 
 			<?php if (has_post_thumbnail() && $thumb) { ?>
 
-				<div class="event-media  item-overlay">
+				<a href="<?php echo TMM_Helper::get_post_featured_image($post->ID, ''); ?>" class="image-post single-image-link item-overlay">
 					<img src="<?php echo $thumb; ?>" alt="<?php echo $post->post_title; ?>" />
-				</div>
+				</a>
 
 			<?php } ?>
 
