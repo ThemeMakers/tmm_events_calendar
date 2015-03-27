@@ -130,6 +130,10 @@ class TMM_EventsPlugin {
 				$key = array_search( 'current_page_parent', $classes );
 				if ( false !== $key )
 					unset( $classes[ $key ] );
+			} else if ( $item->object_id == tmm_events_get_option('tmm_single_event_button_page') ) {
+				if (!in_array('current_page_parent', $classes)) {
+					$classes[] = 'current_page_parent';
+				}
 			}
 		}
 
