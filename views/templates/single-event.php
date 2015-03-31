@@ -201,33 +201,33 @@ if(have_posts()){
 
 			</div><!--/ .row-->
 
-			<?php if($prev_post || $next_post){ ?>
-
-				<div class="single-nav clearfix">
-
-					<?php if($prev_post){ ?>
-
-						<a href="<?php echo get_the_permalink($prev_post->ID); ?>" class="prev">
-							<?php _e('Previous article', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>
-							<b><?php echo $prev_post->post_title; ?></b>
-						</a>
-
-					<?php } ?>
-
-					<?php if($next_post){ ?>
-
-						<a href="<?php echo get_the_permalink($next_post->ID); ?>" class="next">
-							<?php _e('Next article', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>
-							<b><?php echo $next_post->post_title; ?></b>
-						</a>
-
-					<?php } ?>
-
-				</div><!--/ .single-nav-->
-
-			<?php } ?>
-
 		</div><!--/ .event-->
+
+		<?php if($prev_post || $next_post){ ?>
+
+			<div class="single-nav clearfix">
+
+				<?php if($prev_post){ ?>
+
+					<a href="<?php echo get_the_permalink($prev_post->ID); ?>" class="prev">
+						<?php _e('Previous article', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>
+						<b><?php echo $prev_post->post_title; ?></b>
+					</a>
+
+				<?php } ?>
+
+				<?php if($next_post){ ?>
+
+					<a href="<?php echo get_the_permalink($next_post->ID); ?>" class="next">
+						<?php _e('Next article', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>
+						<b><?php echo $next_post->post_title; ?></b>
+					</a>
+
+				<?php } ?>
+
+			</div><!--/ .single-nav-->
+
+		<?php } ?>
 
 		<?php if ($events_button_url) { ?>
 		<a href="<?php echo $events_button_url; ?>" class="back-link"><?php _e('All Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
