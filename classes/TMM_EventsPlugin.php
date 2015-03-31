@@ -79,6 +79,7 @@ class TMM_EventsPlugin {
 
 		/* Breadcrumbs hook */
 		add_action( 'tmm_breadcrumbs_category_item', array(__CLASS__, 'modify_breadcrumbs'), 10 , 1 );
+		add_action( 'tmm_breadcrumbs_archive_item', array(__CLASS__, 'modify_breadcrumbs'), 10 , 1 );
 
 		/* Include events templates */
 		add_filter( 'template_include', array( __CLASS__, 'template_loader' ) );
@@ -111,11 +112,8 @@ class TMM_EventsPlugin {
 			}
 
 			if (is_archive()) {
-				if (is_date()) {
-					$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/archive-event.php';
-				} else {
-					$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/taxonomy-events-categories.php';
-				}
+				// event category or date archive
+				$template = TMM_EVENTS_PLUGIN_PATH . 'views/templates/taxonomy-events-categories.php';
 			}
 
 		}
@@ -141,7 +139,10 @@ class TMM_EventsPlugin {
 	}
 
 	public static function modify_breadcrumbs($is_link = true) {
-		if (is_single() && get_post_type() === 'event') {
+		$breadcrumb_html = '';
+		$queried_object = get_queried_object();
+
+		if (is_singular('event')) {
 			global $post;
 			$categories = get_the_terms($post->ID, 'events-categories');
 
@@ -157,24 +158,55 @@ class TMM_EventsPlugin {
 					'title' => esc_attr(__("View all posts in $categories->name", TMM_EVENTS_PLUGIN_TEXTDOMAIN)),
 				);
 
-				$breadcrumb_html = '';
-
 				if ($is_link) {
 					$breadcrumb_html .= '<a href="' . $breadcrumb['href'] . '" title="' . $breadcrumb['title'] . '">'; '</a> ';
-
 				}
 
 				$breadcrumb_html .= $breadcrumb['text'];
 
 				if ($is_link) {
 					$breadcrumb_html .= '</a> ';
-
 				}
 
-				echo $breadcrumb_html;
 			}
+		} else if (is_tax( 'events-categories' )) {
+
+			if (is_object($queried_object) && !empty($queried_object->name)) {
+				$breadcrumb_html .= $queried_object->name;
+			}
+
+		} if (is_post_type_archive('event')) {
+			global $wp_query;
+			//print_r($queried_object);
+			if (isset($_GET['date']) || isset($wp_query->query_vars['date'])) {
+
+				if (isset($_GET['date'])) {
+					$tmp_date = explode('-', $_GET['date']);
+				} else if (isset($wp_query->query_vars['date'])) {
+					$tmp_date = explode('-', $wp_query->query_vars['date']);
+				}
+
+				if (is_array($tmp_date) && !empty($tmp_date[0]) && !empty($tmp_date[1]) && !empty($tmp_date[2])) {
+					if(tmm_events_get_option('tmm_events_date_format') === '1'){
+						$day = $tmp_date[0];
+						$month = $tmp_date[1];
+					}else{
+						$day = $tmp_date[1];
+						$month = $tmp_date[0];
+					}
+
+					$year = (int) $tmp_date[2];
+
+					$breadcrumb_html .= mysql2date( get_option( 'date_format' ), $year.'-'.$month.'-'.$day );
+				}
+
+			} else {
+				$breadcrumb_html .= $queried_object->label;
+			}
+
 		}
 
+		echo $breadcrumb_html;
 	}
 
     public static function on_plugin_activation() {
