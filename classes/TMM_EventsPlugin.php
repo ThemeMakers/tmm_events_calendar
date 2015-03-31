@@ -177,7 +177,7 @@ class TMM_EventsPlugin {
 
 		} if (is_post_type_archive('event')) {
 			global $wp_query;
-			//print_r($queried_object);
+
 			if (isset($_GET['date']) || isset($wp_query->query_vars['date'])) {
 
 				if (isset($_GET['date'])) {
