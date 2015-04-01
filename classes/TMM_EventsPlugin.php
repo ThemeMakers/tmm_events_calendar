@@ -87,6 +87,9 @@ class TMM_EventsPlugin {
 		/* Navigation menu fix with adding current page class to 'page_for_posts' on custom posts */
 		add_filter( 'nav_menu_css_class', array( __CLASS__, 'fix_blog_menu_css_class'), 10, 2 );
 
+		/* Add meta boxes */
+		add_action( 'add_meta_boxes', array(__CLASS__, 'add_meta_boxes') );
+
 		/* Add cron schedule event */
 		if(class_exists('TMM')){
 			$events_set_old_ev_to_draft = tmm_events_get_option("tmm_events_set_old_to_draft");
@@ -136,6 +139,14 @@ class TMM_EventsPlugin {
 		}
 
 		return $classes;
+	}
+
+	public static function add_meta_boxes() {
+
+		if (class_exists('TMM_Page')) {
+			add_meta_box("seo_options", __("Seo options", TMM_EVENTS_PLUGIN_TEXTDOMAIN), array('TMM_Page', 'page_seo_options'), "event", "normal", "low");
+		}
+
 	}
 
 	public static function modify_breadcrumbs($is_link = true) {

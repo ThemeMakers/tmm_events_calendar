@@ -77,6 +77,19 @@ class TMM_Event {
 						update_post_meta($post_id, "ev_end_mktime", $event_end_mktime);
 					}
 				}
+
+				if (isset($_POST["meta_title"])) {
+					update_post_meta($post_id, "meta_title", $_POST["meta_title"]);
+				}
+
+				if (isset($_POST["meta_keywords"])) {
+					update_post_meta($post_id, "meta_keywords", $_POST["meta_keywords"]);
+				}
+
+				if (isset($_POST["meta_description"])) {
+					update_post_meta($post_id, "meta_description", $_POST["meta_description"]);
+				}
+
 			}
 		}
 	}
