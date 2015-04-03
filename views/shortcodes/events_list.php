@@ -47,10 +47,10 @@ if ($options['count'] > 0) { ?>
 	<?php if ($options['show_period_selector'] && !empty($period_options)) { ?>
 
 		<div class="row events_filter">
-			<div class="small-9 columns">
+			<div class="medium-9 columns">
 				<label for="event_listing_period"><?php _e('Filter by Month', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>:</label>
 			</div>
-			<div class="small-3 columns">
+			<div class="medium-3 columns">
 				<select id="event_listing_period" autocomplete="off">
 					<?php foreach ($period_options as $key => $value){ ?>
 						<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
