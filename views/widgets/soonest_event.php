@@ -10,7 +10,7 @@ $event = TMM_Event::get_soonest_event($now, 1, $month_deep);
             <div class="widget widget_soonest_event <?php echo ($instance['show_title'] ? "show" : "") ?>">
 
                 <?php if (!empty($instance['boxtitle'])){ ?>
-                    <h3 class="widget-title"><?php echo $instance['boxtitle']; ?></h3>
+                    <h3 class="widget-title"><?php esc_html_e($instance['boxtitle']); ?></h3>
                 <?php } ?>
                 <div class="post-content">
 
@@ -19,8 +19,8 @@ $event = TMM_Event::get_soonest_event($now, 1, $month_deep);
                     <div class="clearfix event-timer" id="event_timer_<?php echo $inique_id ?>">
 
                         <?php if ($instance['show_title']){ ?>
-                            <a class="post-title" href="<?php echo $event['url'] ?>">
-                                <?php echo $event['title'] ?>
+                            <a class="post-title" href="<?php echo esc_url($event['url']); ?>">
+                                <?php echo esc_html($event['title']); ?>
                             </a>
                         <?php } ?>
 

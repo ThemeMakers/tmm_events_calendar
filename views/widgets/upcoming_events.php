@@ -25,7 +25,7 @@ if (is_array($events) && !empty($events)) {
 	<div class="widget widget_upcoming_events">
 
 		<?php if (!empty($instance['title'])){ ?>
-			<h3 class="widget-title"><?php echo $instance['title']; ?></h3>
+			<h3 class="widget-title"><?php esc_html_e($instance['title']); ?></h3>
 		<?php } ?>
 
 		<ul>
@@ -42,11 +42,11 @@ if (is_array($events) && !empty($events)) {
 						<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 						<div class="event-media">
 							<div class="item-overlay">
-								<img src="<?php echo $thumb; ?>" alt="<?php echo $event['title']; ?>">
+								<img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr($event['title']); ?>">
 							</div>
 							<div class="event-content<?php if ($instance['show_event_excerpt']) { ?> with-excerpt<?php } ?>">
 								<h4 class="event-title">
-									<a href="<?php echo $event['url'] ?>"><?php echo $event['title'] ?></a>
+									<a href="<?php echo esc_url($event['url']); ?>"><?php echo esc_html($event['title']); ?></a>
 								</h4>
 
 								<?php if ($instance['show_event_excerpt']) { ?>

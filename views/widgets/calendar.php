@@ -1,7 +1,7 @@
 <div class="widget widget_events_calendar">
 
     <?php if (!empty($instance['title'])): ?>
-        <h3 class="widget-title"><?php echo $instance['title']; ?></h3>
+        <h3 class="widget-title"><?php esc_html_e($instance['title']); ?></h3>
     <?php endif; ?>
 
     <?php $inique_id = uniqid(); ?>
@@ -17,7 +17,7 @@
                     right: "today",
                     center: "title"                    
                 },
-				first_day:<?php echo get_option('start_of_week') ?>
+				first_day:<?php echo esc_js( get_option('start_of_week') ); ?>
             };
             calendar_<?php echo $inique_id ?> = new THEMEMAKERS_EVENT_CALENDAR("#calendar_<?php echo $inique_id ?>", arguments, true, "");
             calendar_<?php echo $inique_id ?>.init();
