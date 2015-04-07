@@ -13,7 +13,7 @@
 
                 <select id="event_repeating" name="event_repeating" autocomplete="off">
 					<?php foreach (TMM_Event::$event_repeatings as $key => $value) : ?>
-						<option value="<?php echo $key ?>" <?php echo($event_repeating == $key ? 'selected' : '') ?>><?php echo $value ?></option>
+						<option value="<?php echo esc_attr($key); ?>" <?php echo($event_repeating == $key ? 'selected' : '') ?>><?php echo esc_html($value); ?></option>
 					<?php endforeach; ?>
                 </select>
 				<?php $week_repeatings_array = array('week', '2week', '3week') ?>
@@ -33,7 +33,7 @@
 					?>
 
 					<?php foreach ($week_days_array as $key => $value) : ?>
-					<li><label><input autocomplete="off" type="checkbox" value="<?php echo $key ?>" <?php if (is_array($event_repeating_week)) echo(in_array($key, $event_repeating_week) ? 'checked' : '') ?> name="event_repeating_week[]" />&nbsp;<?php echo $value ?></label><br /></li>
+					<li><label><input autocomplete="off" type="checkbox" value="<?php echo esc_attr($key); ?>" <?php if (is_array($event_repeating_week)) echo(in_array($key, $event_repeating_week) ? 'checked' : '') ?> name="event_repeating_week[]" />&nbsp;<?php echo esc_html($value); ?></label><br /></li>
 					<?php endforeach; ?>
 
                 </ul>
@@ -49,7 +49,7 @@
                 </label>
             </th>
             <td>
-                <input autocomplete="off" type="text" value="<?php echo $event_date ?>" id="event_date" name="event_date" readonly="" />
+                <input autocomplete="off" type="text" value="<?php echo esc_attr($event_date); ?>" id="event_date" name="event_date" readonly="" />
             </td>
         </tr>
 
@@ -61,7 +61,7 @@
                 </label>
             </th>
             <td>
-                <input autocomplete="off" type="text" value="<?php echo $event_end_date ?>" id="event_end_date" name="event_end_date" readonly="" />
+                <input autocomplete="off" type="text" value="<?php echo esc_attr($event_end_date); ?>" id="event_end_date" name="event_end_date" readonly="" />
             </td>
         </tr>
 
@@ -141,7 +141,7 @@
 		        </label>
 	        </th>
 	        <td>
-		        <input type="text" value="<?php echo $event_organizer_phone ?>" id="event_organizer_phone" name="event_organizer_phone" autocomplete="off" style="display:inline-block;width: 50%;" />
+		        <input type="text" value="<?php echo esc_attr($event_organizer_phone); ?>" id="event_organizer_phone" name="event_organizer_phone" autocomplete="off" style="display:inline-block;width: 50%;" />
 	        </td>
         </tr>
 
@@ -153,7 +153,7 @@
 		        </label>
 	        </th>
 	        <td>
-		        <input type="text" value="<?php echo $event_organizer_website ?>" id="event_organizer_website" name="event_organizer_website" autocomplete="off" style="display:inline-block;width: 50%;" />
+		        <input type="text" value="<?php echo esc_attr($event_organizer_website); ?>" id="event_organizer_website" name="event_organizer_website" autocomplete="off" style="display:inline-block;width: 50%;" />
 	        </td>
         </tr>
 
@@ -165,7 +165,7 @@
 		        </label>
 	        </th>
 	        <td>
-		        <input type="text" value="<?php echo $event_organizer_name ?>" id="event_organizer_name" name="event_organizer_name" autocomplete="off" style="display:inline-block;width: 50%;" />
+		        <input type="text" value="<?php echo esc_attr($event_organizer_name); ?>" id="event_organizer_name" name="event_organizer_name" autocomplete="off" style="display:inline-block;width: 50%;" />
 	        </td>
         </tr>
 
@@ -181,7 +181,7 @@
 		        </label>
 	        </th>
 	        <td>
-		        <input type="text" value="<?php echo $event_place_phone ?>" id="event_place_phone" name="event_place_phone" autocomplete="off" style="display:inline-block;width: 50%;" />
+		        <input type="text" value="<?php echo esc_attr($event_place_phone); ?>" id="event_place_phone" name="event_place_phone" autocomplete="off" style="display:inline-block;width: 50%;" />
 	        </td>
         </tr>
 
@@ -193,7 +193,7 @@
 		        </label>
 	        </th>
 	        <td>
-		        <input type="text" value="<?php echo $event_place_website ?>" id="event_place_website" name="event_place_website" autocomplete="off" style="display:inline-block;width: 50%;" />
+		        <input type="text" value="<?php echo esc_attr($event_place_website); ?>" id="event_place_website" name="event_place_website" autocomplete="off" style="display:inline-block;width: 50%;" />
 	        </td>
         </tr>
         
@@ -205,7 +205,7 @@
                 </label>
             </th>
             <td>
-                <input type="text" value="<?php echo $event_place_address ?>" id="event_place_address" name="event_place_address" autocomplete="off" style="display:inline-block;width: 79%;" />&nbsp;
+                <input type="text" value="<?php echo esc_attr($event_place_address); ?>" id="event_place_address" name="event_place_address" autocomplete="off" style="display:inline-block;width: 79%;" />&nbsp;
 				<a class="repeatable-add button" style="display: inline-block;" href="#" id="set_event_place"><?php _e('Set Location', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a><br />
                 <br />
 				<?php
@@ -256,7 +256,7 @@
                 </label>
             </th>
             <td>
-                <input type="text" value="<?php echo $event_map_latitude ?>" id="event_map_latitude" name="event_map_latitude" autocomplete="off" /><br />
+                <input type="text" value="<?php echo esc_attr($event_map_latitude); ?>" id="event_map_latitude" name="event_map_latitude" autocomplete="off" /><br />
             </td>
         </tr>
         <tr>
@@ -267,7 +267,7 @@
                 </label>
             </th>
             <td>
-                <input type="text" value="<?php echo $event_map_longitude ?>" id="event_map_longitude" name="event_map_longitude" autocomplete="off" /><br />
+                <input type="text" value="<?php echo esc_attr($event_map_longitude); ?>" id="event_map_longitude" name="event_map_longitude" autocomplete="off" /><br />
             </td>
         </tr>
     </tbody>
@@ -283,8 +283,8 @@
 </style>
 
 <script type="text/javascript">
-var calendar_event_date = "<?php echo $event_date ?>";
-var calendar_event_end_date = "<?php echo $event_end_date ?>";
+var calendar_event_date = "<?php echo esc_js($event_date); ?>";
+var calendar_event_end_date = "<?php echo esc_js($event_end_date); ?>";
 
 (function($){
             
@@ -298,7 +298,7 @@ var calendar_event_end_date = "<?php echo $event_end_date ?>";
 			changeMonth: true,
 			numberOfMonths: 3,
 			showWeek: true,
-			setDate: "<?php echo $event_date ?>",
+			setDate: "<?php echo esc_js($event_date); ?>",
 			onClose: function(selectedDate) {
 				calendar_event_date = selectedDate;
 				jQuery("#event_end_date").datepicker("option", "minDate", selectedDate);
@@ -318,7 +318,7 @@ var calendar_event_end_date = "<?php echo $event_end_date ?>";
 			changeMonth: true,
 			numberOfMonths: 3,
 			showWeek: true,
-			setDate: "<?php echo $event_end_date ?>",
+			setDate: "<?php echo esc_js($event_end_date); ?>",
 			onClose: function(selectedDate) {
 				calendar_event_end_date = selectedDate;
 				//jQuery("#event_date").datepicker("option", "maxDate", selectedDate);

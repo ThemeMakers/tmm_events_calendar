@@ -53,7 +53,7 @@ if ($options['count'] > 0) { ?>
 			<div class="medium-3 columns">
 				<select id="event_listing_period" autocomplete="off">
 					<?php foreach ($period_options as $key => $value){ ?>
-						<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+						<option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($value); ?></option>
 					<?php } ?>
 				</select>
 			</div>

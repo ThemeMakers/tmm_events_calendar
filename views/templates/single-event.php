@@ -93,13 +93,13 @@ if(have_posts()){
 
 			<?php if (has_post_thumbnail() && $thumb) { ?>
 
-				<a href="<?php echo TMM_Helper::get_post_featured_image($post->ID, ''); ?>" class="image-post single-image-link item-overlay">
-					<img src="<?php echo $thumb; ?>" alt="<?php echo $post->post_title; ?>" />
+				<a href="<?php echo esc_url( TMM_Helper::get_post_featured_image($post->ID, '') ); ?>" class="image-post single-image-link item-overlay">
+					<img src="<?php echo esc_url($thumb); ?>" alt="<?php the_title_attribute(); ?>" />
 				</a>
 
 			<?php } ?>
 
-			<h3 class="event-title"><?php echo $post->post_title; ?></h3>
+			<h3 class="event-title"><?php the_title(); ?></h3>
 
 			<?php
 			the_content();
@@ -140,17 +140,17 @@ if(have_posts()){
 
 					<?php if (!empty($event_organizer_name)) { ?>
 						<dt><?php _e('Contact Person', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo $event_organizer_name ?></dd>
+						<dd><?php echo esc_html($event_organizer_name); ?></dd>
 					<?php } ?>
 
 					<?php if (!empty($event_organizer_phone)) { ?>
 						<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo $event_organizer_phone ?></dd>
+						<dd><?php echo esc_html($event_organizer_phone); ?></dd>
 					<?php } ?>
 
 					<?php if (!empty($event_organizer_website)) { ?>
 						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><a target="_blank" href="<?php echo $event_organizer_website ?>"><?php echo $event_organizer_website ?></a></dd>
+						<dd><a target="_blank" href="<?php echo esc_url($event_organizer_website); ?>"><?php echo esc_url($event_organizer_website); ?></a></dd>
 					<?php } ?>
 				</dl>
 
@@ -165,17 +165,17 @@ if(have_posts()){
 
 							<?php if (!empty($event_place_phone)) { ?>
 								<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-								<dd><?php echo $event_place_phone ?></dd>
+								<dd><?php echo esc_html($event_place_phone); ?></dd>
 							<?php } ?>
 
 							<?php if (!empty($event_place_address)) { ?>
 								<dt><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-								<dd><?php echo $event_place_address ?></dd>
+								<dd><?php echo esc_html($event_place_address); ?></dd>
 							<?php } ?>
 
 							<?php if (!empty($event_place_website)) { ?>
 								<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-								<dd><a target="_blank" href="<?php echo $event_place_website ?>"><?php echo $event_place_website ?></a></dd>
+								<dd><a target="_blank" href="<?php echo esc_url($event_place_website); ?>"><?php echo esc_url($event_place_website); ?></a></dd>
 							<?php } ?>
 						</dl>
 					</div>
@@ -187,9 +187,9 @@ if(have_posts()){
 						<div id="map_address" class="google_map">
 							<?php
 							if (class_exists('TMM_Content_Composer')) {
-								$event_map_longitude = get_post_meta($post->ID, 'event_map_longitude', true);
-								$event_map_latitude = get_post_meta($post->ID, 'event_map_latitude', true);
-								$event_map_zoom = get_post_meta($post->ID, 'event_map_zoom', true);
+								$event_map_longitude = (float) get_post_meta($post->ID, 'event_map_longitude', true);
+								$event_map_latitude = (float) get_post_meta($post->ID, 'event_map_latitude', true);
+								$event_map_zoom = (int) get_post_meta($post->ID, 'event_map_zoom', true);
 								echo do_shortcode('[google_map width="375" height="255" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
 							}
 							?>
@@ -211,7 +211,7 @@ if(have_posts()){
 
 					<a href="<?php echo get_the_permalink($prev_post->ID); ?>" class="prev">
 						<?php _e('Previous article', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>
-						<b><?php echo $prev_post->post_title; ?></b>
+						<b><?php echo esc_html($prev_post->post_title); ?></b>
 					</a>
 
 				<?php } ?>
@@ -220,7 +220,7 @@ if(have_posts()){
 
 					<a href="<?php echo get_the_permalink($next_post->ID); ?>" class="next">
 						<?php _e('Next article', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>
-						<b><?php echo $next_post->post_title; ?></b>
+						<b><?php echo esc_html($next_post->post_title); ?></b>
 					</a>
 
 				<?php } ?>
@@ -230,7 +230,7 @@ if(have_posts()){
 		<?php } ?>
 
 		<?php if ($events_button_url) { ?>
-		<a href="<?php echo $events_button_url; ?>" class="back-link"><?php _e('All Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
+		<a href="<?php echo esc_url($events_button_url); ?>" class="back-link"><?php _e('All Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
 		<?php } ?>
 
 		<hr/>

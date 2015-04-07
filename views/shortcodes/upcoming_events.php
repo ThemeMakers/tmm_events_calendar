@@ -27,7 +27,7 @@
                 <li>
                     <div class="post-content">
 						<h5 class="title">
-							<a href="<?php echo $event['url'] ?>"><?php echo $event['title'] ?></a>
+							<a href="<?php echo esc_url($event['url']); ?>"><?php echo esc_html($event['title']); ?></a>
 						</h5>
                         <p>
                             <span class="month"><?php echo ucfirst(date("F", $event['start_mktime'])); ?></span>
