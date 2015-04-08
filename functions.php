@@ -45,42 +45,42 @@ if (!function_exists('tmm_get_days_of_week')) {
 	}
 }
 
-if (!function_exists('tmm_get_months_names')) {
-	function tmm_get_months_names($num) {
+if (!function_exists('tmm_get_month_name')) {
+	function tmm_get_month_name($num) {
 		$months = array(
-			0 => __('January', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			1 => __('February', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			2 => __('March', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			3 => __('April', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			4 => __('May', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			5 => __('June', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			6 => __('July', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			7 => __('August', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			8 => __('September', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			9 => __('October', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			10 => __('November', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			11 => __('December', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+			1 => esc_js( __("January", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			2 => esc_js( __("February", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			3 => esc_js( __("March", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			4 => esc_js( __("April", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			5 => esc_js( __("May", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			6 => esc_js( __("June", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			7 => esc_js( __("July", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			8 => esc_js( __("August", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			9 => esc_js( __("September", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			10 => esc_js( __("October", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			11 => esc_js( __("November", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			12 => esc_js( __("December", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
 		);
 
 		return $months[$num];
 	}
 }
 
-if (!function_exists('tmm_get_short_months_names')) {
-	function tmm_get_short_months_names($num) {
+if (!function_exists('tmm_get_short_month_name')) {
+	function tmm_get_short_month_name($num) {
 		$months = array(
-			0 => __('jan', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			1 => __('feb', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			2 => __('mar', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			3 => __('apr', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			4 => __('may', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			5 => __('jun', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			6 => __('jul', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			7 => __('aug', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			8 => __('sep', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			9 => __('oct', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			10 => __('nov', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			11 => __('dec', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+			1 => esc_js( __('Jan', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			2 => esc_js( __('Feb', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			3 => esc_js( __('Mar', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			4 => esc_js( __('Apr', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			5 => esc_js( __('May', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			6 => esc_js( __('Jun', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			7 => esc_js( __('Jul', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			8 => esc_js( __('Aug', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			9 => esc_js( __('Sep', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			10=> esc_js( __('Oct', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			11 => esc_js( __('Nov', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			12 => esc_js( __('Dec', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
 		);
 
 		return $months[$num];

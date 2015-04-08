@@ -1,5 +1,4 @@
 <?php
-global $wp_locale;
 
 if (!empty($events)){
 
@@ -16,7 +15,7 @@ if (!empty($events)){
 
 		$event_date = TMM_Event::get_event_date($event['start_mktime']);
 		$day = date('d', $event['start_mktime']);
-		$month = $wp_locale->get_month_abbrev( date('F', $event['start_mktime']) );
+		$month = tmm_get_short_month_name( date('n', $event['start_mktime']) );
 
 		$ev_end_mktime = (int) get_post_meta($event['post_id'], 'ev_end_mktime', true);
 		$event_end_date = TMM_Event::get_event_date($event['end_mktime']);

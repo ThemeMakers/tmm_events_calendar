@@ -30,11 +30,10 @@ if (isset($show_period_selector)) {
 }
 
 if ($options['show_period_selector'] && isset($period_selector_amount)) {
-	global $wp_locale;
 	$next_timestamp = $start;
 
 	for ($i=0, $ic=$period_selector_amount; $i<$ic; $i++) {
-		$month_name = $wp_locale->get_month( date('m', $next_timestamp) );
+		$month_name = tmm_get_month_name( date('n', $next_timestamp) );
 		$year = date('Y', $next_timestamp);
 		$period_options[$next_timestamp] = $month_name . ' ' . $year;
 

@@ -1,6 +1,4 @@
 <?php
-global $wp_locale;
-
 $now = current_time('timestamp');
 $events = array();
 $event_type = isset($instance['event_type']) ? (int) $instance['event_type'] : 0;
@@ -34,7 +32,7 @@ if (is_array($events) && !empty($events)) {
 			foreach ($events as $event) {
 				$thumb = (class_exists('TMM_Helper') && $event['featured_image_src']) ? TMM_Helper::resize_image($event['featured_image_src'], $thumb_size) : '';
 				$day = date('d', $event['start_mktime']);
-				$month = $wp_locale->get_month_abbrev( date('F', $event['start_mktime']) );
+				$month = tmm_get_short_month_name( date('n', $event['start_mktime']) );
 				?>
 
 				<li <?php if ($thumb) { ?>class="has-thumb"<?php } ?>>

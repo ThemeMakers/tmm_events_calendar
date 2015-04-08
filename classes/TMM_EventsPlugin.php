@@ -266,56 +266,64 @@ class TMM_EventsPlugin {
 		wp_enqueue_script('events_js', TMM_EVENTS_PLUGIN_URI . 'js/general.js');
 		wp_enqueue_script('events_calendar_js', TMM_EVENTS_PLUGIN_URI . 'js/fullcalendar.min.js');
 
-		global $wp_locale;
+		$week_days = array(
+			'sunday' => esc_js( __("Sunday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			'monday' => esc_js( __("Monday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			'tuesday' => esc_js( __("Tuesday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			'wednesday' => esc_js( __("Wednesday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			'thursday' => esc_js( __("Thursday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			'friday' => esc_js( __("Friday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			'saturday' => esc_js( __("Saturday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+		);
 		?>
 		<script type="text/javascript">
-			var tmm_lang_no_events = "<?php _e("No events at this period!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
+			var tmm_lang_no_events = "<?php echo esc_js( __("No events at this period!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
 			
-			var lang_january = "<?php _e("January", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_february = "<?php _e("February", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_march = "<?php _e("March", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_april = "<?php _e("April", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_may = "<?php _e("May", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_june = "<?php _e("June", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_july = "<?php _e("July", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_august = "<?php _e("August", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_september = "<?php _e("September", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_october = "<?php _e("October", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_november = "<?php _e("November", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_december = "<?php _e("December", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
+			var lang_january =  "<?php echo tmm_get_month_name(1); ?>";
+			var lang_february = "<?php echo tmm_get_month_name(2); ?>";
+			var lang_march =    "<?php echo tmm_get_month_name(3); ?>";
+			var lang_april =    "<?php echo tmm_get_month_name(4); ?>";
+			var lang_may =      "<?php echo tmm_get_month_name(5); ?>";
+			var lang_june =     "<?php echo tmm_get_month_name(6); ?>";
+			var lang_july =     "<?php echo tmm_get_month_name(7); ?>";
+			var lang_august =   "<?php echo tmm_get_month_name(8); ?>";
+			var lang_september = "<?php echo tmm_get_month_name(9); ?>";
+			var lang_october =  "<?php echo tmm_get_month_name(10); ?>";
+			var lang_november = "<?php echo tmm_get_month_name(11); ?>";
+			var lang_december = "<?php echo tmm_get_month_name(12); ?>";
 
-			var lang_jan = "<?php _e("Jan", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_feb = "<?php _e("Feb", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_mar = "<?php _e("Mar", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_apr = "<?php _e("Apr", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_may = "<?php _e("May", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_jun = "<?php _e("Jun", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_jul = "<?php _e("Jul", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_aug = "<?php _e("Aug", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_sep = "<?php _e("Sep", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_oct = "<?php _e("Oct", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_nov = "<?php _e("Nov", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_dec = "<?php _e("Dec", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
+			var lang_jan = "<?php echo tmm_get_short_month_name(1); ?>";
+			var lang_feb = "<?php echo tmm_get_short_month_name(2); ?>";
+			var lang_mar = "<?php echo tmm_get_short_month_name(3); ?>";
+			var lang_apr = "<?php echo tmm_get_short_month_name(4); ?>";
+			var lang_may = "<?php echo tmm_get_short_month_name(5); ?>";
+			var lang_jun = "<?php echo tmm_get_short_month_name(6); ?>";
+			var lang_jul = "<?php echo tmm_get_short_month_name(7); ?>";
+			var lang_aug = "<?php echo tmm_get_short_month_name(8); ?>";
+			var lang_sep = "<?php echo tmm_get_short_month_name(9); ?>";
+			var lang_oct = "<?php echo tmm_get_short_month_name(10); ?>";
+			var lang_nov = "<?php echo tmm_get_short_month_name(11); ?>";
+			var lang_dec = "<?php echo tmm_get_short_month_name(12); ?>";
 
-			var lang_sunday = "<?php _e("Sunday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_monday = "<?php _e("Monday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_tuesday = "<?php _e("Tuesday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_wednesday = "<?php _e("Wednesday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_thursday = "<?php _e("Thursday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_friday = "<?php _e("Friday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_saturday = "<?php _e("Saturday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
+			var lang_sunday =   "<?php echo $week_days['sunday']; ?>";
+			var lang_monday =   "<?php echo $week_days['monday']; ?>";
+			var lang_tuesday =  "<?php echo $week_days['tuesday']; ?>";
+			var lang_wednesday = "<?php echo $week_days['wednesday']; ?>";
+			var lang_thursday = "<?php echo $week_days['thursday']; ?>";
+			var lang_friday =   "<?php echo $week_days['friday']; ?>";
+			var lang_saturday = "<?php echo $week_days['saturday']; ?>";
 
-			var lang_sun = "<?php echo $wp_locale->get_weekday_abbrev('Sunday') ?>";
-			var lang_mon = "<?php echo $wp_locale->get_weekday_abbrev('Monday') ?>";
-			var lang_tue = "<?php echo $wp_locale->get_weekday_abbrev('Tuesday') ?>";
-			var lang_wed = "<?php echo $wp_locale->get_weekday_abbrev('Wednesday') ?>";
-			var lang_thu = "<?php echo $wp_locale->get_weekday_abbrev('Thursday') ?>";
-			var lang_fri = "<?php echo $wp_locale->get_weekday_abbrev('Friday') ?>";
-			var lang_sat = "<?php echo $wp_locale->get_weekday_abbrev('Saturday') ?>";
+			var lang_sun = "<?php echo substr( $week_days['sunday'], 0, 3); ?>";
+			var lang_mon = "<?php echo substr( $week_days['monday'], 0, 3); ?>";
+			var lang_tue = "<?php echo substr( $week_days['tuesday'], 0, 3); ?>";
+			var lang_wed = "<?php echo substr( $week_days['wednesday'], 0, 3); ?>";
+			var lang_thu = "<?php echo substr( $week_days['thursday'], 0, 3); ?>";
+			var lang_fri = "<?php echo substr( $week_days['friday'], 0, 3); ?>";
+			var lang_sat = "<?php echo substr( $week_days['saturday'], 0, 3); ?>";
 
-			var lang_time = "<?php _e("Time", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var lang_place = "<?php _e("Place", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
-			var error_fetching_events = "<?php _e("there was an error while fetching events!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>";
+			var lang_time = "<?php echo esc_js( __("Time", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
+			var lang_place = "<?php echo esc_js( __("Place", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
+			var error_fetching_events = "<?php echo esc_js( __("There was an error while fetching events!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
 
 			var events_time_format = "<?php echo (int) tmm_events_get_option("tmm_events_time_format"); ?>";
 			var events_date_format = <?php echo (int) tmm_events_get_option('tmm_events_date_format'); ?>;

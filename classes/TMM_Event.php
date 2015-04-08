@@ -640,7 +640,7 @@ class TMM_Event {
 		$result['count'] = count($events);
 
 		$result['year'] = date("Y", $start);
-		$result['month'] = tmm_get_months_names(date("m", $start) - 1);
+		$result['month'] = tmm_get_month_name(date("n", $start));
 		$result['month_num'] = date("m", $start);
 
 		if ($is_ajax) {
@@ -761,8 +761,7 @@ class TMM_Event {
 	}
 	
 	public static function get_event_date($timestamp) {
-		$date = '';
-		$month = ucfirst(tmm_get_short_months_names(date('n', $timestamp) - 1));
+		$month = tmm_get_short_month_name( date('n', $timestamp) );
 		$day = date('d', (int) $timestamp);
 		$year = date('Y', (int) $timestamp);
 		
