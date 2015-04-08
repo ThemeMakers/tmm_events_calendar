@@ -36,9 +36,18 @@ if (!empty($events)){
 			$event_end_time = TMM_Event::get_event_time($ev_end_mktime);
 		}
 
+		$article_class = 'event';
+
+		if (!$thumb) {
+			$article_class .= ' no-image';
+		}
+
+		if (class_exists('TMM') && TMM::get_option("tmm_events_listing_effect") !== 'none') {
+			$article_class .= ' ' . TMM::get_option("tmm_events_listing_effect");
+		}
 		?>
 
-		<article class="event<?php if (!$thumb) echo ' no-image'; ?>">
+		<article class="<?php echo $article_class; ?>">
 
 			<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
 

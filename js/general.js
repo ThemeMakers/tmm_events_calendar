@@ -291,6 +291,13 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 
 				if (response['html'].length > 11) {
 					jQuery("#events_listing").html(response['html']);
+
+					if (window.Tmm_animateElements) {
+						setTimeout(function(){
+							window.Tmm_animateElements();
+						}, 300);
+					}
+
 				} else {
 					jQuery("#events_listing").html('<li class="tmm_no_events">' + tmm_lang_no_events + '</li>');
 				}
