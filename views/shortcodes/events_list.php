@@ -35,9 +35,16 @@ if ($options['show_period_selector'] && isset($period_selector_amount)) {
 	for ($i=0, $ic=$period_selector_amount; $i<$ic; $i++) {
 		$month_name = tmm_get_month_name( date('n', $next_timestamp) );
 		$year = date('Y', $next_timestamp);
-		$period_options[$next_timestamp] = $month_name . ' ' . $year;
+		$option = array(
+			'title' => $month_name . ' ' . $year,
+			'start' => $next_timestamp,
+		);
 
 		$next_timestamp = strtotime("next month", $next_timestamp);
+
+		$option['end'] = $next_timestamp;
+
+		$period_options[] = $option;
 	}
 }
 
@@ -52,7 +59,7 @@ if ($options['count'] > 0) { ?>
 			<div class="medium-3 columns">
 				<select id="event_listing_period" autocomplete="off">
 					<?php foreach ($period_options as $key => $value){ ?>
-						<option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($value); ?></option>
+						<option value="<?php echo esc_attr($value['start']); ?>" data-end="<?php echo esc_attr($value['end']); ?>"><?php echo esc_html($value['title']); ?></option>
 					<?php } ?>
 				</select>
 			</div>

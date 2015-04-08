@@ -236,7 +236,7 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 			jQuery("#event_listing_period").change(function() {
 				var opts = options;
 				opts['start'] = jQuery(this).val();
-				opts['end'] = 0;
+				opts['end'] = jQuery(this).find('option').filter(':selected').data('end');
 
 				self.update_events_listing(opts);
 			});
