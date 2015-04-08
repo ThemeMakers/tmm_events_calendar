@@ -274,7 +274,7 @@ class TMM_EventsPlugin {
 			var lang_february = "<?php echo tmm_get_month_name(2); ?>";
 			var lang_march =    "<?php echo tmm_get_month_name(3); ?>";
 			var lang_april =    "<?php echo tmm_get_month_name(4); ?>";
-			var lang_may_full = "<?php echo tmm_get_month_name(5); ?>";
+			var lang_may =      "<?php echo tmm_get_month_name(5); ?>";
 			var lang_june =     "<?php echo tmm_get_month_name(6); ?>";
 			var lang_july =     "<?php echo tmm_get_month_name(7); ?>";
 			var lang_august =   "<?php echo tmm_get_month_name(8); ?>";
@@ -282,19 +282,6 @@ class TMM_EventsPlugin {
 			var lang_october =  "<?php echo tmm_get_month_name(10); ?>";
 			var lang_november = "<?php echo tmm_get_month_name(11); ?>";
 			var lang_december = "<?php echo tmm_get_month_name(12); ?>";
-
-			var lang_jan = "<?php echo tmm_get_short_month_name(1); ?>";
-			var lang_feb = "<?php echo tmm_get_short_month_name(2); ?>";
-			var lang_mar = "<?php echo tmm_get_short_month_name(3); ?>";
-			var lang_apr = "<?php echo tmm_get_short_month_name(4); ?>";
-			var lang_may = "<?php echo tmm_get_short_month_name(5); ?>";
-			var lang_jun = "<?php echo tmm_get_short_month_name(6); ?>";
-			var lang_jul = "<?php echo tmm_get_short_month_name(7); ?>";
-			var lang_aug = "<?php echo tmm_get_short_month_name(8); ?>";
-			var lang_sep = "<?php echo tmm_get_short_month_name(9); ?>";
-			var lang_oct = "<?php echo tmm_get_short_month_name(10); ?>";
-			var lang_nov = "<?php echo tmm_get_short_month_name(11); ?>";
-			var lang_dec = "<?php echo tmm_get_short_month_name(12); ?>";
 
 			var lang_sunday =   "<?php echo tmm_get_weekday(0); ?>";
 			var lang_monday =   "<?php echo tmm_get_weekday(1); ?>";
