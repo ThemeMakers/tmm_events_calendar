@@ -93,7 +93,7 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 				},
 				editable: false,
 				firstDay: self.arguments.first_day,
-				monthNames: [lang_january, lang_february, lang_march, lang_april, lang_may, lang_june, lang_july, lang_august, lang_september, lang_october, lang_november, lang_december],
+				monthNames: [lang_january, lang_february, lang_march, lang_april, lang_may_full, lang_june, lang_july, lang_august, lang_september, lang_october, lang_november, lang_december],
 				monthNamesShort: [lang_jan, lang_feb, lang_mar, lang_apr, lang_may, lang_jun, lang_jul, lang_aug, lang_sep, lang_oct, lang_nov, lang_dec],
 				dayNames: [lang_sunday, lang_monday, lang_tuesday, lang_wednesday, lang_thursday, lang_friday, lang_saturday],
 				dayNamesShort: day_names_short,

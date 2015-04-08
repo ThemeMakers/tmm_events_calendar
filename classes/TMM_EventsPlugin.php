@@ -265,17 +265,8 @@ class TMM_EventsPlugin {
 		wp_enqueue_style("events_calendar_css", TMM_EVENTS_PLUGIN_URI . 'css/calendar.css');
 		wp_enqueue_script('events_js', TMM_EVENTS_PLUGIN_URI . 'js/general.js');
 		wp_enqueue_script('events_calendar_js', TMM_EVENTS_PLUGIN_URI . 'js/fullcalendar.min.js');
-
-		$week_days = array(
-			'sunday' => esc_js( __("Sunday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
-			'monday' => esc_js( __("Monday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
-			'tuesday' => esc_js( __("Tuesday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
-			'wednesday' => esc_js( __("Wednesday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
-			'thursday' => esc_js( __("Thursday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
-			'friday' => esc_js( __("Friday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
-			'saturday' => esc_js( __("Saturday", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
-		);
 		?>
+
 		<script type="text/javascript">
 			var tmm_lang_no_events = "<?php echo esc_js( __("No events at this period!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
 			
@@ -283,7 +274,7 @@ class TMM_EventsPlugin {
 			var lang_february = "<?php echo tmm_get_month_name(2); ?>";
 			var lang_march =    "<?php echo tmm_get_month_name(3); ?>";
 			var lang_april =    "<?php echo tmm_get_month_name(4); ?>";
-			var lang_may =      "<?php echo tmm_get_month_name(5); ?>";
+			var lang_may_full = "<?php echo tmm_get_month_name(5); ?>";
 			var lang_june =     "<?php echo tmm_get_month_name(6); ?>";
 			var lang_july =     "<?php echo tmm_get_month_name(7); ?>";
 			var lang_august =   "<?php echo tmm_get_month_name(8); ?>";
@@ -305,21 +296,21 @@ class TMM_EventsPlugin {
 			var lang_nov = "<?php echo tmm_get_short_month_name(11); ?>";
 			var lang_dec = "<?php echo tmm_get_short_month_name(12); ?>";
 
-			var lang_sunday =   "<?php echo $week_days['sunday']; ?>";
-			var lang_monday =   "<?php echo $week_days['monday']; ?>";
-			var lang_tuesday =  "<?php echo $week_days['tuesday']; ?>";
-			var lang_wednesday = "<?php echo $week_days['wednesday']; ?>";
-			var lang_thursday = "<?php echo $week_days['thursday']; ?>";
-			var lang_friday =   "<?php echo $week_days['friday']; ?>";
-			var lang_saturday = "<?php echo $week_days['saturday']; ?>";
+			var lang_sunday =   "<?php echo tmm_get_weekday(0); ?>";
+			var lang_monday =   "<?php echo tmm_get_weekday(1); ?>";
+			var lang_tuesday =  "<?php echo tmm_get_weekday(2); ?>";
+			var lang_wednesday = "<?php echo tmm_get_weekday(3); ?>";
+			var lang_thursday = "<?php echo tmm_get_weekday(4); ?>";
+			var lang_friday =   "<?php echo tmm_get_weekday(5); ?>";
+			var lang_saturday = "<?php echo tmm_get_weekday(6); ?>";
 
-			var lang_sun = "<?php echo substr( $week_days['sunday'], 0, 3); ?>";
-			var lang_mon = "<?php echo substr( $week_days['monday'], 0, 3); ?>";
-			var lang_tue = "<?php echo substr( $week_days['tuesday'], 0, 3); ?>";
-			var lang_wed = "<?php echo substr( $week_days['wednesday'], 0, 3); ?>";
-			var lang_thu = "<?php echo substr( $week_days['thursday'], 0, 3); ?>";
-			var lang_fri = "<?php echo substr( $week_days['friday'], 0, 3); ?>";
-			var lang_sat = "<?php echo substr( $week_days['saturday'], 0, 3); ?>";
+			var lang_sun = "<?php echo tmm_get_short_weekday(0); ?>";
+			var lang_mon = "<?php echo tmm_get_short_weekday(1); ?>";
+			var lang_tue = "<?php echo tmm_get_short_weekday(2); ?>";
+			var lang_wed = "<?php echo tmm_get_short_weekday(3); ?>";
+			var lang_thu = "<?php echo tmm_get_short_weekday(4); ?>";
+			var lang_fri = "<?php echo tmm_get_short_weekday(5); ?>";
+			var lang_sat = "<?php echo tmm_get_short_weekday(6); ?>";
 
 			var lang_time = "<?php echo esc_js( __("Time", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
 			var lang_place = "<?php echo esc_js( __("Place", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
@@ -328,6 +319,7 @@ class TMM_EventsPlugin {
 			var events_time_format = "<?php echo (int) tmm_events_get_option("tmm_events_time_format"); ?>";
 			var events_date_format = <?php echo (int) tmm_events_get_option('tmm_events_date_format'); ?>;
 		</script>
+
 		<?php
 	}
 

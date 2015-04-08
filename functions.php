@@ -29,16 +29,32 @@ if (!function_exists('tmm_events_get_option')) {
 	}
 }
 
-if (!function_exists('tmm_get_days_of_week')) {
-	function tmm_get_days_of_week($num) {
+if (!function_exists('tmm_get_weekday')) {
+	function tmm_get_weekday($num) {
 		$days = array(
-			0 => __('Sunday', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			1 => __('Monday', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			2 => __('Tuesday', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			3 => __('Wednesday', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			4 => __('Thursday', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			5 => __('Friday', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-			6 => __('Saturday', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+			0 => esc_js( __('Sunday', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			1 => esc_js( __('Monday', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			2 => esc_js( __('Tuesday', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			3 => esc_js( __('Wednesday', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			4 => esc_js( __('Thursday', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			5 => esc_js( __('Friday', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			6 => esc_js( __('Saturday', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+		);
+
+		return $days[$num];
+	}
+}
+
+if (!function_exists('tmm_get_short_weekday')) {
+	function tmm_get_short_weekday($num) {
+		$days = array(
+			0 => esc_js( __('Sun', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			1 => esc_js( __('Mon', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			2 => esc_js( __('Tue', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			3 => esc_js( __('Wed', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			4 => esc_js( __('Thu', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			5 => esc_js( __('Fri', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
+			6 => esc_js( __('Sat', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ),
 		);
 
 		return $days[$num];

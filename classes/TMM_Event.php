@@ -547,11 +547,11 @@ class TMM_Event {
 			$repeating_days = get_post_meta($post_id, 'event_repeating_week', true);
             if(is_array($repeating_days)){
                 foreach ($repeating_days as $v) {
-                    $days[] = tmm_get_days_of_week($v);
+                    $days[] = tmm_get_weekday($v);
                 }
             }
 		}else{
-			$days[] = tmm_get_days_of_week(date('N', $ev_mktime)-1);
+			$days[] = tmm_get_weekday(date('N', $ev_mktime)-1);
 		}
 		
 		for($i=0,$ic=count($days);$i<$ic;$i++) {
