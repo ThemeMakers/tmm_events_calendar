@@ -651,7 +651,7 @@ class TMM_Event {
 		}
 	}
 
-	public static function get_events_by_id($post_id, $ev_mktime = '', $ev_end_mktime = ''){
+	public static function get_events_by_id($post_id, $ev_mktime = '', $ev_end_mktime = '', $single = false){
 		$start = current_time('timestamp');
 
 		if (!$ev_mktime) {
@@ -692,6 +692,17 @@ class TMM_Event {
 		}
 
 		usort($filtered_events, array(__CLASS__, 'usort_desc'));
+
+		/* remove dublicated repeating events */
+		if ($single) {
+			$tmp = array();
+			foreach ($filtered_events as $k => $v) {
+				if (!isset($tmp[ $v['post_id'] ] )) {
+					$tmp[ $v['post_id'] ] = $v;
+				}
+			}
+			$filtered_events = $tmp;
+		}
 
 		return $filtered_events;
 	}

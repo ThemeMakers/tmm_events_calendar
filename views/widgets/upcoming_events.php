@@ -7,7 +7,7 @@ $event_list = isset($instance['event_list']) ? $instance['event_list'] : '';
 if ($event_type == 1) {
 	if (!empty($event_list)) {
 		$event_list = array_map('intval', $event_list);
-		$events = TMM_Event::get_events_by_id($event_list);
+		$events = TMM_Event::get_events_by_id($event_list, '', '', 1);
 	}
 } else {
 	$month_deep = isset($instance['month_deep']) ? (int) $instance['month_deep'] : 0;
