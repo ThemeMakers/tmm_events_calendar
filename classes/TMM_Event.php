@@ -570,6 +570,8 @@ class TMM_Event {
 		$request_end = 0;
 		$category = 0;
 		$order = 'DESC';
+		$count = 6;
+		$page_num = 0;
 		$is_ajax = 0;
 
 		if (isset($_POST['events_list_args'])) {
@@ -588,6 +590,12 @@ class TMM_Event {
 		}
 		if (isset($args['order'])) {
 			$order = $args['order'];
+		}
+		if (isset($args['count'])) {
+			$count = (int) $args['count'];
+		}
+		if (isset($args['page_num'])) {
+			$page_num = (int) $args['page_num'];
 		}
 
 		$now = current_time('timestamp');
@@ -634,7 +642,7 @@ class TMM_Event {
 		$events = $filtered_events;
 
 		$args = array();
-		$args['events'] = $events;
+		$args['events'] = array_slice($events, $page_num * $count, $count);
 		$result = array();
 		$result['html'] = tmm_locate_template(TMM_EVENTS_PLUGIN_PATH . '/views/templates/content-event.php', $args, false);
 		$result['count'] = count($events);

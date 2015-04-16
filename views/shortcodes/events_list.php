@@ -22,7 +22,7 @@ if (isset($sorting)) {
 }
 
 if (isset($count)) {
-	$options['count'] = $count ? $count : 0;
+	$options['count'] = (int) $count;
 }
 
 if (isset($show_period_selector)) {

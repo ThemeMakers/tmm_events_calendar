@@ -216,13 +216,25 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 		floor_year: null,
 		curent_events_time: null,
 		events_on_page: 0,
-		current_event_page: 0, //for pagination
 		articles_on_page: 5,
+		spinner: '',
 		init: function(options) {
 
 			self.floor_month = self.get_current_month();
 			self.floor_year = self.get_current_year();
 			self.articles_on_page = parseInt(options['count']);
+			self.spinner = jQuery('<div id="tmm_events_spinner" class="spinner">\
+								<div id="spinningSquaresG">\
+									<div id="spinningSquaresG_1" class="spinningSquaresG"></div>\
+									<div id="spinningSquaresG_2" class="spinningSquaresG"></div>\
+									<div id="spinningSquaresG_3" class="spinningSquaresG"></div>\
+									<div id="spinningSquaresG_4" class="spinningSquaresG"></div>\
+									<div id="spinningSquaresG_5" class="spinningSquaresG"></div>\
+									<div id="spinningSquaresG_6" class="spinningSquaresG"></div>\
+									<div id="spinningSquaresG_7" class="spinningSquaresG"></div>\
+									<div id="spinningSquaresG_8" class="spinningSquaresG"></div>\
+								</div>\
+							</div>');
 
 			if( jQuery("#event_listing_period").length && !jQuery("#events_listing_month").length ) {
 
@@ -231,43 +243,40 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 				}
 			}
 
+			options['page_num'] = 0;
             self.update_events_listing(options);
 
 			jQuery("#event_listing_period").change(function() {
 				var opts = options;
 				opts['start'] = jQuery(this).val();
 				opts['end'] = jQuery(this).find('option').filter(':selected').data('end');
+				opts['page_num'] = 0;
 
 				self.update_events_listing(opts);
 			});
 
 			jQuery('.events_listing_navigation a').live('click', function() {
+				var opts = options,
+					period_selector = jQuery("#event_listing_period");
 
-                if(jQuery(this).hasClass('current')){
-                    return false;
-                }
-
-				jQuery('.events_listing_navigation a').removeClass('current');
-				jQuery(this).addClass('current');
-				jQuery('#events_listing > article').hide(200);
-
-				var page_id = jQuery(this).data('page-id'),
-					i = page_id * self.articles_on_page,
-					ic = page_id * self.articles_on_page + self.articles_on_page;
-
-				for (i; i < ic; i++) {
-					jQuery("#events_listing").find('article').eq(i).show(200);
+				if (period_selector.length) {
+					opts['start'] = period_selector.val();
+					opts['end'] = period_selector.find('option').filter(':selected').data('end');
 				}
 
-                self.current_event_page = page_id;
-                self.check_pagination();
-				jQuery('html, body').scrollTop(0);
+				opts['page_num'] = jQuery(this).data('page-id');
+
+				jQuery("#events_listing > article, .events_listing_navigation").hide();
+
+				self.update_events_listing(opts);
+
+				jQuery('html, body').animate({scrollTop:0}, 300);
 				return false;
 			});
 
 		},
 		update_events_listing: function(options) {
-			jQuery('#infscr-loading').animate({opacity: 'show'}, 333);
+			jQuery('#events_listing').append( self.spinner );
 
 			self.curent_events_time = options['start'];
 
@@ -296,17 +305,20 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 						setTimeout(function(){
 							window.Tmm_animateElements();
 						}, 300);
+					} else {
+						jQuery("#events_listing").find('article').animate({'opacity': 1}, 300);
 					}
+
+					self.events_on_page = parseInt(response['count']);
+					self.check_pagination();
+					self.draw_pagination( options['page_num'] );
 
 				} else {
 					jQuery("#events_listing").html('<li class="tmm_no_events">' + tmm_lang_no_events + '</li>');
+					self.check_pagination();
 				}
 
-				self.events_on_page = parseInt(response['count']);
-				self.draw_pagination();
-                self.check_pagination();
-
-				jQuery('#infscr-loading').animate({opacity: 'hide'}, 333);
+				jQuery('#tmm_events_spinner').remove();
 
 			});
 		},
@@ -318,17 +330,24 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
                 jQuery('.events_listing_navigation').hide();
             }
 		},
-		draw_pagination: function() {
-			jQuery("#events_listing").find('article').hide();
-			//***
+		draw_pagination: function(index) {
 			jQuery(".events_listing_navigation").html("");
+			index = parseInt(index);
+
 			for (var i = 0; i < Math.ceil(self.events_on_page / self.articles_on_page); i++) {
-				var css_class = 'page-numbers';
-				var pagination_string = jQuery('<a>').addClass(css_class).attr('href', '#').attr('data-page-id', i).text(i + 1);
-				jQuery('.events_listing_navigation').append(pagination_string);
+				var css_class = 'page-numbers',
+					tag = 'a',
+					pagination_string = '';
+
+				if (i === index) {
+					css_class += ' current';
+					tag = 'span';
+				}
+
+				pagination_string = '<' + tag + ' class="' + css_class + '" data-page-id="' + i + '">' + (i + 1) + '</' + tag + '>';
+				jQuery('.events_listing_navigation').append( jQuery(pagination_string) );
 			}
 
-			jQuery('.events_listing_navigation a').eq(0).trigger('click');
 		},
 		daysInMonth: function(month, year) {
 			return new Date(year, month, 0).getDate();
