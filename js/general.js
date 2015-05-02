@@ -223,18 +223,15 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 			self.floor_month = self.get_current_month();
 			self.floor_year = self.get_current_year();
 			self.articles_on_page = parseInt(options['count']);
-			self.spinner = jQuery('<div id="tmm_events_spinner" class="spinner">\
-								<div id="spinningSquaresG">\
-									<div id="spinningSquaresG_1" class="spinningSquaresG"></div>\
-									<div id="spinningSquaresG_2" class="spinningSquaresG"></div>\
-									<div id="spinningSquaresG_3" class="spinningSquaresG"></div>\
-									<div id="spinningSquaresG_4" class="spinningSquaresG"></div>\
-									<div id="spinningSquaresG_5" class="spinningSquaresG"></div>\
-									<div id="spinningSquaresG_6" class="spinningSquaresG"></div>\
-									<div id="spinningSquaresG_7" class="spinningSquaresG"></div>\
-									<div id="spinningSquaresG_8" class="spinningSquaresG"></div>\
-								</div>\
-							</div>');
+			self.spinner = jQuery('<div id="tmm_events_spinner" class="infscr-loading_wrap">\
+									<div id="infscr-loading">\
+										<div id="facebookG">\
+											<div id="blockG_1" class="facebook_blockG"></div>\
+											<div id="blockG_2" class="facebook_blockG"></div>\
+											<div id="blockG_3" class="facebook_blockG"></div>\
+										</div>\
+									</div>\
+								</div>');
 
 			if( jQuery("#event_listing_period").length && !jQuery("#events_listing_month").length ) {
 

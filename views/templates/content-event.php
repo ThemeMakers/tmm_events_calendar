@@ -2,7 +2,7 @@
 
 if (!empty($events)){
 
-	$thumb_size = '745*450';
+	$thumb_size = '500*260';
 
 	foreach ($events as $event) {
 
@@ -36,7 +36,7 @@ if (!empty($events)){
 			$event_end_time = TMM_Event::get_event_time($ev_end_mktime);
 		}
 
-		$article_class = 'event';
+		$article_class = 'entry event post';
 
 		if (!$thumb) {
 			$article_class .= ' no-image';
@@ -49,80 +49,107 @@ if (!empty($events)){
 
 		<article class="<?php echo $article_class; ?>">
 
-			<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
+			<div class="entry-meta">
+				<h2 class="entry-title">
+					<a href="<?php echo esc_url($event['url']); ?>"><?php echo esc_html($event['title']); ?></a>
+				</h2>
+			</div><!--/ .entry-meta-->
 
-			<?php if ($thumb) { ?>
+			<div class="entry-body row_container">
 
-				<a href="<?php echo esc_url($event['url']); ?>" class="image-post  item-overlay">
-					<img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr($event['title']); ?>">
-				</a>
+				<div class="event-desc nine columns">
 
-			<?php } ?>
+					<?php if ($thumb) { ?>
 
-			<div class="event-content clearfix">
-
-				<h3 class="event-title"><a href="<?php echo esc_url($event['url']); ?>"><?php echo esc_html($event['title']); ?></a></h3>
-
-				<?php if (!$hide_event_place) { ?>
-
-					<div class="event-location">
-						<div id="map_address" class="google_map">
-							<?php
-							$event_map_longitude = (float) get_post_meta($event['post_id'], 'event_map_longitude', true);
-							$event_map_latitude = (float) get_post_meta($event['post_id'], 'event_map_latitude', true);
-							$event_map_zoom = (int) get_post_meta($event['post_id'], 'event_map_zoom', true);
-							$map_size = '255x160';
-							echo '<img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $event_map_latitude . ',' . $event_map_longitude . '&zoom=' . $event_map_zoom . '&size='.$map_size.'&markers=color:red|label:P|' . $event_map_latitude . ',' . $event_map_longitude . '&sensor=false">';
-							?>
+						<div class="work-item">
+							<a href="<?php echo esc_url($event['url']); ?>">
+								<figure>
+									<img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr($event['title']); ?>">
+								</figure>
+							</a>
 						</div>
+
+					<?php } ?>
+
+					<?php if (!empty($event['post_excerpt'])) { ?>
+
+						<p><?php echo esc_html($event['post_excerpt']); ?></p>
+
+					<?php } ?>
+
+				</div><!--/ .event-desc-->
+
+				<div class="event-details five columns">
+
+					<div class="event-start">
+						<strong><?php _e('Start', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+						<span><?php echo $event_date.' '.$event_start_time; ?></span>
 					</div>
 
-				<?php } ?>
+					<div class="event-end">
+						<strong><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+						<span><?php echo $event_end_date.' '.$event_end_time; ?></span>
+					</div>
 
-				<?php if (!empty($event['post_excerpt'])) { ?>
-
-					<p><?php echo esc_html($event['post_excerpt']); ?></p>
-
-				<?php } ?>
-
-			</div>
-
-			<div class="event-details">
-				<dl>
-					<dt><?php _e('Start', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-					<dd><?php echo $event_date.' '.$event_start_time; ?></dd>
-
-					<dt><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-					<dd><?php echo $event_end_date.' '.$event_end_time; ?></dd>
-
-					<?php if($events_show_duration) { ?>
-						<dt><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo $duration_hh . ":" . $duration_mm; ?></dd>
-					<?php } ?>
-				</dl>
-
-				<?php if (!empty($event_place_address)): ?>
-
-				<dl>
-					<?php if (!empty($event_place_phone)) { ?>
-						<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo esc_html($event_place_phone); ?></dd>
+					<?php if ($events_show_duration) { ?>
+						<div class="event-duration">
+							<strong><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+							<span><?php echo $duration_hh . ":" . $duration_mm; ?></span>
+						</div>
 					<?php } ?>
 
-					<?php if (!empty($event_place_address)) { ?>
-						<dt><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo esc_html($event_place_address); ?></dd>
+					<?php if ($repeats_every != "no_repeat") { ?>
+						<div class="e-repeats">
+							<strong><?php _e('Repeats every', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
+							<span><?php echo TMM_Event::$event_repeatings[$repeats_every]; ?></span>
+						</div>
 					<?php } ?>
 
-					<?php if (!empty($event_place_website) && tmm_events_get_option('tmm_events_show_venue_website')) { ?>
-						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><a target="_blank" href="<?php echo esc_url($event_place_website); ?>"><?php echo esc_url($event_place_website); ?></a></dd>
+					<?php if (!empty($event_place_address) || !empty($event_place_phone) || (!empty($event_place_website) && tmm_events_get_option('tmm_events_show_venue_website'))) { ?>
+
+						<?php if (!empty($event_place_phone)) { ?>
+							<div class="event-phone">
+								<strong><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+								<span><?php echo esc_html($event_place_phone); ?></span>
+							</div>
+						<?php } ?>
+
+						<?php if (!empty($event_place_address)) { ?>
+							<div class="event-address">
+								<strong><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+								<span><?php echo esc_html($event_place_address); ?></span>
+							</div>
+						<?php } ?>
+
+						<?php if (!empty($event_place_website) && tmm_events_get_option('tmm_events_show_venue_website')) { ?>
+							<div class="event-website">
+								<strong><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+								<span><a target="_blank" href="<?php echo esc_url($event_place_website); ?>"><?php echo esc_url($event_place_website); ?></a></span>
+							</div>
+						<?php } ?>
+
 					<?php } ?>
-				</dl>
 
-				<?php endif; ?>
+					<?php if (!$hide_event_place) { ?>
+						<div class="gmaps">
 
-			</div><!--/ .event-details-->
+							<figure class="custom-frame">
+								<?php
+								$event_map_longitude = (float) get_post_meta($event['post_id'], 'event_map_longitude', true);
+								$event_map_latitude = (float) get_post_meta($event['post_id'], 'event_map_latitude', true);
+								$event_map_zoom = (int) get_post_meta($event['post_id'], 'event_map_zoom', true);
+								$map_size = '300x150';
+								echo '<img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $event_map_latitude . ',' . $event_map_longitude . '&zoom=' . $event_map_zoom . '&size='.$map_size.'&markers=color:red|label:P|' . $event_map_latitude . ',' . $event_map_longitude . '&sensor=false">';
+								?>
+							</figure>
+
+						</div>
+					<?php } ?>
+
+				</div><!--/ .event-details-->
+
+				<div class="clear"></div>
+			</div><!--/ .entry-body -->
 
 		</article><!--/ .entry-->
 
