@@ -53,10 +53,8 @@ if ($options['count'] > 0) { ?>
 	<?php if ($options['show_period_selector'] && !empty($period_options)) { ?>
 
 		<div class="row events_filter">
-			<div class="medium-9 columns">
-				<label for="event_listing_period"><?php _e('Filter by Month', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>:</label>
-			</div>
-			<div class="medium-3 columns">
+			<label for="event_listing_period"><?php _e('Filter by Month', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ?>:</label>
+			<div class="sel">
 				<select id="event_listing_period" autocomplete="off">
 					<?php foreach ($period_options as $key => $value){ ?>
 						<option value="<?php echo esc_attr($value['start']); ?>" data-end="<?php echo esc_attr($value['end']); ?>"><?php echo esc_html($value['title']); ?></option>
@@ -70,7 +68,7 @@ if ($options['count'] > 0) { ?>
 	<div id="events_listing"></div>
 
 	<div class="pagenavbar">
-		<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
+		<div class="events_listing_navigation wp-pagenavi" style="display:none;clear: both"></div>
 	</div><!--/ .pagenavbar-->
 
 	<script type="text/javascript">

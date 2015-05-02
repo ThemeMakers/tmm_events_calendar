@@ -38,13 +38,13 @@ $options = array(
 <div id="events_listing"></div>
 
 <div class="pagenavbar">
-	<div class="events_listing_navigation pagenavi" style="display:none;clear: both"></div>
+	<div class="events_listing_navigation wp-pagenavi" style="display:none;clear: both"></div>
 </div><!--/ .pagenavbar-->
 
 <script type="text/javascript">
 	jQuery(function() {
-		if (jQuery('.page-title > h1').length) {
-			jQuery('.page-title > h1').append('&nbsp;<span><?php echo esc_js($tmp_date[0]), '-', esc_js($tmp_date[1]), '-', esc_js($tmp_date[2]); ?></span>');
+		if (jQuery('.page-header h1').length) {
+			jQuery('.page-header h1').append('&nbsp;<span><?php echo esc_js($tmp_date[0]), '-', esc_js($tmp_date[1]), '-', esc_js($tmp_date[2]); ?></span>');
 		}
 		var app_event_listing = new THEMEMAKERS_EVENT_EVENTS_LISTING();
 		app_event_listing.init(<?php echo json_encode($options); ?>);
