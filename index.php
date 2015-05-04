@@ -53,3 +53,14 @@ register_activation_hook( __FILE__, array('TMM_EventsPlugin', 'on_plugin_activat
 /* add rewrite rules */
 add_filter( 'query_vars', array('TMM_EventsPlugin', 'add_event_rewrite_var') );
 add_filter( 'init', array('TMM_EventsPlugin', 'add_event_rewrite_rule') );
+
+
+add_action( 'tmm_add_theme_options_tab', 'tmm_events_add_settings_tab', 1 );
+/**
+ * Add Settings tab.
+ */
+function tmm_events_add_settings_tab() {
+	if ( current_user_can('manage_options') && class_exists('TMM_OptionsHelper') ) {
+		include_once TMM_EVENTS_PLUGIN_PATH . '/views/admin/theme_options_tab.php';
+	}
+}
