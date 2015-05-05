@@ -101,7 +101,7 @@ if (!empty($events)){
 					<?php } ?>
 				</dl>
 
-				<?php if (!empty($event_place_address)): ?>
+				<?php if ( !empty($event_place_phone) || !empty($event_place_address) || (!empty($event_place_website) && tmm_events_get_option('tmm_events_show_venue_website')) ) { ?>
 
 				<dl>
 					<?php if (!empty($event_place_phone)) { ?>
@@ -120,7 +120,7 @@ if (!empty($events)){
 					<?php } ?>
 				</dl>
 
-				<?php endif; ?>
+				<?php } ?>
 
 			</div><!--/ .event-details-->
 
