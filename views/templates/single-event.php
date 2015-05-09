@@ -3,7 +3,8 @@ get_header();
 
 global $post;
 
-$thumb_size = '745*450';
+$thumb_type = ($_REQUEST['sidebar_position'] == 'no_sidebar') ? 'single-thumb' : 'single-thumb-small';
+$thumb_size = ($_REQUEST['sidebar_position'] == 'no_sidebar') ? '950*545' : '610*350';
 $thumb = class_exists('TMM_Helper') ? TMM_Helper::get_post_featured_image($post->ID, $thumb_size) : '';
 
 if(have_posts()){
@@ -43,7 +44,7 @@ if(have_posts()){
 		$event_organizer_website = get_post_meta($post->ID, 'event_organizer_website', true);
 		$event_organizer_name = get_post_meta($post->ID, 'event_organizer_name', true);
 
-		$css_classes = 'event';
+		$css_classes = 'entry event';
 
 		if (!$thumb || !has_post_thumbnail()) {
 			$css_classes .= ' no-image';
@@ -86,19 +87,105 @@ if(have_posts()){
 		$month = tmm_get_short_month_name( date('n', $ev_mktime) );
 		?>
 
-		<div id="post-<?php the_ID(); ?>" <?php post_class($css_classes); ?>>
+		<?php if ($events_button_url) { ?>
+			<a href="<?php echo esc_url($events_button_url); ?>" class="button default"><?php _e('All Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
+			<br><br><br>
+		<?php } ?>
 
-			<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
+		<article id="post-<?php the_ID(); ?>" <?php post_class($css_classes); ?>>
 
 			<?php if (has_post_thumbnail() && $thumb) { ?>
 
-				<a href="<?php echo esc_url( TMM_Helper::get_post_featured_image($post->ID, '') ); ?>" class="image-post single-image-link item-overlay">
-					<img src="<?php echo esc_url($thumb); ?>" alt="<?php the_title_attribute(); ?>" />
-				</a>
+				<div class="work-item">
+					<a href="<?php echo esc_url( TMM_Helper::get_post_featured_image($post->ID, '') ); ?>" class="single-image">
+						<figure class="add-border">
+							<?php tmm_post_thumbnail($thumb_type); ?>
+						</figure>
+					</a>
+				</div><!--/ .bordered-->
 
 			<?php } ?>
 
-			<h3 class="event-title"><?php the_title(); ?></h3>
+			<div class="event-details">
+				<div class="event-start">
+					<strong><?php _e('Start', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+					<span><?php echo $event_date.' '.$event_start_time; ?></span>
+				</div>
+				<div class="event-end">
+					<strong><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+					<span><?php echo $event_end_date.' '.$event_end_time; ?></span>
+				</div>
+				<?php if($events_show_duration){ ?>
+					<div class="event-duration">
+						<strong><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+						<span><?php echo $duration_hh . ":" . $duration_mm; ?></span>
+					</div>
+				<?php } ?>
+				<?php if (!empty($e_category)){ ?>
+					<div class="event-venue">
+						<strong><?php _e('Category', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+						<span><?php echo $e_category; ?></span>
+					</div>
+				<?php } ?>
+				<?php if ($repeats_every != "no_repeat"){ ?>
+					<div class="e-repeats">
+						<strong><?php _e('Repeats every', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
+						<span><?php echo TMM_Event::$event_repeatings[$repeats_every] ?></span>
+					</div>
+				<?php } ?>
+				<?php if (!empty($event_place_address)){ ?>
+					<div class="event-address">
+						<strong><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+						<span><?php echo esc_html($event_place_address); ?></span>
+					</div>
+				<?php } ?>
+				<?php if (!empty($event_place_phone)){ ?>
+					<div class="event-phone">
+						<strong><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+						<span><?php echo esc_html($event_place_phone); ?></span>
+					</div>
+				<?php } ?>
+				<?php if (!empty($event_place_website)){ ?>
+					<div class="event-website">
+						<strong><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+						<a target="_blank" href="<?php echo esc_url($event_place_website); ?>"><?php echo esc_url($event_place_website); ?></a>
+					</div>
+				<?php } ?>
+
+				<?php if (!empty($event_organizer_name)){ ?>
+					<div class="event-person">
+						<strong><?php _e('Contact Person', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+						<span><?php echo esc_html($event_organizer_name); ?></span>
+					</div>
+				<?php } ?>
+				<?php if (!empty($event_organizer_phone)){ ?>
+					<div class="event-phone">
+						<strong><?php _e('Organizer Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+						<span><?php echo esc_html($event_organizer_phone); ?></span>
+					</div>
+				<?php } ?>
+				<?php if (!empty($event_organizer_website)){ ?>
+					<div class="event-website">
+						<strong><?php _e('Organizer Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: </strong>
+						<a target="_blank" href="<?php echo esc_url($event_organizer_website); ?>"><?php echo esc_url($event_organizer_website); ?></a>
+					</div>
+				<?php } ?>
+
+			</div><!--/ .event-details-->
+
+			<?php if (!$hide_event_place) { ?>
+				<div class="map">
+					<?php
+					if (class_exists('TMM_Content_Composer')) {
+						$event_map_longitude = (float) get_post_meta($post->ID, 'event_map_longitude', true);
+						$event_map_latitude = (float) get_post_meta($post->ID, 'event_map_latitude', true);
+						$event_map_zoom = (int) get_post_meta($post->ID, 'event_map_zoom', true);
+						echo do_shortcode('[google_map width="550" height="330" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
+					}
+					?>
+				</div>
+			<?php } ?>
+			<br />
 
 			<?php
 			the_content();
@@ -114,125 +201,25 @@ if(have_posts()){
 			}
 			?>
 
-			<div class="event-details boxed">
-				<dl>
-					<h3><?php _e('Details', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></h3>
-					<dt><?php _e('Start', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-					<dd><?php echo $event_date.' '.$event_start_time; ?></dd>
-
-					<dt><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-					<dd><?php echo $event_end_date.' '.$event_end_time; ?></dd>
-
-					<?php if ($events_show_duration) { ?>
-						<dt><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo $duration_hh . ":" . $duration_mm; ?></dd>
-					<?php } ?>
-
-					<?php if (!empty($e_category)) { ?>
-					<dt><?php _e('Event Category', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-					<dd><?php echo $e_category; ?></dd>
-					<?php } ?>
-				</dl>
-
-				<dl>
-					<h3><?php _e('Organizer', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></h3>
-
-					<?php if (!empty($event_organizer_name)) { ?>
-						<dt><?php _e('Contact Person', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo esc_html($event_organizer_name); ?></dd>
-					<?php } ?>
-
-					<?php if (!empty($event_organizer_phone)) { ?>
-						<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><?php echo esc_html($event_organizer_phone); ?></dd>
-					<?php } ?>
-
-					<?php if (!empty($event_organizer_website)) { ?>
-						<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-						<dd><a target="_blank" href="<?php echo esc_url($event_organizer_website); ?>"><?php echo esc_url($event_organizer_website); ?></a></dd>
-					<?php } ?>
-				</dl>
-
-			</div><!--/ .event-details-->
-
-			<div class="row collapse event-address">
-
-				<div class="large-6 columns">
-					<div class="event-details boxed">
-						<dl>
-							<h3><?php _e('Venue', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></h3>
-
-							<?php if (!empty($event_place_phone)) { ?>
-								<dt><?php _e('Phone', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-								<dd><?php echo esc_html($event_place_phone); ?></dd>
-							<?php } ?>
-
-							<?php if (!empty($event_place_address)) { ?>
-								<dt><?php _e('Address', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-								<dd><?php echo esc_html($event_place_address); ?></dd>
-							<?php } ?>
-
-							<?php if (!empty($event_place_website)) { ?>
-								<dt><?php _e('Website', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></dt>
-								<dd><a target="_blank" href="<?php echo esc_url($event_place_website); ?>"><?php echo esc_url($event_place_website); ?></a></dd>
-							<?php } ?>
-						</dl>
-					</div>
-				</div>
-
-				<?php if (!$hide_event_place) { ?>
-				<div class="large-6 columns">
-					<div class="event-map">
-						<div id="map_address" class="google_map">
-							<?php
-							if (class_exists('TMM_Content_Composer')) {
-								$event_map_longitude = (float) get_post_meta($post->ID, 'event_map_longitude', true);
-								$event_map_latitude = (float) get_post_meta($post->ID, 'event_map_latitude', true);
-								$event_map_zoom = (int) get_post_meta($post->ID, 'event_map_zoom', true);
-								echo do_shortcode('[google_map width="375" height="255" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
-							}
-							?>
-						</div>
-					</div>
-
-				</div>
-				<?php } ?>
-
-			</div><!--/ .row-->
-
-		</div><!--/ .event-->
+		</article><!--/ .event-->
 
 		<?php if($prev_post || $next_post){ ?>
 
-			<div class="single-nav clearfix">
+			<?php if($prev_post){ ?>
 
-				<?php if($prev_post){ ?>
+				<a href="<?php echo get_the_permalink($prev_post->ID); ?>" class="js_prev_event_post button default" style="">&larr; <?php _e('Previous Event', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
 
-					<a href="<?php echo get_the_permalink($prev_post->ID); ?>" class="prev">
-						<?php _e('Previous article', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>
-						<b><?php echo esc_html($prev_post->post_title); ?></b>
-					</a>
+			<?php } ?>
 
-				<?php } ?>
+			<?php if($next_post){ ?>
 
-				<?php if($next_post){ ?>
+				<a href="<?php echo get_the_permalink($next_post->ID); ?>" class="js_next_event_post button default"><?php _e('Next Event', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?> &rarr;</a>
 
-					<a href="<?php echo get_the_permalink($next_post->ID); ?>" class="next">
-						<?php _e('Next article', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>
-						<b><?php echo esc_html($next_post->post_title); ?></b>
-					</a>
+			<?php } ?>
 
-				<?php } ?>
-
-			</div><!--/ .single-nav-->
+			<br><br>
 
 		<?php } ?>
-
-		<?php if ($events_button_url) { ?>
-		<a href="<?php echo esc_url($events_button_url); ?>" class="back-link"><?php _e('All Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></a>
-		<?php } ?>
-
-		<hr/>
 
 	<?php
 	}
