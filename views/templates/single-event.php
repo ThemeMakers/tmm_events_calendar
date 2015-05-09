@@ -54,7 +54,7 @@ if(have_posts()){
 
 		if ($events_button_page === '0') {
 			$events_button_url = home_url() . '/' . get_post_type();
-		} else if ($events_button_page !== '-1') {
+		} else if ($events_button_page && $events_button_page !== '-1') {
 			$events_button_url = get_permalink($events_button_page);
 		}
 
