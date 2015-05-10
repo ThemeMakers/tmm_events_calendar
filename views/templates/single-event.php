@@ -108,22 +108,22 @@ if(have_posts()){
 
 			<div class="event-details">
 				<div class="event-start">
-					<strong><?php _e('Start', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+					<strong><?php _e('Start', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
 					<span><?php echo $event_date.' '.$event_start_time; ?></span>
 				</div>
 				<div class="event-end">
-					<strong><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+					<strong><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
 					<span><?php echo $event_end_date.' '.$event_end_time; ?></span>
 				</div>
 				<?php if($events_show_duration){ ?>
 					<div class="event-duration">
-						<strong><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+						<strong><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
 						<span><?php echo $duration_hh . ":" . $duration_mm; ?></span>
 					</div>
 				<?php } ?>
 				<?php if (!empty($e_category)){ ?>
 					<div class="event-venue">
-						<strong><?php _e('Category', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+						<strong><?php _e('Category', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
 						<span><?php echo $e_category; ?></span>
 					</div>
 				<?php } ?>

@@ -82,18 +82,18 @@ if (!empty($events)){
 				<div class="event-details five columns">
 
 					<div class="event-start">
-						<strong><?php _e('Start', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+						<strong><?php _e('Start', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
 						<span><?php echo $event_date.' '.$event_start_time; ?></span>
 					</div>
 
 					<div class="event-end">
-						<strong><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+						<strong><?php _e('End', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
 						<span><?php echo $event_end_date.' '.$event_end_time; ?></span>
 					</div>
 
 					<?php if ($events_show_duration) { ?>
 						<div class="event-duration">
-							<strong><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></strong>
+							<strong><?php _e('Duration', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>:</strong>
 							<span><?php echo $duration_hh . ":" . $duration_mm; ?></span>
 						</div>
 					<?php } ?>

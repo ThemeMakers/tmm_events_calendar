@@ -82,26 +82,26 @@ $content = array(
 				'description' => __('Display event venue website link', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
 				'custom_html' => ''
 			),
-			'tmm_events_listing_effect' => array(
-				'title' => __('Effect for Appearing Post', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-				'type' => 'select',
-				'default_value' => 'none',
-				'values' => array(
-					'none' => __('None', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'elementFade' => __('Element Fade', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'opacity' => __('Opacity', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'opacity2xRun' => __('Opacity 2x Run', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'scale' => __('Scale', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'slideRight' => __('Slide Right', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'slideLeft' => __('Slide Left', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'slideDown' => __('Slide Down', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'slideUp' => __('Slide Up', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'slideUp2x' => __('Slide Up 2x', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-					'extraRadius' => __('Extra Radius', TMM_EVENTS_PLUGIN_TEXTDOMAIN)
-				),
-				'description' => __('Effect for Appearing Post.', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-				'custom_html' => ''
-			),
+//			'tmm_events_listing_effect' => array(
+//				'title' => __('Effect for Appearing Post', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//				'type' => 'select',
+//				'default_value' => 'none',
+//				'values' => array(
+//					'none' => __('None', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'elementFade' => __('Element Fade', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'opacity' => __('Opacity', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'opacity2xRun' => __('Opacity 2x Run', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'scale' => __('Scale', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'slideRight' => __('Slide Right', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'slideLeft' => __('Slide Left', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'slideDown' => __('Slide Down', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'slideUp' => __('Slide Up', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'slideUp2x' => __('Slide Up 2x', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//					'extraRadius' => __('Extra Radius', TMM_EVENTS_PLUGIN_TEXTDOMAIN)
+//				),
+//				'description' => __('Effect for Appearing Post.', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//				'custom_html' => ''
+//			),
 		)
 	),
 	'single_events' => array(

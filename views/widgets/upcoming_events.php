@@ -13,8 +13,13 @@
 					<div class="post-content">
 						<a class="post-title" href="<?php echo $event['url'] ?>"><?php echo $event['title'] ?></a>
 						<p>
+							<?php if(tmm_events_get_option('tmm_events_date_format') === '1'){ ?>
+							<span class="date"><?php echo date("d", $event['start_mktime']) ?>, </span>
+							<span class="month"><?php echo ucfirst(date("F", $event['start_mktime'])); ?></span>
+							<?php } else { ?>
 							<span class="month"><?php echo ucfirst(date("F", $event['start_mktime'])); ?></span>
 							<span class="date"><?php echo date("d", $event['start_mktime']) ?>, </span>
+							<?php } ?>
 							<span class="date"><?php echo date("Y", $event['start_mktime']) ?></span>
 						</p>
 					</div>
