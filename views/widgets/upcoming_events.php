@@ -1,82 +1,28 @@
-<?php
-$now = current_time('timestamp');
-$events = array();
-$event_type = isset($instance['event_type']) ? (int) $instance['event_type'] : 0;
-$event_list = isset($instance['event_list']) ? $instance['event_list'] : '';
+<div class="widget widget_upcoming_events">
 
-if ($event_type == 1) {
-	if (!empty($event_list)) {
-		$event_list = array_map('intval', $event_list);
-		$events = TMM_Event::get_events_by_id($event_list, '', '', 1);
-	}
-} else {
-	$month_deep = isset($instance['month_deep']) ? (int) $instance['month_deep'] : 0;
-	$count = isset($instance['count']) ? (int) $instance['count'] : 1;
-	$events = TMM_Event::get_soonest_event($now, $count, $month_deep);
-}
+	<?php if (!empty($instance['title'])): ?>
+		<h3 class="widget-title"><?php echo $instance['title']; ?></h3>
+	<?php endif; ?>
 
-$thumb_size = '350*275';
+	<?php $data = TMM_Event::get_soonest_event(current_time('timestamp'), (int)$instance['count'], (int)$instance['month_deep']); ?>
 
-if (is_array($events) && !empty($events)) {
-	?>
-
-	<div class="widget widget_upcoming_events">
-
-		<?php if (!empty($instance['title'])){ ?>
-			<h3 class="widget-title"><?php esc_html_e($instance['title']); ?></h3>
-		<?php } ?>
-
-		<ul>
-
-			<?php
-			foreach ($events as $event) {
-				$thumb = (class_exists('TMM_Helper') && $event['featured_image_src']) ? TMM_Helper::resize_image($event['featured_image_src'], $thumb_size) : '';
-				$day = date('d', $event['start_mktime']);
-				$month = tmm_get_short_month_name( date('n', $event['start_mktime']) );
-				?>
-
-				<li <?php if ($thumb) { ?>class="has-thumb"<?php } ?>>
-					<div class="event-container">
-						<span class="event-date"><?php echo $day; ?><b><?php echo $month; ?></b></span>
-						<div class="event-media">
-							<div class="item-overlay">
-								<img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr($event['title']); ?>">
-							</div>
-							<div class="event-content<?php if ($instance['show_event_excerpt']) { ?> with-excerpt<?php } ?>">
-								<h4 class="event-title">
-									<a href="<?php echo esc_url($event['url']); ?>"><?php echo esc_html($event['title']); ?></a>
-								</h4>
-
-								<?php if ($instance['show_event_excerpt']) { ?>
-									<div class="event-text">
-										<?php $excerpt = $event['post_excerpt']; ?>
-										<?php if (!empty($excerpt)){ ?>
-											<?php
-											if ((int) $instance['excerpt_event_symbols_count'] > 0) {
-												echo substr(strip_tags($excerpt), 0, (int) $instance['excerpt_event_symbols_count']) . " ...";
-											} else {
-												echo $excerpt;
-											}
-											?>
-										<?php } else { ?>
-											<?php echo substr(strip_tags($post->post_content), 0, (int) $instance['excerpt_event_symbols_count']) . " ..."; ?>
-										<?php } ?>
-									</div>
-								<?php } ?>
-
-							</div>
-						</div>
+	<ul class="clearfix">
+		<?php if (!empty($data)){ ?>
+			<?php foreach ($data as $event) { ?>
+				<li>
+					<div class="post-content">
+						<a class="post-title" href="<?php echo $event['url'] ?>"><?php echo $event['title'] ?></a>
+						<p>
+							<span class="month"><?php echo ucfirst(date("F", $event['start_mktime'])); ?></span>
+							<span class="date"><?php echo date("d", $event['start_mktime']) ?>, </span>
+							<span class="date"><?php echo date("Y", $event['start_mktime']) ?></span>
+						</p>
 					</div>
 				</li>
+			<?php } ?>
+		<?php }else{ ?>
+			<div><?php _e('There is no events added yet!', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?></div>
+		<?php } ?>
+	</ul>
 
-			<?php
-			}
-			?>
-
-		</ul>
-
-	</div><!--/ .widget_upcoming_events-->
-
-<?php
-}
-?>
+</div><!--/ .widget-->
