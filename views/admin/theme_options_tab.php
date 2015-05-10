@@ -136,13 +136,13 @@ $content = array(
 				'description' => __('Enable comments', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
 				'custom_html' => ''
 			),
-			'tmm_single_event_title' => array(
-				'title' => __('Override Event Page Title', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-				'type' => 'text',
-				'default_value' => __('Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-				'description' => __('Overrides single event page title', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
-				'custom_html' => ''
-			),
+//			'tmm_single_event_title' => array(
+//				'title' => __('Override Event Page Title', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//				'type' => 'text',
+//				'default_value' => __('Events', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//				'description' => __('Overrides single event page title', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
+//				'custom_html' => ''
+//			),
 			'tmm_single_event_button_page' => array(
 				'title' => __('Select page for "All Events" button', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
 				'type' => 'select',
