@@ -53,13 +53,13 @@ if (is_array($events) && !empty($events)) {
 										<?php if (!empty($excerpt)){ ?>
 											<?php
 											if ((int) $instance['excerpt_event_symbols_count'] > 0) {
-												echo substr(strip_tags($excerpt), 0, (int) $instance['excerpt_event_symbols_count']) . " ...";
+												echo mb_substr(strip_tags($excerpt), 0, (int) $instance['excerpt_event_symbols_count']) . " ...";
 											} else {
 												echo $excerpt;
 											}
 											?>
 										<?php } else { ?>
-											<?php echo substr(strip_tags($post->post_content), 0, (int) $instance['excerpt_event_symbols_count']) . " ..."; ?>
+											<?php echo mb_substr(strip_tags($post->post_content), 0, (int) $instance['excerpt_event_symbols_count']) . " ..."; ?>
 										<?php } ?>
 									</div>
 								<?php } ?>
