@@ -1,21 +1,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ThemeMakers Events\n"
-"POT-Creation-Date: 2015-04-27 22:18+0100\n"
-"PO-Revision-Date: 2015-04-27 22:18+0100\n"
+"POT-Creation-Date: 2015-06-01 18:58+0100\n"
+"PO-Revision-Date: 2015-06-01 18:59+0100\n"
 "Last-Translator: ThemeMakers Team <support@webtemplatemasters.com>\n"
 "Language-Team: ThemeMakers Team <support@webtemplatemasters.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: index.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -88,6 +89,8 @@ msgid "Events Calendar"
 msgstr ""
 
 #: classes/TMM_EventsPlugin.php:15 classes/TMM_EventsPlugin.php:61
+#: views/admin/theme_options_tab.php:142
+#: views/admin/theme_options_tab.php:160
 msgid "Events"
 msgstr ""
 
@@ -388,14 +391,14 @@ msgid "Event Organizer Info"
 msgstr ""
 
 #: views/admin/event_attributes.php:139 views/admin/event_attributes.php:179
-#: views/templates/content-event.php:108
-#: views/templates/single-event.php:146 views/templates/single-event.php:166
+#: views/templates/content-event.php:108 views/templates/single-event.php:146
+#: views/templates/single-event.php:166
 msgid "Phone"
 msgstr ""
 
 #: views/admin/event_attributes.php:151 views/admin/event_attributes.php:191
-#: views/templates/content-event.php:118
-#: views/templates/single-event.php:151 views/templates/single-event.php:176
+#: views/templates/content-event.php:118 views/templates/single-event.php:151
+#: views/templates/single-event.php:176
 msgid "Website"
 msgstr ""
 
@@ -435,6 +438,155 @@ msgstr ""
 msgid "Geocode was not successful for the following reason"
 msgstr ""
 
+#: views/admin/theme_options_tab.php:14
+msgid "Select page"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:15
+msgid "Events archive"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:32
+msgid "Event Date Format"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:37
+msgid "Month Day, Year"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:38
+msgid "Day Month, Year"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:40
+msgid "Event date format"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:45
+msgid "Send Old Events to Draft"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:48
+msgid "Send old events to draft (only for no repeating events)"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:54
+msgid "Listing Page"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:58 views/admin/theme_options_tab.php:112
+msgid "Display Time Zone"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:61 views/admin/theme_options_tab.php:115
+msgid "Display time zone next to the time."
+msgstr ""
+
+#: views/admin/theme_options_tab.php:65 views/admin/theme_options_tab.php:119
+msgid "Enable AP Time Style"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:68 views/admin/theme_options_tab.php:122
+msgid "Display time in 12 hour format using a.m. or p.m."
+msgstr ""
+
+#: views/admin/theme_options_tab.php:72 views/admin/theme_options_tab.php:126
+msgid "Display Event Duration"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:75
+msgid "Display events duration time"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:79
+msgid "Display Venue Website"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:82
+msgid "Display event venue website link"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:86
+msgid "Effect for Appearing Post"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:90
+msgid "None"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:91
+msgid "Element Fade"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:92
+msgid "Opacity"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:93
+msgid "Opacity 2x Run"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:94
+msgid "Scale"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:95
+msgid "Slide Right"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:96
+msgid "Slide Left"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:97
+msgid "Slide Down"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:98
+msgid "Slide Up"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:99
+msgid "Slide Up 2x"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:100
+msgid "Extra Radius"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:102
+msgid "Effect for Appearing Post."
+msgstr ""
+
+#: views/admin/theme_options_tab.php:108
+msgid "Single Page"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:129
+msgid "Display event duration time"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:133
+msgid "Enable Comments"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:136
+msgid "Enable comments"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:140
+msgid "Override Event Page Title"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:143
+msgid "Overrides single event page title"
+msgstr ""
+
+#: views/admin/theme_options_tab.php:147
+#: views/admin/theme_options_tab.php:151
+msgid "Select page for \"All Events\" button"
+msgstr ""
+
 #: views/shortcodes/events_list.php:57
 msgid "Filter by Month"
 msgstr ""
@@ -451,8 +603,7 @@ msgstr ""
 msgid "End"
 msgstr ""
 
-#: views/templates/content-event.php:113
-#: views/templates/single-event.php:171
+#: views/templates/content-event.php:113 views/templates/single-event.php:171
 msgid "Address"
 msgstr ""
 
@@ -551,4 +702,24 @@ msgstr ""
 
 #: views/widgets/upcoming_events_form.php:62
 msgid "Choose Event to Display"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "ThemeMakers Events"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://webtemplatemasters.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Events calendar, events list"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "ThemeMakers"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://themeforest.net/user/ThemeMakers"
 msgstr ""
