@@ -12,7 +12,7 @@ class TMM_SoonestEventWidget extends WP_Widget {
         $settings = array('classname' => __CLASS__, 'description' => __('Soonest event', TMM_EVENTS_PLUGIN_TEXTDOMAIN));
 
         //Creation
-        $this->WP_Widget(__CLASS__, __('ThemeMakers Soonest Event', TMM_EVENTS_PLUGIN_TEXTDOMAIN), $settings);
+	    parent::__construct(__CLASS__, __('ThemeMakers Soonest Event', TMM_EVENTS_PLUGIN_TEXTDOMAIN), $settings);
     }
 
     //Widget view

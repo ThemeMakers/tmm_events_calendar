@@ -394,7 +394,7 @@ var calendar_event_end_date = "<?php echo esc_js($event_end_date); ?>";
 					jQuery("#event_map_latitude").val(latitude);
 					jQuery("#event_map_longitude").val(longitude);
 				} else {
-					alert("<?php _e('Geocode was not successful for the following reason', TMM_EVENTS_PLUGIN_TEXTDOMAIN); ?>: " + status);
+					alert("<?php echo esc_js( __('Geocode was not successful for the following reason', TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>: " + status);
 					return false;
 				}
 

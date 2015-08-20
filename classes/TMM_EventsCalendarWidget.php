@@ -12,7 +12,7 @@ class TMM_EventsCalendarWidget extends WP_Widget {
         $settings = array('classname' => __CLASS__, 'description' => __('Events calendar', TMM_EVENTS_PLUGIN_TEXTDOMAIN));
 
         //Creation
-        $this->WP_Widget(__CLASS__, __('ThemeMakers Events Calendar', TMM_EVENTS_PLUGIN_TEXTDOMAIN), $settings);
+	    parent::__construct(__CLASS__, __('ThemeMakers Events Calendar', TMM_EVENTS_PLUGIN_TEXTDOMAIN), $settings);
     }
 
     //Widget view
