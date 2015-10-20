@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ThemeMakers Events\n"
-"POT-Creation-Date: 2015-06-15 20:46+0100\n"
-"PO-Revision-Date: 2015-06-15 20:46+0100\n"
-"Last-Translator: ThemeMakers Team <support@webtemplatemasters.com>\n"
-"Language-Team: ThemeMakers Team <support@webtemplatemasters.com>\n"
+"POT-Creation-Date: 2015-10-20 21:10+0200\n"
+"PO-Revision-Date: 2015-10-20 21:10+0200\n"
+"Last-Translator: Alex TM <support@webtemplatemasters.com>\n"
+"Language-Team: Alex TM <support@webtemplatemasters.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: index.php\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -89,8 +89,7 @@ msgid "Events Calendar"
 msgstr ""
 
 #: classes/TMM_EventsPlugin.php:15 classes/TMM_EventsPlugin.php:61
-#: views/admin/theme_options_tab.php:142
-#: views/admin/theme_options_tab.php:160
+#: views/admin/theme_options_tab.php:142 views/admin/theme_options_tab.php:160
 msgid "Events"
 msgstr ""
 
@@ -582,8 +581,7 @@ msgstr ""
 msgid "Overrides single event page title"
 msgstr ""
 
-#: views/admin/theme_options_tab.php:147
-#: views/admin/theme_options_tab.php:151
+#: views/admin/theme_options_tab.php:147 views/admin/theme_options_tab.php:151
 msgid "Select page for \"All Events\" button"
 msgstr ""
 
