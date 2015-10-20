@@ -22,7 +22,15 @@ function tmm_events_plugin_autoloader($class) {
 }
 spl_autoload_register('tmm_events_plugin_autoloader');
 
-load_plugin_textdomain(TMM_EVENTS_PLUGIN_TEXTDOMAIN, false, dirname(plugin_basename(__FILE__)) . '/languages');
+
+/**
+ * Load plugin textdomain.
+ */
+function tmm_events_load_textdomain() {
+	load_plugin_textdomain( 'tmm_events', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+}
+
+add_action( 'plugins_loaded', 'tmm_events_load_textdomain' );
 
 add_action("init", array('TMM_EventsPlugin', 'register'));
 add_action("admin_init", array('TMM_EventsPlugin', 'admin_init'));
