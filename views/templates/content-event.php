@@ -72,7 +72,7 @@ if (!empty($events)){
 							$event_map_latitude = (float) get_post_meta($event['post_id'], 'event_map_latitude', true);
 							$event_map_zoom = (int) get_post_meta($event['post_id'], 'event_map_zoom', true);
 							$map_size = '255x160';
-							echo '<img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $event_map_latitude . ',' . $event_map_longitude . '&zoom=' . $event_map_zoom . '&size='.$map_size.'&markers=color:red|label:P|' . $event_map_latitude . ',' . $event_map_longitude . '&sensor=false">';
+							echo '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $event_map_latitude . ',' . $event_map_longitude . '&zoom=' . $event_map_zoom . '&size='.$map_size.'&markers=color:red|label:P|' . $event_map_latitude . ',' . $event_map_longitude . '&sensor=false">';
 							?>
 						</div>
 					</div>

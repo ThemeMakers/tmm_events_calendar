@@ -106,7 +106,7 @@ class TMM_Event {
 				echo "<h3>" . get_post_meta($post->ID, 'event_place_address', true) . "</h3>";
 				$lat = get_post_meta($post->ID, 'event_map_latitude', true);
 				$lng = get_post_meta($post->ID, 'event_map_longitude', true);
-				echo '<img src="http://maps.googleapis.com/maps/api/staticmap?center=' . $lat . ',' . $lng . '&zoom=' . get_post_meta($post->ID, 'event_map_zoom', true) . '&size=300x200&markers=color:red|label:P|' . $lat . ',' . $lng . '&sensor=false" style="max-width:100%">';
+				echo '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $lat . ',' . $lng . '&zoom=' . get_post_meta($post->ID, 'event_map_zoom', true) . '&size=300x200&markers=color:red|label:P|' . $lat . ',' . $lng . '&sensor=false" style="max-width:100%">';
 				break;
 			case "description":
 				the_excerpt();
