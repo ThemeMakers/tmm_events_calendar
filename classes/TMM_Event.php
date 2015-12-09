@@ -226,6 +226,7 @@ class TMM_Event {
 
 		if (!empty($result)) {
 			foreach ($result as $post) {
+				$post->ID = (int) $post->ID;
 				$events_data = array();
 				$post_meta = get_post_meta($post->ID);
 				$start_date = (int) $post_meta['ev_mktime'][0];
