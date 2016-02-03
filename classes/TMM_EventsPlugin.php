@@ -263,8 +263,8 @@ class TMM_EventsPlugin {
 	public static function wp_head() {
 		wp_enqueue_style('events_css', TMM_EVENTS_PLUGIN_URI . 'css/styles.css');
 		wp_enqueue_style("events_calendar_css", TMM_EVENTS_PLUGIN_URI . 'css/calendar.css');
-		wp_enqueue_script('events_calendar_js', TMM_EVENTS_PLUGIN_URI . 'js/fullcalendar.min.js', array(), false, 1);
-		wp_enqueue_script('events_js', TMM_EVENTS_PLUGIN_URI . 'js/general.js', array(), false, 1);
+
+		wp_enqueue_script('events_calendar_js', TMM_EVENTS_PLUGIN_URI . 'js/front.min.js', array(), false, 1);
 		?>
 
 		<script type="text/javascript">
