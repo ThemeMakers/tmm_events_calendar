@@ -243,7 +243,7 @@ class TMM_Event {
 
 				/* if current post is an original post but current language is not default (WPML is active) */
 				if ( defined('ICL_LANGUAGE_CODE') && ICL_LANGUAGE_CODE != '' ) {
-					$post_id = icl_object_id( $post->ID, 'event', false, ICL_LANGUAGE_CODE );
+					$post_id = (int) icl_object_id( $post->ID, 'event', false, ICL_LANGUAGE_CODE );
 
 					if ($post_id !== $post->ID) {
 						continue;
