@@ -299,6 +299,10 @@ class TMM_EventsPlugin {
 			var lang_fri = "<?php echo tmm_get_short_weekday(5); ?>";
 			var lang_sat = "<?php echo tmm_get_short_weekday(6); ?>";
 
+			var lang_today = "<?php echo esc_js( __("today", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
+			var lang_month = "<?php echo esc_js( __("month", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
+			var lang_week = "<?php echo esc_js( __("week", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
+			var lang_day = "<?php echo esc_js( __("day", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
 			var lang_time = "<?php echo esc_js( __("Time", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
 			var lang_place = "<?php echo esc_js( __("Place", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";
 			var error_fetching_events = "<?php echo esc_js( __("There was an error while fetching events!", TMM_EVENTS_PLUGIN_TEXTDOMAIN) ); ?>";

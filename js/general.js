@@ -98,6 +98,12 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 				dayNames: [lang_sunday, lang_monday, lang_tuesday, lang_wednesday, lang_thursday, lang_friday, lang_saturday],
 				dayNamesShort: day_names_short,
 				ignoreTimezone: 1,
+				buttonText: {
+					today: lang_today,
+					month: lang_month,
+					week: lang_week,
+					day: lang_day
+				},
 				eventSources: [
 					{
 						url: ajaxurl,
