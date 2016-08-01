@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ThemeMakers Events\n"
-"POT-Creation-Date: 2016-02-12 14:32+0100\n"
-"PO-Revision-Date: 2016-02-12 14:32+0100\n"
+"POT-Creation-Date: 2016-08-01 21:40+0200\n"
+"PO-Revision-Date: 2016-08-01 21:40+0200\n"
 "Last-Translator: Alex TM <support@webtemplatemasters.com>\n"
 "Language-Team: Alex TM <support@webtemplatemasters.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.8\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: index.php\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -51,7 +51,7 @@ msgid "Title"
 msgstr ""
 
 #: classes/TMM_Event.php:159 classes/TMM_EventsPlugin.php:258
-#: classes/TMM_EventsPlugin.php:303
+#: classes/TMM_EventsPlugin.php:307
 msgid "Place"
 msgstr ""
 
@@ -169,11 +169,11 @@ msgstr ""
 msgid "Seo options"
 msgstr ""
 
-#: classes/TMM_EventsPlugin.php:256 classes/TMM_EventsPlugin.php:304
+#: classes/TMM_EventsPlugin.php:256 classes/TMM_EventsPlugin.php:308
 msgid "There was an error while fetching events!"
 msgstr ""
 
-#: classes/TMM_EventsPlugin.php:257 classes/TMM_EventsPlugin.php:302
+#: classes/TMM_EventsPlugin.php:257 classes/TMM_EventsPlugin.php:306
 msgid "Time"
 msgstr ""
 
@@ -181,7 +181,24 @@ msgstr ""
 msgid "No events at this period!"
 msgstr ""
 
-#: classes/TMM_EventsPlugin.php:314
+#: classes/TMM_EventsPlugin.php:302
+msgid "today"
+msgstr ""
+
+#: classes/TMM_EventsPlugin.php:303 views/widgets/soonest_event_form.php:31
+#: views/widgets/upcoming_events_form.php:49
+msgid "month"
+msgstr ""
+
+#: classes/TMM_EventsPlugin.php:304
+msgid "week"
+msgstr ""
+
+#: classes/TMM_EventsPlugin.php:305
+msgid "day"
+msgstr ""
+
+#: classes/TMM_EventsPlugin.php:318
 msgid "Event attributes"
 msgstr ""
 
@@ -663,11 +680,6 @@ msgstr ""
 
 #: views/widgets/soonest_event_form.php:28
 msgid "Soonest event data parsing"
-msgstr ""
-
-#: views/widgets/soonest_event_form.php:31
-#: views/widgets/upcoming_events_form.php:49
-msgid "month"
 msgstr ""
 
 #: views/widgets/upcoming_events_form.php:22
