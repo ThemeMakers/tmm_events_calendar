@@ -17,20 +17,20 @@ class TMM_Event {
 			'year' => __('Year', TMM_EVENTS_PLUGIN_TEXTDOMAIN),
 		);
 	}
-	
+
 	public static function save_post($data = array()) {
 		if ( (!empty($data) && isset($data['post_id'])) || (!empty($_POST) && isset($_POST['thememakers_meta_saving'])) ) {
-			
+
 			if(!empty($data) && isset($data['post_id'])){
 				$post_id = $data['post_id'];
 			}else{
 				global $post;
 				$post_id = $post->ID;
 			}
-			
+
 			$post_type = get_post_type($post_id);
 			if ($post_type == 'event') {
-								
+
 				$fields = array(
 					'event_date' => '',
 					'event_end_date' => '',
@@ -53,7 +53,7 @@ class TMM_Event {
 					'event_map_longitude' => '',
 					'google_calendar_event_id' => false,
 				);
-				
+
 				foreach($fields as $key => &$value){
 					$temp = $value;
 					if(isset($_POST[$key])){
@@ -96,7 +96,7 @@ class TMM_Event {
 
 	public static function show_edit_columns_content($column) {
 		global $post;
-        
+
         $ev_mktime = (int) get_post_meta($post->ID, 'ev_mktime', true);
         $ev_end_mktime = (int) get_post_meta($post->ID, 'ev_end_mktime', true);
         $event_duration_sec = TMM_Event::get_event_duration($ev_mktime, $ev_end_mktime);
@@ -130,10 +130,10 @@ class TMM_Event {
                         <span class="zones"><?php echo self::get_timezone_string(); ?></span>
                     </strong>
                 </div>
-                
+
                 <div>(<?php echo $ev_date; ?>)</div>
-                
-                <?php 
+
+                <?php
 				break;
 			case "event_repeating":
 				$current_event_repeating = get_post_meta($post->ID, 'event_repeating', true);
@@ -197,14 +197,14 @@ class TMM_Event {
 		$result = $wpdb->get_results("
 			SELECT SQL_CALC_FOUND_ROWS  p.ID , p.post_title, p.post_excerpt
 			FROM {$wpdb->posts} p ".
-			($category > 0 ? "INNER JOIN {$wpdb->term_relationships} tr ON (p.ID = tr.object_id) " : "")			 
+			($category > 0 ? "INNER JOIN {$wpdb->term_relationships} tr ON (p.ID = tr.object_id) " : "")
 			."INNER JOIN {$wpdb->postmeta}  pm
 				ON (p.ID = pm.post_id) 
 			INNER JOIN {$wpdb->postmeta} AS mt1 
 				ON (p.ID = mt1.post_id) 
 			WHERE ".
 				($category > 0 ? "tr.term_taxonomy_id IN ( {$category} ) " : "1=1 ")
-				." 
+				."
 				AND p.post_type = 'event'
 				AND ((p.post_status = 'publish'))
 				AND (
@@ -319,7 +319,7 @@ class TMM_Event {
 						case 'month':
 							//if ($current_year > $event_year || ($current_year == $event_year && $current_month >= $event_month-1) ) {
 							if($current_month > $event_month){
-								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month-1, (int) date('j', $start_date), $current_year, -1);
+								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month-1, (int) date('j', $start_date), $current_year);
 								if($start_date <= $end_date){
 									$events_data[] = array(
 										'start' => $start_date,
@@ -328,7 +328,7 @@ class TMM_Event {
 								}
 							}
 							if($current_month >= $event_month){
-								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month, (int) date('j', $start_date), $current_year, -1);
+								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month, (int) date('j', $start_date), $current_year);
 								if($start_date <= $end_date){
 									$events_data[] = array(
 										'start' => $start_date,
@@ -337,7 +337,7 @@ class TMM_Event {
 								}
 							}
 							if($current_month >= $event_month-1){
-								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month+1, (int) date('j', $start_date), $current_year, -1);
+								$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, $current_month+1, (int) date('j', $start_date), $current_year);
 								if($start_date <= $end_date){
 									$events_data[] = array(
 										'start' => $start_date,
@@ -349,7 +349,7 @@ class TMM_Event {
 							break;
 						case 'year':
 							//if ($current_year >= $event_year && $current_month == $event_month) {
-							$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, (int) date('n', $start_date), (int) date('j', $start_date), $current_year, -1);
+							$start_date = mktime((int) date('H', $start_date), (int) date('i', $start_date), 0, (int) date('n', $start_date), (int) date('j', $start_date), $current_year);
 							$events_data[] = array(
 								'start' => $start_date,
 								'end' => $start_date + $duration_sec,
@@ -446,7 +446,7 @@ class TMM_Event {
 					$buffer[$temp_date] = isset($buffer[$temp_date]) ? $buffer[$temp_date] + 1 : 1;
 				}
 			}
-			
+
 			foreach ($buffer as $date => $count) {
 				$tmp = array();
 				$tmp['id'] = (string) uniqid();
@@ -543,7 +543,7 @@ class TMM_Event {
 		$days = array();
 		$result = '';
 		$ev_mktime = (int) get_post_meta($post_id, 'ev_mktime', true);
-		
+
 		if($is_repeat !== 'no_repeat'){
 			$repeating_days = get_post_meta($post_id, 'event_repeating_week', true);
             if(is_array($repeating_days)){
@@ -554,7 +554,7 @@ class TMM_Event {
 		}else{
 			$days[] = tmm_get_weekday(date('N', $ev_mktime)-1);
 		}
-		
+
 		for($i=0,$ic=count($days);$i<$ic;$i++) {
 			if($i > 0){
 				$result .= ', ';
@@ -564,7 +564,7 @@ class TMM_Event {
 
 		return $result;
 	}
-    
+
 	//ajax
 	public static function get_events_listing($args = array()) {
 		$request_start = 0;
@@ -603,7 +603,7 @@ class TMM_Event {
 
 		$start = ($request_start != 0 ? $request_start : $now);
 		$days_in_curr_month = date('t', @mktime(0, 0, 0, date("m", $start), 1, date("Y", $start)));
-		
+
 		$distance = 60 * 60 * 24 * $days_in_curr_month - 1;
 		if($request_end == 0){
 			$end = $start + $distance;
@@ -613,7 +613,7 @@ class TMM_Event {
 		if ($request_start == 0) {//current month
 			$distance = $end - $start;
 		}
-		
+
 		$events = self::get_events($start, $end, $category);
 
 		//events filtering
@@ -757,7 +757,7 @@ class TMM_Event {
 		$time_converted = date('Y-m-d', $mk_time) . " " . date('H', $mk_time) . ":" . date('i', $mk_time);
 		return $time_converted;
 	}
-    
+
     public static function get_event_duration($start, $end) {
 		$duration = array('00', '00', 0);
         if($end > $start){
@@ -776,24 +776,24 @@ class TMM_Event {
 			}
 			$duration[2] = $diff;
         }
-        
+
 		return $duration;
 	}
-	
+
 	public static function get_event_date($timestamp) {
 		$month = tmm_get_short_month_name( date('n', $timestamp) );
 		$day = date('d', (int) $timestamp);
 		$year = date('Y', (int) $timestamp);
-		
+
 		if(tmm_events_get_option('tmm_events_date_format') === '1'){
 			$date = $day . ' ' . $month . ', ' . $year;
 		}else{
 			$date = $month . ' ' . $day . ', ' . $year;
 		}
-        
+
 		return $date;
 	}
-	
+
 	public static function get_event_time($timestamp, $hide_time_zone = false) {
 		$time = '';
 
@@ -813,7 +813,7 @@ class TMM_Event {
 				$time .= ' ' . TMM_Event::get_timezone_string();
 			}
 		}
-		
+
 		return $time;
 	}
 
