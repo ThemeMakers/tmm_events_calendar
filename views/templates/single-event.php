@@ -204,7 +204,7 @@ if(have_posts()){
 
 		<?php if($prev_post || $next_post){ ?>
 
-			<div class="single-nav clearfix">
+			<div class="single-nav">
 
 				<?php if($prev_post){ ?>
 
