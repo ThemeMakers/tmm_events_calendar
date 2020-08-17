@@ -71,7 +71,7 @@ var THEMEMAKERS_EVENT_CALENDAR = function(container_id, arguments, is_widget, ti
 				}
 			}
 
-			jQuery(".calendar_event_tooltip_close").live('click', function() {
+			jQuery(document).on('click', ".calendar_event_tooltip_close", function() {
 				jQuery(this).parent().hide(222, function() {
 					jQuery(this).remove();
 				});
@@ -261,7 +261,7 @@ var THEMEMAKERS_EVENT_EVENTS_LISTING = function() {
 				self.update_events_listing(opts);
 			});
 
-			jQuery('.events_listing_navigation a').live('click', function() {
+			jQuery('.events_listing_navigation').on('click', 'a', function() {
 				var opts = options,
 					period_selector = jQuery("#event_listing_period");
 
