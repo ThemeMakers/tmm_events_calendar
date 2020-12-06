@@ -106,7 +106,15 @@ class TMM_Event {
 				echo "<h3>" . get_post_meta($post->ID, 'event_place_address', true) . "</h3>";
 				$lat = get_post_meta($post->ID, 'event_map_latitude', true);
 				$lng = get_post_meta($post->ID, 'event_map_longitude', true);
-				echo '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $lat . ',' . $lng . '&zoom=' . get_post_meta($post->ID, 'event_map_zoom', true) . '&size=300x200&markers=color:red|label:P|' . $lat . ',' . $lng . '&sensor=false" style="max-width:100%">';
+                if ( class_exists( 'TMM' )) {
+                    if(TMM::get_option("api_key_google")){
+                        $google_maps_api_key = (TMM::get_option("api_key_google")) ? 'key=' . TMM::get_option("api_key_google") : '';
+                        echo '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $lat . ',' . $lng . '&zoom=' . get_post_meta($post->ID, 'event_map_zoom', true) . '&size=150x150&markers=color:red|label:P|' . $lat . ',' . $lng . '&' . esc_attr( $google_maps_api_key ) . '">';
+                    } else {
+                        $link_url = 'https://via.placeholder.com/150x150/?text=No+API+key';
+                        echo '<img class="aligncenter" src=' . $link_url . '>';
+                    }
+                }
 				break;
 			case "description":
 				the_excerpt();

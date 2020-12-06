@@ -216,7 +216,7 @@
 					if (!$event_map_longitude) {
 						$event_map_longitude = -74.006605;
 					}
-					echo do_shortcode('[google_map width="800" height="600" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
+					echo do_shortcode('[google_map width="600" height="400" latitude="' . $event_map_latitude . '" longitude="' . $event_map_longitude . '" zoom="' . $event_map_zoom . '" controls="" enable_scrollwheel="0" map_type="ROADMAP" enable_marker="1" enable_popup="0"][/google_map]');
 				}
 				?>
             </td>
@@ -402,12 +402,12 @@ var calendar_event_end_date = "<?php echo esc_js($event_end_date); ?>";
 		});
 
 
-		jQuery('[name="event_repeating"]').live('change', function() {
+		jQuery(document).on('change', '[name="event_repeating"]', function() {
 			var val = jQuery(this).val();
 			if (val === 'week' | val === '2week' | val === '3week') {
-				jQuery("#event_week_days").show(333);
+				jQuery("#event_week_days").show();
 			} else {
-				jQuery("#event_week_days").hide(333);
+				jQuery("#event_week_days").hide();
 			}
 		});
 
