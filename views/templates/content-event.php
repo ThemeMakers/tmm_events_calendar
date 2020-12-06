@@ -67,13 +67,19 @@ if (!empty($events)){
 
 					<div class="event-location">
 						<div id="map_address" class="google_map">
-							<?php
-							$event_map_longitude = (float) get_post_meta($event['post_id'], 'event_map_longitude', true);
-							$event_map_latitude = (float) get_post_meta($event['post_id'], 'event_map_latitude', true);
-							$event_map_zoom = (int) get_post_meta($event['post_id'], 'event_map_zoom', true);
-							$map_size = '255x160';
-							echo '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $event_map_latitude . ',' . $event_map_longitude . '&zoom=' . $event_map_zoom . '&size='.$map_size.'&markers=color:red|label:P|' . $event_map_latitude . ',' . $event_map_longitude . '&sensor=false">';
-							?>
+                            <?php
+                            if(TMM::get_option("api_key_google")){
+                                $google_maps_api_key = (TMM::get_option("api_key_google")) ? 'key=' . TMM::get_option("api_key_google") : '';
+                                $event_map_longitude = (float) get_post_meta($event['post_id'], 'event_map_longitude', true);
+                                $event_map_latitude = (float) get_post_meta($event['post_id'], 'event_map_latitude', true);
+                                $event_map_zoom = (int) get_post_meta($event['post_id'], 'event_map_zoom', true) - 2;
+                                $map_size = '255x160';
+                                echo '<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $event_map_latitude . ',' . $event_map_longitude . '&zoom=' . $event_map_zoom . '&size=' . $map_size . '&markers=color:red|label:P|' . $event_map_latitude . ',' . $event_map_longitude . '&' . esc_attr( $google_maps_api_key ) . '">';
+                            } else {
+                                $link_url = 'https://via.placeholder.com/' . $map_size . '/?text=No+API+key';
+                                echo '<img class="aligncenter" src=' . $link_url . '>';
+                            }
+                            ?>
 						</div>
 					</div>
 

@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: ThemeMakers Events
- * Plugin URI: http://webtemplatemasters.com
+ * Plugin URI: https://webtemplatemasters.com
  * Description: Events calendar, events list
  * Author: ThemeMakers
  * Author URI: http://themeforest.net/user/ThemeMakers
- * Version: 1.1.1
+ * Version: 1.1.2
  * Text Domain: tmm_events
 */
 
