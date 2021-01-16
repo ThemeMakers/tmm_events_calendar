@@ -5,7 +5,7 @@
  * Description: Events calendar, events list
  * Author: ThemeMakers
  * Author URI: http://themeforest.net/user/ThemeMakers
- * Version: 1.1.2
+ * Version: 1.1.3
  * Text Domain: tmm_events
 */
 
